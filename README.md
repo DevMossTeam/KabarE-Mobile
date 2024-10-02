@@ -5,179 +5,149 @@ com/
     └── kabare/
         ├── ui/
         │   ├── intro/
-        │   │   ├── IntroActivity.kt
+        │   │   ├── IntroFragment.kt
+        │   │   └── IntroViewModel.kt
         │   ├── welcome/
-        │   │   ├── WelcomePage1Activity.kt
-        │   │   ├── WelcomePage2Activity.kt
-        │   │   ├── WelcomePage3Activity.kt
+        │   │   ├── WelcomePage1Fragment.kt
+        │   │   ├── WelcomePage2Fragment.kt
+        │   │   ├── WelcomePage3Fragment.kt
+        │   │   └── WelcomeViewModel.kt
         │   ├── auth/
-        │   │   ├── SignInActivity.kt
-        │   │   ├── SignUpInputActivity.kt
-        │   │   ├── LupaPasswordGantiActivity.kt
+        │   │   ├── SignInFragment.kt
+        │   │   ├── SignUpInputFragment.kt
+        │   │   ├── LupaPasswordGantiFragment.kt
         │   │   ├── popups/
         │   │   │   ├── LupaPasswordKonfirmasiEmailDialog.kt
         │   │   │   ├── LupaPasswordVerifEmailDialog.kt
         │   │   │   ├── SignUpKonfirmasiEmailDialog.kt
         │   │   │   ├── SignUpVerifikasiEmailDialog.kt
         │   │   │   ├── SignUpBerhasilDialog.kt
-        │   │   │   ├── LupaPasswordBerhasilDialog.kt
+        │   │   │   └── LupaPasswordBerhasilDialog.kt
+        │   │   └── viewmodels/
+        │   │       ├── SignInViewModel.kt
+        │   │       ├── SignUpInputViewModel.kt
+        │   │       └── LupaPasswordGantiViewModel.kt
         │   ├── home/
-        │   │   ├── HomeActivity.kt
-        │   │   ├── ArtikelActivity.kt
-        │   │   ├── SearchPageActivity.kt
-        │   │   ├── ManajemenArtikelActivity.kt
+        │   │   ├── HomeFragment.kt
+        │   │   ├── ArtikelFragment.kt
+        │   │   ├── SearchPageFragment.kt
+        │   │   ├── ManajemenArtikelFragment.kt
         │   │   ├── penulisan_artikel/
-        │   │   │   ├── PenulisanArtikelActivity.kt
-        │   │   │   ├── KonfirmasiPublikasiDialog.kt
+        │   │   │   ├── PenulisanArtikelFragment.kt
+        │   │   │   └── KonfirmasiPublikasiDialog.kt
+        │   │   └── viewmodels/
+        │   │       ├── HomeViewModel.kt
+        │   │       ├── ArtikelViewModel.kt
+        │   │       ├── SearchPageViewModel.kt
+        │   │       ├── ManajemenArtikelViewModel.kt
+        │   │       └── PenulisanArtikelViewModel.kt
         │   ├── notifications/
-        │   │   ├── NotifikasiActivity.kt
+        │   │   ├── NotifikasiFragment.kt
+        │   │   └── viewmodels/
+        │   │       └── NotifikasiViewModel.kt
         │   ├── profile/
-        │   │   ├── ProfileActivity.kt
-        │   │   ├── PengaturanAkunActivity.kt
-        │   │   ├── AkunAndaActivity.kt
-        │   │   ├── PrivasiActivity.kt
-        │   │   ├── TentangActivity.kt
-        │   │   ├── KeamananActivity.kt
+        │   │   ├── ProfileFragment.kt
+        │   │   ├── PengaturanAkunFragment.kt
+        │   │   ├── AkunAndaFragment.kt
+        │   │   ├── PrivasiFragment.kt
+        │   │   ├── TentangFragment.kt
+        │   │   ├── KeamananFragment.kt
         │   │   ├── popups/
         │   │   │   ├── ChangePasswordDialog.kt
-        │   │   │   ├── ChangePasswordBerhasilDialog.kt
+        │   │   │   └── ChangePasswordBerhasilDialog.kt
+        │   │   └── viewmodels/
+        │   │       ├── ProfileViewModel.kt
+        │   │       ├── PengaturanAkunViewModel.kt
+        │   │       ├── AkunAndaViewModel.kt
+        │   │       ├── PrivasiViewModel.kt
+        │   │       ├── TentangViewModel.kt
+        │   │       └── KeamananViewModel.kt
         ├── data/
         │   ├── model/
         │   │   ├── User.kt
-        │   │   ├── Article.kt
-        │   ├── repository/
-        │   │   ├── AuthRepository.kt
-        │   │   ├── ArticleRepository.kt
-        │   │   ├── ProfileRepository.kt
+        │   │   └── Article.kt
+        │   └── repository/
+        │       ├── AuthRepository.kt
+        │       ├── ArticleRepository.kt
+        │       └── ProfileRepository.kt
         ├── network/
         │   ├── ApiClient.kt
-        │   ├── ApiService.kt
+        │   └── ApiService.kt
         └── utils/
             ├── Constants.kt
-            ├── SessionManager.kt
+            └── SessionManager.kt
 ```
+Penjelasan Struktur:
+ui/: Folder ini menyimpan semua komponen UI aplikasi, diorganisir berdasarkan fungsinya (intro, welcome, autentikasi, beranda, notifikasi, dan profil).
 
-### Penjelasan Struktur
+intro/: Halaman pengantar aplikasi.
+welcome/: Tiga halaman sambutan pengguna, masing-masing diwakili oleh WelcomePage1Fragment, WelcomePage2Fragment, dan WelcomePage3Fragment, serta WelcomeViewModel.
+auth/: Halaman untuk otentikasi pengguna, termasuk pop-up dialog dan ViewModel terkait.
+home/: Halaman beranda dan fitur terkait, termasuk manajemen artikel dan penulisan artikel, dengan ViewModel terpisah untuk masing-masing.
+notifications/: Halaman untuk menampilkan notifikasi pengguna, dengan ViewModel.
+profile/: Halaman untuk pengaturan profil pengguna, termasuk pop-up dialog dan ViewModel untuk masing-masing bagian.
+data/: Berisi model data dan repository untuk mengelola akses data.
 
-#### 1. **UI (User Interface) Layer**
-   - **intro**: Folder untuk halaman intro.
-     - `IntroActivity.kt`: Activity untuk halaman pengenalan aplikasi.
-   
-   - **welcome**: Folder untuk halaman-halaman welcome.
-     - `WelcomePage1Activity.kt`: Activity untuk welcome page 1.
-     - `WelcomePage2Activity.kt`: Activity untuk welcome page 2.
-     - `WelcomePage3Activity.kt`: Activity untuk welcome page 3.
+model/: Kelas model untuk pengguna dan artikel.
+repository/: Kelas repository untuk mengakses data dari database.
+network/: Kelas untuk mengelola komunikasi dengan API.
 
-   - **auth**: Folder untuk halaman otentikasi (login/sign-up dan reset password).
-     - `SignInActivity.kt`: Halaman untuk sign-in (masuk).
-     - `SignUpInputActivity.kt`: Halaman input data untuk sign-up.
-     - `LupaPasswordGantiActivity.kt`: Halaman untuk mengganti password yang lupa.
-     - **popups**: Folder ini menampung semua pop-up terkait otentikasi:
-       - `LupaPasswordKonfirmasiEmailDialog.kt`: Pop-up untuk konfirmasi email saat reset password.
-       - `LupaPasswordVerifEmailDialog.kt`: Pop-up untuk verifikasi email saat reset password.
-       - `SignUpKonfirmasiEmailDialog.kt`: Pop-up untuk konfirmasi email saat sign-up.
-       - `SignUpVerifikasiEmailDialog.kt`: Pop-up untuk verifikasi email saat sign-up.
-       - `SignUpBerhasilDialog.kt`: Pop-up untuk notifikasi sign-up berhasil.
-       - `LupaPasswordBerhasilDialog.kt`: Pop-up untuk notifikasi reset password berhasil.
-
-   - **home**: Folder untuk halaman beranda.
-     - `HomeActivity.kt`: Halaman utama beranda setelah login.
-     - `ArtikelActivity.kt`: Halaman yang menampilkan artikel.
-     - `SearchPageActivity.kt`: Halaman pencarian.
-     - `ManajemenArtikelActivity.kt`: Halaman untuk manajemen artikel, termasuk daftar artikel dalam draft, peninjauan, atau yang sudah dipublikasikan.
-     - **penulisan_artikel**: Folder ini untuk penulisan artikel.
-       - `PenulisanArtikelActivity.kt`: Halaman untuk menulis artikel baru.
-       - `KonfirmasiPublikasiDialog.kt`: Pop-up untuk konfirmasi publikasi artikel.
-
-   - **notifications**: Folder untuk halaman notifikasi.
-     - `NotifikasiActivity.kt`: Halaman notifikasi untuk menampilkan daftar notifikasi.
-
-   - **profile**: Folder untuk halaman profil pengguna.
-     - `ProfileActivity.kt`: Halaman utama profil pengguna.
-     - `PengaturanAkunActivity.kt`: Halaman pengaturan akun.
-     - `AkunAndaActivity.kt`: Halaman untuk menampilkan detail akun.
-     - `PrivasiActivity.kt`: Halaman untuk pengaturan privasi.
-     - `TentangActivity.kt`: Halaman tentang aplikasi.
-     - `KeamananActivity.kt`: Halaman pengaturan keamanan.
-     - **popups**: Folder ini menampung semua pop-up terkait profil dan keamanan:
-       - `ChangePasswordDialog.kt`: Pop-up untuk mengubah password.
-       - `ChangePasswordBerhasilDialog.kt`: Pop-up untuk menampilkan perubahan password berhasil.
-
-#### 2. **Data Layer**
-   - **model**: Folder ini berisi model data yang digunakan dalam aplikasi.
-     - `User.kt`: Model untuk data pengguna.
-     - `Article.kt`: Model untuk data artikel.
-   
-   - **repository**: Folder ini menampung class untuk mengelola komunikasi antara aplikasi dan database atau API.
-     - `AuthRepository.kt`: Menangani semua request terkait otentikasi (sign-in, sign-up, lupa password).
-     - `ArticleRepository.kt`: Menangani semua request terkait artikel (pembuatan, update, delete, dll).
-     - `ProfileRepository.kt`: Menangani request terkait profil pengguna.
-
-#### 3. **Network Layer**
-   - **ApiClient.kt**: Mengelola koneksi ke API dengan Retrofit atau library HTTP lain.
-   - **ApiService.kt**: Mendefinisikan endpoint API yang digunakan untuk otentikasi, artikel, dan profil.
-
-#### 4. **Utilities Layer (utils)**
-   - **Constants.kt**: Menyimpan konstanta global seperti URL API, kode status, dll.
-   - **SessionManager.kt**: Mengelola sesi login pengguna, menyimpan token autentikasi, dll.
-
-### Alur Proyek
-1. **Intro dan Welcome Pages**: Pengguna pertama kali akan melihat halaman intro, lalu tiga welcome pages.
-2. **Sign-In dan Sign-Up**: Pengguna bisa login atau sign-up. Setiap proses melibatkan pop-up untuk konfirmasi/verifikasi email dan status keberhasilan.
-3. **Home/Artikel**: Setelah login, pengguna masuk ke halaman beranda yang menampilkan daftar artikel, serta dapat menulis atau mengelola artikel.
-4. **Notifikasi dan Profil**: Pengguna juga dapat mengakses notifikasi dan halaman profil untuk mengatur akun dan preferensi.
+utils/: Kelas utilitas untuk fungsi umum dalam aplikasi.
 
 ### Struktur Direktori Proyek Res
 ```
-res/
-├── drawable/
-│   ├── bg_intro.xml
-│   ├── ic_logo.xml
-│   ├── ic_search.xml
-│   ├── ic_notification.xml
-│   ├── ic_profile.xml
-│   ├── ic_back.xml
-│   ├── ic_password_visibility.xml
-│   ├── ic_password_visibility_off.xml
-├── layout/
-│   ├── activity_intro.xml
-│   ├── activity_welcome_page1.xml
-│   ├── activity_welcome_page2.xml
-│   ├── activity_welcome_page3.xml
-│   ├── activity_sign_in.xml
-│   ├── activity_sign_up_input.xml
-│   ├── activity_lupa_password_ganti.xml
-│   ├── activity_home.xml
-│   ├── activity_artikel.xml
-│   ├── activity_search_page.xml
-│   ├── activity_manajemen_artikel.xml
-│   ├── activity_penulisan_artikel.xml
-│   ├── activity_notifikasi.xml
-│   ├── activity_profile.xml
-│   ├── activity_pengaturan_akun.xml
-│   ├── activity_akun_anda.xml
-│   ├── activity_privasi.xml
-│   ├── activity_tentang.xml
-│   ├── activity_keamanan.xml
-│   ├── dialog_lupa_password_konfirmasi_email.xml
-│   ├── dialog_lupa_password_verif_email.xml
-│   ├── dialog_sign_up_konfirmasi_email.xml
-│   ├── dialog_sign_up_verifikasi_email.xml
-│   ├── dialog_sign_up_berhasil.xml
-│   ├── dialog_lupa_password_berhasil.xml
-│   ├── dialog_konfirmasi_publikasi.xml
-│   ├── dialog_change_password.xml
-│   ├── dialog_change_password_berhasil.xml
-├── mipmap/
-│   ├── ic_launcher.png
-│   ├── ic_launcher_round.png
-│   └── ... (ikon untuk launcher dalam berbagai resolusi)
-├── values/
-│   ├── colors.xml
-│   ├── strings.xml
-│   ├── styles.xml
-│   ├── dimens.xml
-│   ├── themes.xml
-└── xml/
-    ├── network_security_config.xml
+com/
+└── devmoss/
+    └── kabare/
+        ├── res/
+        │   ├── drawable/
+        │   │   ├── ic_launcher.xml           // Icon aplikasi
+        │   │   ├── ic_launcher_foreground.xml // Ikon latar depan
+        │   │   ├── ic_launcher_background.xml  // Ikon latar belakang
+        │   │   └── other_drawable_files.xml    // Gambar drawable lainnya
+        │   ├── layout/
+        │   │   ├── activity_intro.xml          // Layout untuk IntroActivity
+        │   │   ├── fragment_intro.xml          // Layout untuk IntroFragment
+        │   │   ├── fragment_welcome_page_1.xml // Layout untuk WelcomePage1Fragment
+        │   │   ├── fragment_welcome_page_2.xml // Layout untuk WelcomePage2Fragment
+        │   │   ├── fragment_welcome_page_3.xml // Layout untuk WelcomePage3Fragment
+        │   │   ├── fragment_sign_in.xml         // Layout untuk SignInFragment
+        │   │   ├── fragment_sign_up_input.xml   // Layout untuk SignUpInputFragment
+        │   │   ├── fragment_lupa_password.xml    // Layout untuk LupaPasswordGantiFragment
+        │   │   ├── fragment_home.xml             // Layout untuk HomeFragment
+        │   │   ├── fragment_artikel.xml          // Layout untuk ArtikelFragment
+        │   │   ├── fragment_search_page.xml      // Layout untuk SearchPageFragment
+        │   │   ├── fragment_manajemen_artikel.xml // Layout untuk ManajemenArtikelFragment
+        │   │   ├── fragment_notifikasi.xml       // Layout untuk NotifikasiFragment
+        │   │   ├── fragment_profile.xml          // Layout untuk ProfileFragment
+        │   │   ├── fragment_pengaturan_akun.xml  // Layout untuk PengaturanAkunFragment
+        │   │   ├── fragment_akun_anda.xml        // Layout untuk AkunAndaFragment
+        │   │   ├── fragment_privasi.xml          // Layout untuk PrivasiFragment
+        │   │   ├── fragment_tentang.xml          // Layout untuk TentangFragment
+        │   │   ├── fragment_keamanan.xml         // Layout untuk KeamananFragment
+        │   │   └── popups/
+        │   │       ├── dialog_lupa_password_konfirmasi_email.xml // Dialog pop-up konfirmasi email
+        │   │       ├── dialog_lupa_password_verifikasi_email.xml  // Dialog pop-up verifikasi email
+        │   │       ├── dialog_sign_up_konfirmasi_email.xml        // Dialog pop-up konfirmasi email saat mendaftar
+        │   │       ├── dialog_sign_up_verifikasi_email.xml        // Dialog pop-up verifikasi email saat mendaftar
+        │   │       ├── dialog_sign_up_berhasil.xml                // Dialog pop-up berhasil mendaftar
+        │   │       └── dialog_lupa_password_berhasil.xml          // Dialog pop-up berhasil mengganti password
+        │   ├── values/
+        │   │   ├── strings.xml                     // String sumber daya untuk teks aplikasi
+        │   │   ├── colors.xml                      // Warna yang digunakan dalam aplikasi
+        │   │   ├── dimens.xml                      // Dimensi untuk margin dan padding
+        │   │   └── styles.xml                      // Gaya yang digunakan untuk elemen UI
+        │   └── mipmap/
+        │       ├── ic_launcher.png                 // Ikon aplikasi dalam format PNG
+        │       ├── ic_launcher_round.png           // Ikon bulat aplikasi
+        │       └── other_mipmap_files.png          // Ikon mipmap lainnya
 ```
+Penjelasan Struktur Resource:
+drawable/: Folder untuk menyimpan gambar dan ikon dalam format drawable. Ini mencakup ikon aplikasi, ikon latar belakang, dan gambar lain yang digunakan dalam aplikasi.
+layout/: Folder untuk menyimpan file XML yang mendefinisikan tampilan UI untuk setiap Activity dan Fragment dalam aplikasi. Setiap halaman memiliki file layout yang sesuai.
+values/: Folder yang menyimpan file sumber daya yang terstruktur, seperti string, warna, dimensi, dan gaya.
+strings.xml: Berisi string sumber daya untuk teks yang digunakan dalam aplikasi.
+colors.xml: Mendefinisikan warna yang dapat digunakan di seluruh aplikasi.
+dimens.xml: Mengatur dimensi yang digunakan untuk margin, padding, dan ukuran lainnya.
+styles.xml: Menentukan gaya untuk elemen UI.
+mipmap/: Folder untuk menyimpan ikon aplikasi dalam berbagai ukuran untuk berbagai resolusi layar.
