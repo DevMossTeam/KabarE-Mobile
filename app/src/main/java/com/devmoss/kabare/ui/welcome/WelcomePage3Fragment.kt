@@ -1,12 +1,15 @@
 package com.devmoss.kabare.ui.welcome
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.devmoss.kabare.R
+import com.devmoss.kabare.MainActivity
 import com.devmoss.kabare.databinding.FragmentWelcomePage3Binding
 
 class WelcomePage3Fragment : Fragment() {
@@ -15,9 +18,8 @@ class WelcomePage3Fragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle? // This parameter is optional
+        savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout using View Binding
         _binding = FragmentWelcomePage3Binding.inflate(inflater, container, false)
         return binding.root
     }
@@ -25,18 +27,43 @@ class WelcomePage3Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Uncomment and implement the navigation once HomeFragment is ready
         binding.btnNext.setOnClickListener {
-            navigateToHome()
+            navigateToMainActivity()
         }
+
+        binding.skipText.setOnClickListener {
+            navigateToMainActivity()
+        }
+
+        // Animate the third dot
+        animateDot(binding.dot3)
+        // Reset other dots
+        resetDot(binding.dot1)
+        resetDot(binding.dot2)
     }
 
-    private fun navigateToHome() {
-        findNavController().navigate(R.id.action_welcomePage3Fragment_to_homeFragment)
+    private fun navigateToMainActivity() {
+        val intent = Intent(requireContext(), MainActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
+    }
+
+    private fun animateDot(dot: View) {
+        dot.animate()
+            .scaleX(2f)
+            .scaleY(1f)
+            .setDuration(300)
+            .setInterpolator(AccelerateDecelerateInterpolator())
+            .start()
+    }
+
+    private fun resetDot(dot: View) {
+        dot.scaleX = 1f
+        dot.scaleY = 1f
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null // Prevent memory leaks
+        _binding = null
     }
 }

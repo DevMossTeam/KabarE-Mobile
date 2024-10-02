@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.devmoss.kabare.R
@@ -19,7 +20,6 @@ class WelcomePage1Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout using View Binding
         _binding = FragmentWelcomePage1Binding.inflate(inflater, container, false)
         return binding.root
     }
@@ -27,7 +27,6 @@ class WelcomePage1Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set click listeners for navigation
         binding.btnNext.setOnClickListener {
             navigateToNextPage()
         }
@@ -35,6 +34,12 @@ class WelcomePage1Fragment : Fragment() {
         binding.skipText.setOnClickListener {
             navigateToMainActivity()
         }
+
+        // Animate the first dot
+        animateDot(binding.dot1)
+        // Reset other dots
+        resetDot(binding.dot2)
+        resetDot(binding.dot3)
     }
 
     private fun navigateToNextPage() {
@@ -42,14 +47,27 @@ class WelcomePage1Fragment : Fragment() {
     }
 
     private fun navigateToMainActivity() {
-        // Start MainActivity using Intent
         val intent = Intent(requireContext(), MainActivity::class.java)
         startActivity(intent)
-        requireActivity().finish() // Close the current activity
+        requireActivity().finish()
+    }
+
+    private fun animateDot(dot: View) {
+        dot.animate()
+            .scaleX(2f)
+            .scaleY(1f)
+            .setDuration(300)
+            .setInterpolator(AccelerateDecelerateInterpolator())
+            .start()
+    }
+
+    private fun resetDot(dot: View) {
+        dot.scaleX = 1f
+        dot.scaleY = 1f
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null // Prevent memory leaks
+        _binding = null
     }
 }

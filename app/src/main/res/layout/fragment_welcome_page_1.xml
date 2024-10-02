@@ -8,7 +8,7 @@
     android:background="#4A99FF"
     tools:context=".MainActivity">
 
-    <!-- Tombol Lewati di pojok kanan atas -->
+    <!-- Skip Button -->
     <TextView
         android:id="@+id/skip_text"
         android:layout_width="wrap_content"
@@ -21,50 +21,54 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Logo Kabare -->
+    <!-- Logo -->
     <ImageView
         android:id="@+id/logo_kabare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
         android:contentDescription="@string/logo_desc"
         android:src="@drawable/logokabare"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="100dp" />
 
-    <!-- Teks Selamat Datang Bagi Pengguna Baru -->
+    <!-- Welcome Text -->
+
+    <!-- Image -->
+
+    <!-- Description -->
+
+    <ImageView
+        android:id="@+id/vec1"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@drawable/vec1"
+        android:src="@drawable/vec1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/welcome_text" />
+
     <TextView
         android:id="@+id/welcome_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:text="Selamat Datang Bagi Pengguna Baru!"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logo_kabare" />
 
-    <!-- Gambar Vec1 di tengah layar -->
-    <ImageView
-        android:id="@+id/vec1"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="16dp"
-        android:contentDescription="@drawable/vec1"
-        android:src="@drawable/vec1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/welcome_text" />
-
-    <!-- Deskripsi di bawah gambar vec1 -->
     <TextView
         android:id="@+id/intro_description"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:gravity="center"
         android:paddingHorizontal="16dp"
         android:text="Temukan kabar terbaru dan info penting dari kampusmu, semua di satu tempat."
@@ -72,52 +76,55 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/vec1" />
+        app:layout_constraintTop_toBottomOf="@id/vec1"
+        android:layout_marginTop="16dp" />
 
-    <!-- Titik indikator fragment -->
+    <!-- Indicator Layout -->
     <LinearLayout
         android:id="@+id/indicator_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
         android:layout_marginTop="28dp"
+        android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/intro_description">
 
-        <!-- Titik pertama -->
         <View
+            android:id="@+id/dot1"
             android:layout_width="8dp"
             android:layout_height="8dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/circle_shape" />
 
-        <!-- Titik kedua -->
         <View
+            android:id="@+id/dot2"
             android:layout_width="8dp"
             android:layout_height="8dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/circle_shape" />
 
-        <!-- Titik ketiga -->
         <View
+            android:id="@+id/dot3"
             android:layout_width="8dp"
             android:layout_height="8dp"
             android:background="@drawable/circle_shape" />
     </LinearLayout>
 
-    <!-- Tombol Selanjutnya -->
+    <!-- Next Button -->
     <Button
         android:id="@+id/btn_next"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="88dp"
-        android:background="@drawable/rounded_button"
-        android:paddingHorizontal="32dp"
-        android:paddingVertical="12dp"
         android:text="Selanjutnya"
+        android:backgroundTint="@color/black"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="88dp"
+        android:paddingHorizontal="32dp"
+        android:paddingVertical="12dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
