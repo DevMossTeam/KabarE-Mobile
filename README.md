@@ -144,15 +144,15 @@ com/
         │   │       └── dialog_lupa_password_berhasil.xml          // Dialog pop-up berhasil mengganti password
         │   ├── values/
         │   │   ├── strings.xml                     // String sumber daya untuk teks aplikasi
-        │   │   ├── colors.xml                      // Warna yang digunakan
-
- dalam aplikasi
+        │   │   ├── colors.xml                      // Warna yang digunakan dalam aplikasi
         │   │   ├── dimens.xml                      // Dimensi untuk margin dan padding
         │   │   └── styles.xml                      // Gaya yang digunakan untuk elemen UI
-        │   └── mipmap/
-        │       ├── ic_launcher.png                 // Ikon aplikasi dalam format PNG
-        │       ├── ic_launcher_round.png           // Ikon bulat aplikasi
-        │       └── other_mipmap_files.png          // Ikon mipmap lainnya
+        │   ├── mipmap/
+        │   │   ├── ic_launcher.png                 // Ikon aplikasi dalam format PNG
+        │   │   ├── ic_launcher_round.png           // Ikon bulat aplikasi
+        │   │   └── other_mipmap_files.png          // Ikon mipmap lainnya
+        │   └── navigation/
+        │       └── nav_graph.xml                  // Navigasi graph yang mendefinisikan navigasi antar fragment dan activity
 ```
 
 ### Penjelasan Struktur Resource
