@@ -1,4 +1,11 @@
-### Struktur Direktori Proyek Main
+# Proyek Kabare
+
+**Nama Proyek:** `com.devmoss.kabare`
+
+Proyek ini merupakan aplikasi yang dibangun menggunakan Kotlin dan MySQL (phpMyAdmin) sebagai database. Aplikasi ini memiliki berbagai fitur yang terbagi ke dalam beberapa halaman yang terorganisir dengan baik.
+
+## Struktur Direktori Proyek Utama
+
 ```
 com/
 └── devmoss/
@@ -77,31 +84,34 @@ com/
             ├── Constants.kt
             └── SessionManager.kt
 ```
-Penjelasan Struktur:
-ui/: Folder ini menyimpan semua komponen UI aplikasi, diorganisir berdasarkan fungsinya (intro, welcome, autentikasi, beranda, notifikasi, dan profil).
 
-intro/: Halaman pengantar aplikasi.
-welcome/: Tiga halaman sambutan pengguna, masing-masing diwakili oleh WelcomePage1Fragment, WelcomePage2Fragment, dan WelcomePage3Fragment, serta WelcomeViewModel.
-auth/: Halaman untuk otentikasi pengguna, termasuk pop-up dialog dan ViewModel terkait.
-home/: Halaman beranda dan fitur terkait, termasuk manajemen artikel dan penulisan artikel, dengan ViewModel terpisah untuk masing-masing.
-notifications/: Halaman untuk menampilkan notifikasi pengguna, dengan ViewModel.
-profile/: Halaman untuk pengaturan profil pengguna, termasuk pop-up dialog dan ViewModel untuk masing-masing bagian.
-data/: Berisi model data dan repository untuk mengelola akses data.
+### Penjelasan Struktur Proyek Utama
 
-model/: Kelas model untuk pengguna dan artikel.
-repository/: Kelas repository untuk mengakses data dari database.
-network/: Kelas untuk mengelola komunikasi dengan API.
+- **ui/**: Folder ini menyimpan semua komponen UI aplikasi, yang diorganisir berdasarkan fungsinya:
+  - **intro/**: Halaman pengantar aplikasi.
+  - **welcome/**: Tiga halaman sambutan pengguna, masing-masing diwakili oleh `WelcomePage1Fragment`, `WelcomePage2Fragment`, dan `WelcomePage3Fragment`, serta `WelcomeViewModel`.
+  - **auth/**: Halaman untuk otentikasi pengguna, termasuk pop-up dialog dan ViewModel terkait.
+  - **home/**: Halaman beranda dan fitur terkait, termasuk manajemen artikel dan penulisan artikel, dengan ViewModel terpisah untuk masing-masing.
+  - **notifications/**: Halaman untuk menampilkan notifikasi pengguna, dengan ViewModel.
+  - **profile/**: Halaman untuk pengaturan profil pengguna, termasuk pop-up dialog dan ViewModel untuk masing-masing bagian.
 
-utils/: Kelas utilitas untuk fungsi umum dalam aplikasi.
+- **data/**: Berisi model data dan repository untuk mengelola akses data.
+  - **model/**: Kelas model untuk pengguna dan artikel.
+  - **repository/**: Kelas repository untuk mengakses data dari database.
 
-### Struktur Direktori Proyek Res
+- **network/**: Kelas untuk mengelola komunikasi dengan API.
+
+- **utils/**: Kelas utilitas untuk fungsi umum dalam aplikasi.
+
+## Struktur Direktori Proyek Resource
+
 ```
 com/
 └── devmoss/
     └── kabare/
         ├── res/
         │   ├── drawable/
-        │   │   ├── ic_launcher.xml           // Icon aplikasi
+        │   │   ├── ic_launcher.xml           // Ikon aplikasi
         │   │   ├── ic_launcher_foreground.xml // Ikon latar depan
         │   │   ├── ic_launcher_background.xml  // Ikon latar belakang
         │   │   └── other_drawable_files.xml    // Gambar drawable lainnya
@@ -134,7 +144,9 @@ com/
         │   │       └── dialog_lupa_password_berhasil.xml          // Dialog pop-up berhasil mengganti password
         │   ├── values/
         │   │   ├── strings.xml                     // String sumber daya untuk teks aplikasi
-        │   │   ├── colors.xml                      // Warna yang digunakan dalam aplikasi
+        │   │   ├── colors.xml                      // Warna yang digunakan
+
+ dalam aplikasi
         │   │   ├── dimens.xml                      // Dimensi untuk margin dan padding
         │   │   └── styles.xml                      // Gaya yang digunakan untuk elemen UI
         │   └── mipmap/
@@ -142,12 +154,17 @@ com/
         │       ├── ic_launcher_round.png           // Ikon bulat aplikasi
         │       └── other_mipmap_files.png          // Ikon mipmap lainnya
 ```
-Penjelasan Struktur Resource:
-drawable/: Folder untuk menyimpan gambar dan ikon dalam format drawable. Ini mencakup ikon aplikasi, ikon latar belakang, dan gambar lain yang digunakan dalam aplikasi.
-layout/: Folder untuk menyimpan file XML yang mendefinisikan tampilan UI untuk setiap Activity dan Fragment dalam aplikasi. Setiap halaman memiliki file layout yang sesuai.
-values/: Folder yang menyimpan file sumber daya yang terstruktur, seperti string, warna, dimensi, dan gaya.
-strings.xml: Berisi string sumber daya untuk teks yang digunakan dalam aplikasi.
-colors.xml: Mendefinisikan warna yang dapat digunakan di seluruh aplikasi.
-dimens.xml: Mengatur dimensi yang digunakan untuk margin, padding, dan ukuran lainnya.
-styles.xml: Menentukan gaya untuk elemen UI.
-mipmap/: Folder untuk menyimpan ikon aplikasi dalam berbagai ukuran untuk berbagai resolusi layar.
+
+### Penjelasan Struktur Resource
+
+- **drawable/**: Folder untuk menyimpan gambar dan ikon dalam format drawable. Ini mencakup ikon aplikasi, ikon latar belakang, dan gambar lain yang digunakan dalam aplikasi.
+  
+- **layout/**: Folder untuk menyimpan file XML yang mendefinisikan tampilan UI untuk setiap Activity dan Fragment dalam aplikasi. Setiap halaman memiliki file layout yang sesuai.
+
+- **values/**: Folder yang menyimpan file sumber daya terstruktur, seperti string, warna, dimensi, dan gaya.
+  - **strings.xml**: Berisi string sumber daya untuk teks yang digunakan dalam aplikasi.
+  - **colors.xml**: Mendefinisikan warna yang dapat digunakan di seluruh aplikasi.
+  - **dimens.xml**: Mengatur dimensi yang digunakan untuk margin, padding, dan ukuran lainnya.
+  - **styles.xml**: Menentukan gaya untuk elemen UI.
+
+- **mipmap/**: Folder untuk menyimpan ikon aplikasi dalam berbagai ukuran untuk berbagai resolusi layar.
