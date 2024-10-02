@@ -2,8 +2,17 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.KabarE" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/black</item> <!-- Change this to your desired primary color -->
+        <item name="colorOnPrimary">@color/white</item> <!-- Text color on primary color -->
+        <item name="colorSecondary">@color/black</item> <!-- Change this to your desired secondary color -->
+        <item name="colorOnSecondary">@color/white</item> <!-- Text color on secondary color -->
+<!--        <item name="colorBackground">@color/white</item> &lt;!&ndash; Background color &ndash;&gt;-->
+        <item name="colorOnBackground">@color/black</item> <!-- Text color on background -->
+        <item name="colorSurface">@color/white</item> <!-- Surface color -->
+        <item name="colorOnSurface">@color/black</item> <!-- Text color on surface -->
     </style>
 
-    <style name="Theme.KabarE" parent="Base.Theme.KabarE" />
+    <style name="Theme.KabarE" parent="Base.Theme.KabarE">
+        <!-- Customize the app theme further if needed -->
+    </style>
 </resources>
