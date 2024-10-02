@@ -29,10 +29,6 @@ class WelcomePage3Fragment : Fragment() {
             navigateToHomeFragment()
         }
 
-        binding.skipText.setOnClickListener {
-            navigateToHomeFragment()
-        }
-
         // Animate the third dot
         animateDot(binding.dot3)
         // Reset other dots
