@@ -1,6 +1,5 @@
 package com.devmoss.kabare.ui.welcome
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.devmoss.kabare.R
-import com.devmoss.kabare.MainActivity
 import com.devmoss.kabare.databinding.FragmentWelcomePage3Binding
 
 class WelcomePage3Fragment : Fragment() {
@@ -28,11 +26,11 @@ class WelcomePage3Fragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnNext.setOnClickListener {
-            navigateToMainActivity()
+            navigateToHomeFragment()
         }
 
         binding.skipText.setOnClickListener {
-            navigateToMainActivity()
+            navigateToHomeFragment()
         }
 
         // Animate the third dot
@@ -42,10 +40,8 @@ class WelcomePage3Fragment : Fragment() {
         resetDot(binding.dot2)
     }
 
-    private fun navigateToMainActivity() {
-        val intent = Intent(requireContext(), MainActivity::class.java)
-        startActivity(intent)
-        requireActivity().finish()
+    private fun navigateToHomeFragment() {
+        findNavController().navigate(R.id.action_welcomePage3Fragment_to_homeFragment)
     }
 
     private fun animateDot(dot: View) {

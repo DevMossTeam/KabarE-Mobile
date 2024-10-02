@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_intro">
         <action
             android:id="@+id/action_introFragment_to_welcomePage1Fragment"
-            app:destination="@id/welcomePage1Fragment" /> <!-- Ensure this matches your welcome fragment -->
+            app:destination="@id/welcomePage1Fragment" />
     </fragment>
 
     <!-- Welcome Page 1 -->
@@ -24,8 +24,8 @@
             android:id="@+id/action_welcomePage1Fragment_to_welcomePage2Fragment"
             app:destination="@id/welcomePage2Fragment" />
         <action
-            android:id="@+id/action_welcomePage1Fragment_to_welcomePage3Fragment"
-            app:destination="@id/welcomePage3Fragment" />
+            android:id="@+id/action_welcomePage1Fragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 
     <!-- Welcome Page 2 -->
@@ -36,6 +36,9 @@
         <action
             android:id="@+id/action_welcomePage2Fragment_to_welcomePage3Fragment"
             app:destination="@id/welcomePage3Fragment" />
+        <action
+            android:id="@+id/action_welcomePage2Fragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 
     <!-- Welcome Page 3 -->
@@ -45,7 +48,7 @@
         tools:layout="@layout/fragment_welcome_page_3">
         <action
             android:id="@+id/action_welcomePage3Fragment_to_homeFragment"
-            app:destination="@id/homeFragment" /> <!-- Ensure this action exists if needed -->
+            app:destination="@id/homeFragment" />
     </fragment>
 
     <!-- Home Fragment -->

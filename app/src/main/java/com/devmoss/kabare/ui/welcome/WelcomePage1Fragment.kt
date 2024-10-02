@@ -47,9 +47,11 @@ class WelcomePage1Fragment : Fragment() {
     }
 
     private fun navigateToMainActivity() {
-        val intent = Intent(requireContext(), MainActivity::class.java)
-        startActivity(intent)
-        requireActivity().finish()
+        navigateToHomeFragment()
+    }
+
+    private fun navigateToHomeFragment() {
+        findNavController().navigate(R.id.action_welcomePage1Fragment_to_homeFragment)
     }
 
     private fun animateDot(dot: View) {
