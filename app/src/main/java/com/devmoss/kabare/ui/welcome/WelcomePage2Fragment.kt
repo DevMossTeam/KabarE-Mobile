@@ -7,22 +7,36 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.devmoss.kabare.R
-import kotlinx.android.synthetic.main.fragment_welcome_page_2.*
+import com.devmoss.kabare.databinding.FragmentWelcomePage2Binding
 
 class WelcomePage2Fragment : Fragment() {
+    private var _binding: FragmentWelcomePage2Binding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_welcome_page_2, container, false)
+    ): View {
+        // Inflate the layout using View Binding
+        _binding = FragmentWelcomePage2Binding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view)
+        super.onViewCreated(view, savedInstanceState)
 
-        btn_next.setOnClickListener {
-            findNavController().navigate(R.id.action_welcomePage2Fragment_to_welcomePage3Fragment)
+        // Set click listener for the next button
+        binding.btnNext.setOnClickListener {
+            navigateToNextPage()
         }
+    }
+
+    private fun navigateToNextPage() {
+        findNavController().navigate(R.id.action_welcomePage2Fragment_to_welcomePage3Fragment)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // Prevent memory leaks
     }
 }

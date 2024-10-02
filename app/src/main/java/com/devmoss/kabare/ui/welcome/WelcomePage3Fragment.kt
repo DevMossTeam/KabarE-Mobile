@@ -7,23 +7,36 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.devmoss.kabare.R
-import kotlinx.android.synthetic.main.fragment_welcome_page_3.*
+import com.devmoss.kabare.databinding.FragmentWelcomePage3Binding
 
 class WelcomePage3Fragment : Fragment() {
+    private var _binding: FragmentWelcomePage3Binding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_welcome_page_3, container, false)
+        savedInstanceState: Bundle? // This parameter is optional
+    ): View {
+        // Inflate the layout using View Binding
+        _binding = FragmentWelcomePage3Binding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view)
+        super.onViewCreated(view, savedInstanceState)
 
-        btn_next.setOnClickListener {
-            // Navigasi ke halaman selanjutnya, misalnya ke HomeFragment
-            findNavController().navigate(R.id.action_welcomePage3Fragment_to_homeFragment)
+        // Uncomment and implement the navigation once HomeFragment is ready
+        binding.btnNext.setOnClickListener {
+            navigateToHome()
         }
+    }
+
+    private fun navigateToHome() {
+        findNavController().navigate(R.id.action_welcomePage3Fragment_to_homeFragment)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // Prevent memory leaks
     }
 }

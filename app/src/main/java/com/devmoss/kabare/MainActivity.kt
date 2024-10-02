@@ -2,23 +2,18 @@ package com.devmoss.kabare
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import com.devmoss.kabare.ui.intro.IntroFragment
+import androidx.navigation.fragment.NavHostFragment
+import com.devmoss.kabare.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        if (savedInstanceState == null) {
-            loadFragment(IntroFragment())
-        }
-    }
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-    private fun loadFragment(fragment: Fragment) {
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fragment_container, fragment) // Pastikan fragment_container ada di layout activity_main.xml
-            .commit()
     }
 }

@@ -19,7 +19,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = false // Set to true for production to reduce APK size
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -35,22 +35,34 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    // Enable view binding
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
+    // AndroidX libraries
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("androidx.fragment:fragment-ktx:1.6.0") // or latest version
+    implementation("androidx.fragment:fragment-ktx:1.6.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
-    // Using libs for dependencies defined in gradle/libs.versions.toml
-    implementation(libs.androidx.core.ktx)
+    // Navigation components
+    implementation("androidx.navigation:navigation-fragment-ktx:2.8.1")
+    implementation("androidx.navigation:navigation-ui-ktx:2.8.1")
+
+    // Material Design components
     implementation(libs.material)
+
+    // Core libraries
+    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity)
-    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.fragment)
 
     // Testing dependencies
     testImplementation(libs.junit)

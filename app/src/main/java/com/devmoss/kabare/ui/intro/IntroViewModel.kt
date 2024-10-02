@@ -17,23 +17,25 @@ class IntroViewModel : ViewModel() {
     }
 
     private fun startIntro() {
-        // Set initial status to Loading
         _introStatus.value = IntroStatus.Loading
 
-        // Launch a coroutine to simulate delay
         viewModelScope.launch {
             delay(2000) // Simulate a delay of 2 seconds
             _introStatus.value = IntroStatus.ShowIntro // Update status to ShowIntro after delay
+            delay(2000) // Optional: keep showing intro for 2 seconds
+            proceedToNext() // Proceed to next state
         }
     }
 
-    fun proceedToNext() {
-        _introStatus.value = IntroStatus.Complete
+    // Function to proceed to the Welcome screens
+    private fun proceedToNext() {
+        _introStatus.value = IntroStatus.NavigateToWelcome // Update status to NavigateToWelcome
     }
 
+    // Sealed class representing different states of the intro
     sealed class IntroStatus {
         object Loading : IntroStatus()
         object ShowIntro : IntroStatus()
-        object Complete : IntroStatus()
+        object NavigateToWelcome : IntroStatus() // New state for navigating to welcome
     }
 }
