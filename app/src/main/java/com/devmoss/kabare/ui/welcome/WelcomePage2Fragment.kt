@@ -54,7 +54,7 @@ class WelcomePage2Fragment : Fragment() {
 
     private fun animateDot(dot: View) {
         dot.animate()
-            .scaleX(2f)
+            .scaleX(1.75f)
             .scaleY(1f)
             .setDuration(300)
             .setInterpolator(AccelerateDecelerateInterpolator())
