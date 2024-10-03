@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
+import com.devmoss.kabare.R
 import com.devmoss.kabare.databinding.FragmentWelcomeBinding
 import devmoss.kabare.ui.welcome.WelcomeViewModel
 
@@ -29,36 +31,58 @@ class WelcomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize ViewPager
+        // Initialize ViewPager dengan Fragment sebagai argumen
         viewPager = binding.viewPager
-        welcomePagerAdapter = WelcomePagerAdapter(this) // Using 'this' to get the Fragment
+        welcomePagerAdapter = WelcomePagerAdapter(this) // Menggunakan 'this' yang merujuk ke Fragment
         viewPager.adapter = welcomePagerAdapter
+
+        // Logika untuk perubahan tombol akan sama seperti sebelumnya
+        updateButtonAppearance(0)
 
         // Handle Next button click
         binding.btnNext.setOnClickListener {
             if (viewPager.currentItem < welcomePagerAdapter.itemCount - 1) {
-                viewPager.currentItem += 1 // Move to the next page
+                viewPager.currentItem = viewPager.currentItem + 1
             } else {
-                navigateToNextScreen()
+                navigateToNextScreen() // Implement navigation logic
             }
         }
 
-        // Optional: Add listener to detect page changes if needed
+        // Add listener to detect page changes
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                // Optionally update UI elements based on the selected page
+                // Update button appearance when the page is selected
+                updateButtonAppearance(position)
             }
         })
     }
 
+    // Function to update button appearance based on the current page
+    private fun updateButtonAppearance(position: Int) {
+        if (position == welcomePagerAdapter.itemCount - 1) {
+            // If it's the last page (Page 3)
+            binding.btnNext.apply {
+                text = "Bergabung"
+                setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
+                setTextColor(ContextCompat.getColor(requireContext(), R.color.black)) // Make text black for visibility
+            }
+        } else {
+            // For all other pages (Page 1 & Page 2)
+            binding.btnNext.apply {
+                text = "Selanjutnya"
+                setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.black))
+                setTextColor(ContextCompat.getColor(requireContext(), R.color.white)) // Make text white for visibility
+            }
+        }
+    }
+
     private fun navigateToNextScreen() {
-        // Implement your navigation logic here
-        // Example: findNavController().navigate(R.id.action_welcomeFragment_to_nextFragment)
+        // Implement your navigation here
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null // Prevent memory leaks
+        _binding = null
     }
 }
