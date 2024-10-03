@@ -73,16 +73,27 @@ com/
         │   ├── model/
         │   │   ├── User.kt
         │   │   └── Article.kt
-        │   └── repository/
-        │       ├── AuthRepository.kt
-        │       ├── ArticleRepository.kt
-        │       └── ProfileRepository.kt
+        │   ├── repository/
+        │   │   ├── AuthRepository.kt
+        │   │   ├── ArticleRepository.kt
+        │   │   └── ProfileRepository.kt
+        │   └── local/
+        │   │   └── LocalDatabase.kt  // Jika menggunakan Room untuk penyimpanan data lokal
+        │   └── remote/
+        │       └── RemoteDataSource.kt  // Jika menggunakan API untuk remote calls
+        ├── domain/
+        │   ├── usecase/
+        │   │   ├── SignInUseCase.kt  // Use case untuk Sign In
+        │   │   └── GetArticlesUseCase.kt // Use case untuk mendapatkan artikel
         ├── network/
         │   ├── ApiClient.kt
         │   └── ApiService.kt
+        ├── di/
+        │   ├── AppModule.kt  // Dependency Injection module jika menggunakan Hilt/Dagger
         └── utils/
             ├── Constants.kt
-            └── SessionManager.kt
+            ├── SessionManager.kt
+            └── ExtensionFunctions.kt  // Helper untuk extension functions
 ```
 
 ### Penjelasan Struktur Proyek Utama
