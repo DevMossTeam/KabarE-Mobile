@@ -1,5 +1,4 @@
-// WelcomePage1Fragment.kt
-package devmoss.kabare.ui.welcome
+package com.devmoss.kabare.ui.welcome
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import androidx.fragment.app.Fragment
 import com.devmoss.kabare.R
 
 class WelcomePage1Fragment : Fragment() {
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -19,5 +17,11 @@ class WelcomePage1Fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // You can add listeners or data binding logic here, if needed
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // If using view binding, nullify references here
     }
 }

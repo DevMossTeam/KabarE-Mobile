@@ -19,7 +19,7 @@ class IntroFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentIntroBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -32,14 +32,13 @@ class IntroFragment : Fragment() {
             when (status) {
                 is IntroViewModel.IntroStatus.Loading -> {
                     // Optionally show a loading indicator
-                    // e.g., binding.loadingIndicator.visibility = View.VISIBLE
                 }
                 is IntroViewModel.IntroStatus.ShowIntro -> {
                     // Optionally show the intro UI
                 }
                 is IntroViewModel.IntroStatus.NavigateToWelcome -> {
-                    // Navigate to Welcome Page 1 Fragment
-                    findNavController().navigate(R.id.action_introFragment_to_welcomePage1Fragment) // Ensure this action is defined in the navigation graph
+                    // Navigate to Welcome Fragment
+                    findNavController().navigate(R.id.action_introFragment_to_welcomeFragment)
                 }
             }
         }

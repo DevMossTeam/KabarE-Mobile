@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/introFragment">
 
+    <!-- Intro Fragment -->
     <fragment
         android:id="@+id/introFragment"
         android:name="com.devmoss.kabare.ui.intro.IntroFragment"
@@ -13,6 +14,7 @@
             app:destination="@id/welcomeFragment" />
     </fragment>
 
+    <!-- Welcome Fragment -->
     <fragment
         android:id="@+id/welcomeFragment"
         android:name="com.devmoss.kabare.ui.welcome.WelcomeFragment"
@@ -22,6 +24,7 @@
             app:destination="@id/welcomePage1Fragment" />
     </fragment>
 
+    <!-- Welcome Page 1 Fragment -->
     <fragment
         android:id="@+id/welcomePage1Fragment"
         android:name="com.devmoss.kabare.ui.welcome.WelcomePage1Fragment"
@@ -31,6 +34,7 @@
             app:destination="@id/welcomePage2Fragment" />
     </fragment>
 
+    <!-- Welcome Page 2 Fragment -->
     <fragment
         android:id="@+id/welcomePage2Fragment"
         android:name="com.devmoss.kabare.ui.welcome.WelcomePage2Fragment"
@@ -40,6 +44,7 @@
             app:destination="@id/welcomePage3Fragment" />
     </fragment>
 
+    <!-- Welcome Page 3 Fragment -->
     <fragment
         android:id="@+id/welcomePage3Fragment"
         android:name="com.devmoss.kabare.ui.welcome.WelcomePage3Fragment"

@@ -1,4 +1,3 @@
-// WelcomeViewModel.kt
 package devmoss.kabare.ui.welcome
 
 import androidx.lifecycle.LiveData
@@ -8,14 +7,19 @@ import androidx.lifecycle.ViewModel
 class WelcomeViewModel : ViewModel() {
 
     // MutableLiveData to hold the current page index
-    private val _currentPage = MutableLiveData<Int>(0)
+    private val _currentPage = MutableLiveData(0)
     val currentPage: LiveData<Int> get() = _currentPage
+
+    // Total number of pages
+    private val totalPages = 3
 
     // Function to move to the next page
     fun nextPage() {
         _currentPage.value?.let { currentIndex ->
             // Update to the next page index if it's within range
-            _currentPage.value = currentIndex + 1
+            if (currentIndex < totalPages - 1) {
+                _currentPage.value = currentIndex + 1
+            }
         }
     }
 
@@ -28,6 +32,4 @@ class WelcomeViewModel : ViewModel() {
             }
         }
     }
-
-    // Additional logic can be added here as needed
 }

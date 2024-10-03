@@ -1,4 +1,3 @@
-// WelcomeFragment.kt
 package com.devmoss.kabare.ui.welcome
 
 import android.os.Bundle
@@ -8,9 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
-import com.devmoss.kabare.R
 import com.devmoss.kabare.databinding.FragmentWelcomeBinding
-import devmoss.kabare.ui.welcome.WelcomePagerAdapter
 import devmoss.kabare.ui.welcome.WelcomeViewModel
 
 class WelcomeFragment : Fragment() {
@@ -34,35 +31,34 @@ class WelcomeFragment : Fragment() {
 
         // Initialize ViewPager
         viewPager = binding.viewPager
-        welcomePagerAdapter = WelcomePagerAdapter(requireActivity())
+        welcomePagerAdapter = WelcomePagerAdapter(this) // Using 'this' to get the Fragment
         viewPager.adapter = welcomePagerAdapter
 
         // Handle Next button click
         binding.btnNext.setOnClickListener {
             if (viewPager.currentItem < welcomePagerAdapter.itemCount - 1) {
-                viewPager.currentItem = viewPager.currentItem + 1 // Move to the next page
+                viewPager.currentItem += 1 // Move to the next page
             } else {
-                // If on the last page, you can navigate to another screen or finish the intro
                 navigateToNextScreen()
             }
         }
 
-        // Optional: Add a listener to detect page changes if needed
+        // Optional: Add listener to detect page changes if needed
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                // Update UI or perform actions based on the selected page
+                // Optionally update UI elements based on the selected page
             }
         })
     }
 
     private fun navigateToNextScreen() {
-        // Implement navigation logic here, e.g., using NavController
-        // Example: findNavController().navigate(R.id.action_welcomeFragment_to_homeFragment)
+        // Implement your navigation logic here
+        // Example: findNavController().navigate(R.id.action_welcomeFragment_to_nextFragment)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null // Clean up binding reference
+        _binding = null // Prevent memory leaks
     }
 }
