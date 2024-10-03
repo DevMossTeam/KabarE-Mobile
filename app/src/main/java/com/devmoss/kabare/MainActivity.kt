@@ -34,8 +34,8 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 // Fragment yang menampilkan BottomNavigationView dan Toolbar
-                R.id.navigation_home, R.id.navigation_cari, R.id.navigation_notifications, R.id.navigation_profil -> {
-                    binding.toolbar.visibility = android.view.View.VISIBLE
+                R.id.navigation_home, R.id.navigation_cari,R.id.navigation_artikel, R.id.navigation_notifications, R.id.navigation_profil -> {
+//                    binding.toolbar.visibility = android.view.View.VISIBLE
                     binding.navView.visibility = BottomNavigationView.VISIBLE
                 }
                 // Fragment yang menyembunyikan BottomNavigationView dan Toolbar
