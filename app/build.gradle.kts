@@ -36,7 +36,6 @@ android {
         jvmTarget = "1.8"
     }
 
-    // Enable view binding
     buildFeatures {
         viewBinding = true
     }
@@ -62,7 +61,23 @@ dependencies {
     // Core libraries
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity)
-//    implementation(libs.androidx.navigation.fragment)
+
+    // RecyclerView
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+
+    // Glide for image loading
+    implementation("com.github.bumptech.glide:glide:4.15.1")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
+
+    // ViewModel and LiveData for MVVM architecture
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.0")
+
+    // ConstraintLayout for flexible layout
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+
+    // CardView for material card UI
+    implementation("androidx.cardview:cardview:1.0.0")
 
     // Testing dependencies
     testImplementation(libs.junit)

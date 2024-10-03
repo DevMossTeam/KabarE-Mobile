@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.devmoss.kabare.R
 import com.devmoss.kabare.databinding.FragmentWelcomeBinding
@@ -31,12 +32,12 @@ class WelcomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize ViewPager dengan Fragment sebagai argumen
+        // Initialize ViewPager with Fragment as argument
         viewPager = binding.viewPager
-        welcomePagerAdapter = WelcomePagerAdapter(this) // Menggunakan 'this' yang merujuk ke Fragment
+        welcomePagerAdapter = WelcomePagerAdapter(this) // Use 'this' referring to Fragment
         viewPager.adapter = welcomePagerAdapter
 
-        // Logika untuk perubahan tombol akan sama seperti sebelumnya
+        // Logic to change button appearance
         updateButtonAppearance(0)
 
         // Handle Next button click
@@ -44,7 +45,8 @@ class WelcomeFragment : Fragment() {
             if (viewPager.currentItem < welcomePagerAdapter.itemCount - 1) {
                 viewPager.currentItem = viewPager.currentItem + 1
             } else {
-                navigateToNextScreen() // Implement navigation logic
+                // Navigate to HomeFragment when on the last page
+                findNavController().navigate(R.id.navigation_home)
             }
         }
 
@@ -75,10 +77,6 @@ class WelcomeFragment : Fragment() {
                 setTextColor(ContextCompat.getColor(requireContext(), R.color.white)) // Make text white for visibility
             }
         }
-    }
-
-    private fun navigateToNextScreen() {
-        // Implement your navigation here
     }
 
     override fun onDestroyView() {

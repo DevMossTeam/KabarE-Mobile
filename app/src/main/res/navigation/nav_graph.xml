@@ -2,6 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/introFragment">
 
     <!-- Intro Fragment -->
@@ -48,5 +49,41 @@
     <fragment
         android:id="@+id/welcomePage3Fragment"
         android:name="com.devmoss.kabare.ui.welcome.WelcomePage3Fragment"
-        tools:layout="@layout/fragment_welcome_page_3" />
+        tools:layout="@layout/fragment_welcome_page_3">
+        <!-- Action to navigate to the HomeFragment -->
+        <action
+            android:id="@+id/action_welcomePage3Fragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+
+    <!-- Home Fragment (Main App Start) -->
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.devmoss.kabare.ui.home.HomeFragment"
+        tools:layout="@layout/fragment_home" />
+
+    <!-- Search Fragment -->
+    <fragment
+        android:id="@+id/navigation_cari"
+        android:name="com.devmoss.kabare.ui.search.SearchFragment"
+        tools:layout="@layout/fragment_search" />
+
+    <!-- Artikel Fragment -->
+    <fragment
+        android:id="@+id/navigation_artikel"
+        android:name="com.devmoss.kabare.ui.artikel.ArtikelFragment1"
+        tools:layout="@layout/fragment_artikel" />
+
+    <!-- Notifications Fragment -->
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.devmoss.kabare.ui.notifikasi.NotifikasiFragment"
+        tools:layout="@layout/fragment_notifikasi" />
+
+    <!-- Profile Fragment -->
+    <fragment
+        android:id="@+id/navigation_profil"
+        android:name="com.devmoss.kabare.ui.profile.ProfileFragment"
+        tools:layout="@layout/fragment_profile" />
+
 </navigation>
