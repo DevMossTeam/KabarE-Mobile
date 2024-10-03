@@ -31,14 +31,15 @@ class IntroFragment : Fragment() {
         viewModel.introStatus.observe(viewLifecycleOwner) { status ->
             when (status) {
                 is IntroViewModel.IntroStatus.Loading -> {
-                    // Handle loading state if needed
+                    // Optionally show a loading indicator
+                    // e.g., binding.loadingIndicator.visibility = View.VISIBLE
                 }
                 is IntroViewModel.IntroStatus.ShowIntro -> {
-                    // Show the intro UI here if needed
+                    // Optionally show the intro UI
                 }
                 is IntroViewModel.IntroStatus.NavigateToWelcome -> {
                     // Navigate to Welcome Page 1 Fragment
-                    findNavController().navigate(R.id.action_introFragment_to_welcomePage1Fragment) // Update this line
+                    findNavController().navigate(R.id.action_introFragment_to_welcomePage1Fragment) // Ensure this action is defined in the navigation graph
                 }
             }
         }
@@ -46,6 +47,6 @@ class IntroFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        _binding = null // Avoid memory leaks by nullifying the binding reference
     }
 }

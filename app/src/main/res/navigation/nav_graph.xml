@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/introFragment">
+
+    <fragment
+        android:id="@+id/introFragment"
+        android:name="com.devmoss.kabare.ui.intro.IntroFragment"
+        tools:layout="@layout/fragment_intro">
+        <action
+            android:id="@+id/action_introFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.devmoss.kabare.ui.welcome.WelcomeFragment"
+        tools:layout="@layout/fragment_welcome">
+        <action
+            android:id="@+id/action_welcomeFragment_to_welcomePage1Fragment"
+            app:destination="@id/welcomePage1Fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/welcomePage1Fragment"
+        android:name="com.devmoss.kabare.ui.welcome.WelcomePage1Fragment"
+        tools:layout="@layout/fragment_welcome_page_1">
+        <action
+            android:id="@+id/action_welcomePage1Fragment_to_welcomePage2Fragment"
+            app:destination="@id/welcomePage2Fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/welcomePage2Fragment"
+        android:name="com.devmoss.kabare.ui.welcome.WelcomePage2Fragment"
+        tools:layout="@layout/fragment_welcome_page_2">
+        <action
+            android:id="@+id/action_welcomePage2Fragment_to_welcomePage3Fragment"
+            app:destination="@id/welcomePage3Fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/welcomePage3Fragment"
+        android:name="com.devmoss.kabare.ui.welcome.WelcomePage3Fragment"
+        tools:layout="@layout/fragment_welcome_page_3" />
+</navigation>
