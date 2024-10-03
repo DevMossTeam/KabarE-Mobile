@@ -1,4 +1,4 @@
-package com.example.yourapp.ui.auth
+package com.devmoss.kabare.ui.auth
 
 import android.os.Bundle
 import android.view.LayoutInflater

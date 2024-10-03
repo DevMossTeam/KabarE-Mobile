@@ -18,36 +18,34 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Set Toolbar sebagai ActionBar
+        // Set Toolbar as ActionBar
         setSupportActionBar(binding.toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
 
-        // Konfigurasi AppBar untuk halaman tertentu
+        // AppBar configuration for specific fragments
         val appBarConfiguration = AppBarConfiguration(
             setOf(R.id.navigation_home, R.id.navigation_cari, R.id.navigation_notifications, R.id.navigation_profil)
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.navView.setupWithNavController(navController)
 
-        // Tambahkan listener untuk NavController untuk mengatur visibilitas Toolbar dan BottomNavigationView
+        // Add listener to manage visibility of Toolbar and BottomNavigationView
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                // Fragment yang menampilkan BottomNavigationView dan Toolbar
-                R.id.navigation_home, R.id.navigation_cari,R.id.navigation_artikel, R.id.navigation_notifications, R.id.navigation_profil -> {
-//                    binding.toolbar.visibility = android.view.View.VISIBLE
+                // Show Toolbar and BottomNavigationView for these fragments
+                R.id.navigation_home, R.id.navigation_cari, R.id.navigation_artikel, R.id.navigation_notifications, R.id.navigation_profil -> {
+                    binding.toolbar.visibility = android.view.View.VISIBLE
                     binding.navView.visibility = BottomNavigationView.VISIBLE
                 }
-                // Fragment yang menyembunyikan BottomNavigationView dan Toolbar
-                R.id.introFragment, R.id.welcomeFragment -> {
+
+                // Hide Toolbar and BottomNavigationView for intro and sign-in screens
+                R.id.introFragment, R.id.signInFragment, R.id.welcomeFragment -> {
                     binding.toolbar.visibility = android.view.View.GONE
-                    binding.navView.visibility = BottomNavigationView.GONE
-                }
-                else -> {
-                    // Fragment default, tampilkan Toolbar tapi sembunyikan BottomNavigationView jika tidak perlu
-                    binding.toolbar.visibility = android.view.View.VISIBLE
                     binding.navView.visibility = android.view.View.GONE
                 }
+
+                // Other fragments can have custom logic if necessary
             }
         }
     }

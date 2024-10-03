@@ -67,7 +67,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_username"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
                 android:hint="Username"
                 android:inputType="text"
                 android:backgroundTint="@android:color/white"/> <!-- Set to white background -->
@@ -95,7 +95,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:backgroundTint="@android:color/white"/> <!-- Set to white background -->

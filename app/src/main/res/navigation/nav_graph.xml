@@ -84,6 +84,16 @@
     <fragment
         android:id="@+id/navigation_profil"
         android:name="com.devmoss.kabare.ui.profile.ProfileFragment"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_navigation_profil_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
+
+    <!-- Sign In Fragment -->
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.devmoss.kabare.ui.auth.SignInFragment"
+    tools:layout="@layout/fragment_sign_in" />
 
 </navigation>
