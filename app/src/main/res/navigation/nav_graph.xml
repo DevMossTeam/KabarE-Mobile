@@ -50,7 +50,6 @@
         android:id="@+id/welcomePage3Fragment"
         android:name="com.devmoss.kabare.ui.welcome.WelcomePage3Fragment"
         tools:layout="@layout/fragment_welcome_page_3">
-        <!-- Action to navigate to the HomeFragment -->
         <action
             android:id="@+id/action_welcomePage3Fragment_to_navigation_home"
             app:destination="@id/navigation_home" />
@@ -94,6 +93,15 @@
     <fragment
         android:id="@+id/signInFragment"
         android:name="com.devmoss.kabare.ui.auth.SignInFragment"
-    tools:layout="@layout/fragment_sign_in" />
+        tools:layout="@layout/fragment_sign_in">
+        <action
+            android:id="@+id/action_signInFragment_to_lupaPasswordKonfirmasiEmailDialog"
+            app:destination="@id/lupaPasswordKonfirmasiEmailDialog" />
+    </fragment>
 
+    <!-- Lupa Password Konfirmasi Email Dialog -->
+    <dialogfragment
+        android:id="@+id/lupaPasswordKonfirmasiEmailDialog"
+        android:name="com.devmoss.kabare.ui.auth.popups.LupaPasswordKonfirmasiEmailDialog"
+        tools:layout="@layout/dialog_lupa_password_konfirmasi_email" />
 </navigation>

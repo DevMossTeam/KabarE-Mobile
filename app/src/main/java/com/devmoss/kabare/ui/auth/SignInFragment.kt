@@ -8,12 +8,14 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.devmoss.kabare.R
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
-class SignInFragment : Fragment() {
+class SignInFragment : DialogFragment() {
 
     private lateinit var usernameInputLayout: TextInputLayout
     private lateinit var usernameEditText: TextInputEditText
@@ -46,8 +48,8 @@ class SignInFragment : Fragment() {
 
         // Set up forgot password click listener
         forgotPasswordTextView.setOnClickListener {
-            // Handle forgot password action
-            Toast.makeText(requireContext(), "Forgot Password Clicked", Toast.LENGTH_SHORT).show()
+            // Navigate to the Lupa Password Dialog
+            findNavController().navigate(R.id.lupaPasswordKonfirmasiEmailDialog)
         }
 
         // Set up sign up click listener

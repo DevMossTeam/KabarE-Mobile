@@ -15,41 +15,50 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Initialize view binding
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Set Toolbar as ActionBar
+        // Set Toolbar as the ActionBar
         setSupportActionBar(binding.toolbar)
 
+        // Find the NavController
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
 
-        // AppBar configuration for specific fragments
+        // Define AppBarConfiguration for fragments with no up button
         val appBarConfiguration = AppBarConfiguration(
             setOf(R.id.navigation_home, R.id.navigation_cari, R.id.navigation_notifications, R.id.navigation_profil)
         )
+
+        // Set up ActionBar with NavController and the AppBarConfiguration
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        // Set up BottomNavigationView with NavController
         binding.navView.setupWithNavController(navController)
 
-        // Add listener to manage visibility of Toolbar and BottomNavigationView
+        // Add listener to manage visibility of Toolbar and BottomNavigationView based on destination
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                // Show Toolbar and BottomNavigationView for these fragments
                 R.id.navigation_home, R.id.navigation_cari, R.id.navigation_artikel, R.id.navigation_notifications, R.id.navigation_profil -> {
+                    // Show the Toolbar and BottomNavigationView for these fragments
                     binding.toolbar.visibility = android.view.View.VISIBLE
-                    binding.navView.visibility = BottomNavigationView.VISIBLE
+                    binding.navView.visibility = android.view.View.VISIBLE
                 }
-
-                // Hide Toolbar and BottomNavigationView for intro and sign-in screens
                 R.id.introFragment, R.id.signInFragment, R.id.welcomeFragment -> {
+                    // Hide Toolbar and BottomNavigationView for intro, sign-in, and welcome screens
                     binding.toolbar.visibility = android.view.View.GONE
                     binding.navView.visibility = android.view.View.GONE
                 }
-
-                // Other fragments can have custom logic if necessary
+                else -> {
+                    // Default behavior for other fragments
+                    binding.toolbar.visibility = android.view.View.VISIBLE
+                    binding.navView.visibility = android.view.View.VISIBLE
+                }
             }
         }
     }
 
+    // Ensure proper back navigation support
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         return navController.navigateUp() || super.onSupportNavigateUp()

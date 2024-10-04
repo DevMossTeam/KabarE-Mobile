@@ -13,6 +13,7 @@
         android:theme="@style/Theme.KabarE"
         tools:targetApi="31">
 
+        <!-- Main Activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -21,5 +22,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Ensure to add other activities or services if necessary -->
+
     </application>
+
+    <!-- Required permissions (add any other required permissions as needed) -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
 </manifest>

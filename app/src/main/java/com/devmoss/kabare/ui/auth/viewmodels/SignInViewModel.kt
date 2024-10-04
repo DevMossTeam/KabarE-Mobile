@@ -16,11 +16,11 @@ class SignInViewModel : ViewModel() {
     val password: LiveData<String> get() = _password
 
     // LiveData for authentication result
-    private val _isAuthenticated = MutableLiveData<Boolean>()
-    val isAuthenticated: LiveData<Boolean> get() = _isAuthenticated
+    private val _isAuthenticated = MutableLiveData<Boolean?>() // Nullable Boolean
+    val isAuthenticated: LiveData<Boolean?> get() = _isAuthenticated
 
-    private val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String> get() = _errorMessage
+    private val _errorMessage = MutableLiveData<String?>() // Nullable String
+    val errorMessage: LiveData<String?> get() = _errorMessage
 
     fun setUsername(username: String) {
         _username.value = username
