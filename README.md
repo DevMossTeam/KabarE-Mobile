@@ -21,6 +21,7 @@ com/
         │   │   └── WelcomeViewModel.kt
         │   ├── auth/
         │   │   ├── SignInFragment.kt
+        │   │   ├── SignUpFragment.kt
         │   │   ├── SignUpInputFragment.kt
         │   │   ├── InputPasswordFragment.kt 
         │   │   ├── popups/
@@ -31,6 +32,7 @@ com/
         │   │   │   └── LupaPasswordBerhasilDialog.kt
         │   │   └── viewmodels/
         │   │       ├── SignInViewModel.kt
+        │   │       ├── SignUpViewModel.kt
         │   │       ├── SignUpInputViewModel.kt
         │   │       └── InputPasswordViewModel.kt
         │   ├── home/
