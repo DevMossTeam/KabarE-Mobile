@@ -27,7 +27,6 @@ com/
         │   │   │   ├── LupaPasswordKonfirmasiEmailDialog.kt
         │   │   │   ├── LupaPasswordVerifEmailDialog.kt
         │   │   │   ├── SignUpVerifikasiEmailDialog.kt
-        │   │   │   ├── SignUpBerhasilDialog.kt
         │   │   │   └── LupaPasswordBerhasilDialog.kt
         │   │   └── viewmodels/
         │   │       ├── SignInViewModel.kt
@@ -151,7 +150,6 @@ com/
         │   │       ├── dialog_lupa_password_verifikasi_email.xml  // Dialog pop-up verifikasi email
         │   │       ├── dialog_sign_up_konfirmasi_email.xml        // Dialog pop-up konfirmasi email saat mendaftar
         │   │       ├── dialog_sign_up_verifikasi_email.xml        // Dialog pop-up verifikasi email saat mendaftar
-        │   │       ├── dialog_sign_up_berhasil.xml                // Dialog pop-up berhasil mendaftar
         │   │       └── dialog_lupa_password_berhasil.xml          // Dialog pop-up berhasil mengganti password
         │   ├── values/
         │   │   ├── strings.xml                     // String sumber daya untuk teks aplikasi
