@@ -22,7 +22,6 @@ com/
         │   ├── auth/
         │   │   ├── SignInFragment.kt
         │   │   ├── SignUpInputFragment.kt
-        │   │   ├── LupaPasswordGantiFragment.kt
         │   │   ├── InputPasswordFragment.kt 
         │   │   ├── popups/
         │   │   │   ├── LupaPasswordKonfirmasiEmailDialog.kt
@@ -33,8 +32,7 @@ com/
         │   │   └── viewmodels/
         │   │       ├── SignInViewModel.kt
         │   │       ├── SignUpInputViewModel.kt
-        │   │       ├── InputPasswordViewModel.kt
-        │   │       └── LupaPasswordGantiViewModel.kt
+        │   │       └── InputPasswordViewModel.kt
         │   ├── home/
         │   │   ├── HomeFragment.kt
         │   │   ├── ArtikelFragment.kt
