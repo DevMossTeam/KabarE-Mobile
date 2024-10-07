@@ -23,16 +23,17 @@ com/
         │   │   ├── SignInFragment.kt
         │   │   ├── SignUpInputFragment.kt
         │   │   ├── LupaPasswordGantiFragment.kt
+        │   │   ├── InputPasswordFragment.kt 
         │   │   ├── popups/
         │   │   │   ├── LupaPasswordKonfirmasiEmailDialog.kt
         │   │   │   ├── LupaPasswordVerifEmailDialog.kt
-        │   │   │   ├── SignUpKonfirmasiEmailDialog.kt
         │   │   │   ├── SignUpVerifikasiEmailDialog.kt
         │   │   │   ├── SignUpBerhasilDialog.kt
         │   │   │   └── LupaPasswordBerhasilDialog.kt
         │   │   └── viewmodels/
         │   │       ├── SignInViewModel.kt
         │   │       ├── SignUpInputViewModel.kt
+        │   │       ├── InputPasswordViewModel.kt
         │   │       └── LupaPasswordGantiViewModel.kt
         │   ├── home/
         │   │   ├── HomeFragment.kt
