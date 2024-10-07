@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Definisi warna dasar -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Warna tambahan yang umum digunakan -->
+    <color name="colorPrimary">#4A99FF</color> <!-- Ganti dengan warna primer Anda -->
+    <color name="colorPrimaryDark">#003DA5</color> <!-- Warna gelap untuk toolbar/ status bar -->
+    <color name="colorAccent">#FF4081</color> <!-- Warna aksen untuk elemen UI seperti tombol -->
+
+    <!-- Tambahkan warna lain sesuai kebutuhan -->
+</resources>
