@@ -102,25 +102,35 @@ com/
             ├── SessionManager.kt
             └── ExtensionFunctions.kt  // Helper untuk extension functions
 ```
-
 ### Penjelasan Struktur Proyek Utama
 
-- **ui/**: Folder ini menyimpan semua komponen UI aplikasi, yang diorganisir berdasarkan fungsinya:
-  - **intro/**: Halaman pengantar aplikasi.
-  - **welcome/**: Tiga halaman sambutan pengguna, masing-masing diwakili oleh `WelcomePage1Fragment`, `WelcomePage2Fragment`, dan `WelcomePage3Fragment`, serta `WelcomeViewModel`.
-  - **auth/**: Halaman untuk otentikasi pengguna, termasuk pop-up dialog dan ViewModel terkait.
-  - **home/**: Halaman beranda dan fitur terkait, termasuk manajemen artikel dan penulisan artikel, dengan ViewModel terpisah untuk masing-masing.
-  - **notifications/**: Halaman untuk menampilkan notifikasi pengguna, dengan ViewModel.
-  - **profile/**: Halaman untuk pengaturan profil pengguna, termasuk pop-up dialog dan ViewModel untuk masing-masing bagian.
+#### 1. **ui/**
+Folder ini menyimpan semua komponen UI aplikasi, diorganisir berdasarkan fungsinya:
 
-- **data/**: Berisi model data dan repository untuk mengelola akses data.
-  - **model/**: Kelas model untuk pengguna dan artikel.
-  - **repository/**: Kelas repository untuk mengakses data dari database.
+- **intro/**: Halaman pengantar aplikasi.
+- **welcome/**: Halaman sambutan pengguna dengan beberapa fragment.
+- **auth/**: Halaman untuk otentikasi pengguna, termasuk pop-up dialog dan ViewModel terkait.
+- **home/**: Halaman beranda dan fitur terkait, termasuk manajemen artikel dan penulisan artikel.
+- **notifications/**: Halaman untuk menampilkan notifikasi pengguna.
+- **profile/**: Halaman untuk pengaturan profil pengguna, termasuk pengaturan akun dan privasi.
 
-- **network/**: Kelas untuk mengelola komunikasi dengan API.
+#### 2. **data/**
+Berisi model data dan repository untuk mengelola akses data, termasuk:
 
-- **utils/**: Kelas utilitas untuk fungsi umum dalam aplikasi.
+- **model/**: Kelas model untuk pengguna dan artikel.
+- **repository/**: Kelas repository untuk mengakses data dari database lokal dan remote.
 
+#### 3. **domain/**
+Folder ini berisi logika bisnis aplikasi, termasuk use case untuk menangani interaksi bisnis.
+
+#### 4. **network/**
+Kelas untuk mengelola komunikasi dengan API, termasuk klien dan layanan API.
+
+#### 5. **di/** (Dependency Injection)
+Folder ini berisi konfigurasi untuk Dependency Injection menggunakan Hilt atau Dagger.
+
+#### 6. **utils/**
+Kelas utilitas untuk fungsi umum dalam aplikasi, termasuk konstanta, pengelolaan sesi, dan fungsi ekstensi.
 ## Struktur Direktori Proyek Resource
 
 ```
@@ -182,17 +192,26 @@ com/
         │   └── navigation/
         │       └── nav_graph.xml                               // Navigasi graph yang mendefinisikan navigasi antar fragment dan activity
 ```
+### Penjelasan Struktur Folder Resource
 
-### Penjelasan Struktur Resource
+Folder **res/** menyimpan semua sumber daya yang digunakan dalam aplikasi, termasuk drawable, layout, values, mipmap, dan navigasi. Berikut adalah rincian setiap subfolder:
 
-- **drawable/**: Folder untuk menyimpan gambar dan ikon dalam format drawable. Ini mencakup ikon aplikasi, ikon latar belakang, dan gambar lain yang digunakan dalam aplikasi.
-  
-- **layout/**: Folder untuk menyimpan file XML yang mendefinisikan tampilan UI untuk setiap Activity dan Fragment dalam aplikasi. Setiap halaman memiliki file layout yang sesuai.
+#### 1. **drawable/**
+Folder ini berisi gambar dan ikon aplikasi dalam format XML atau bitmap. Sumber daya drawable digunakan untuk elemen grafis dalam antarmuka pengguna.
 
-- **values/**: Folder yang menyimpan file sumber daya terstruktur, seperti string, warna, dimensi, dan gaya.
-  - **strings.xml**: Berisi string sumber daya untuk teks yang digunakan dalam aplikasi.
-  - **colors.xml**: Mendefinisikan warna yang dapat digunakan di seluruh aplikasi.
-  - **dimens.xml**: Mengatur dimensi yang digunakan untuk margin, padding, dan ukuran lainnya.
-  - **styles.xml**: Menentukan gaya untuk elemen UI.
+#### 2. **layout/**
+Folder ini berisi file XML yang mendefinisikan layout untuk aktivitas dan fragment. Setiap file layout mengatur bagaimana komponen UI ditampilkan.
 
-- **mipmap/**: Folder untuk menyimpan ikon aplikasi dalam berbagai ukuran untuk berbagai resolusi layar.
+#### 3. **values/**
+Folder ini menyimpan sumber daya nilai seperti string, warna, dimensi, dan gaya. Ini memungkinkan pengelolaan konsisten dari nilai-nilai ini di seluruh aplikasi.
+
+- **strings.xml**: Menyimpan string yang digunakan dalam aplikasi.
+- **colors.xml**: Menyimpan definisi warna yang digunakan dalam desain aplikasi.
+- **dimens.xml**: Menyimpan dimensi seperti padding dan margin.
+- **styles.xml**: Menyimpan gaya untuk elemen UI.
+
+#### 4. **mipmap/**
+Folder ini berisi ikon aplikasi dalam berbagai ukuran untuk digunakan di launcher. Ikon mipmap dioptimalkan untuk berbagai resolusi layar.
+
+#### 5. **navigation/**
+Folder ini berisi file navigasi yang mendefinisikan bagaimana pengguna dapat berpindah antara fragment dan aktivitas dalam aplikasi.
