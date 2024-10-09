@@ -142,8 +142,7 @@ com/
         │   │   ├── ic_launcher.xml                        // Ikon aplikasi
         │   │   ├── ic_launcher_foreground.xml              // Ikon latar depan
         │   │   ├── ic_launcher_background.xml               // Ikon latar belakang
-        │   │   ├── other_drawable_files.xml                 // Gambar drawable lainnya
-        │   │   └── other_drawable_files_2.xml               // Gambar drawable tambahan jika diperlukan
+        │   │   └── ICON LAIN LAIN
         │   ├── layout/
         │   │   ├── activity_intro.xml                       // Layout untuk IntroActivity
         │   │   ├── fragment_intro.xml                       // Layout untuk IntroFragment
