@@ -27,7 +27,9 @@ com/
         │   │   │   ├── LupaPasswordKonfirmasiEmailDialog.kt
         │   │   │   ├── LupaPasswordVerifEmailDialog.kt
         │   │   │   ├── SignUpVerifikasiEmailDialog.kt
-        │   │   │   └── LupaPasswordBerhasilDialog.kt
+        │   │   │   ├── LupaPasswordBerhasilDialog.kt
+        │   │   │   ├── ChangePasswordDialog.kt  // Sudah ada sebelumnya
+        │   │   │   └── SwitchAccountDialog.kt   // Pop up switch account
         │   │   └── viewmodels/
         │   │       ├── SignInViewModel.kt
         │   │       ├── SignUpViewModel.kt
@@ -53,15 +55,20 @@ com/
         │   │       └── NotifikasiViewModel.kt
         │   ├── profile/
         │   │   ├── ProfileFragment.kt
-        │   │   ├── PengaturanAkunFragment.kt
-        │   │   ├── AkunAndaFragment.kt
-        │   │   ├── PrivasiFragment.kt
-        │   │   ├── TentangFragment.kt
-        │   │   ├── KeamananFragment.kt
-        │   │   ├── popups/
-        │   │   │   ├── ChangePasswordDialog.kt
-        │   │   │   ├── SocialMediaLinksDialog.kt
-        │   │   │   └── ChangePasswordBerhasilDialog.kt
+        │   │   ├── settings/                        // Folder settings dipindahkan ke sini
+        │   │   │   ├── UmumFragment.kt              // Umum
+        │   │   │   ├── NotifikasiFragment.kt        // Notifikasi
+        │   │   │   ├── KeamananFragment.kt          // Keamanan
+        │   │   │   ├── BantuanFragment.kt           // Bantuan
+        │   │   │   ├── PusatBantuanFragment.kt      // Pusat Bantuan
+        │   │   │   ├── HubungiFragment.kt           // Hubungi
+        │   │   │   ├── PengaturanAkunFragment.kt    // Pengaturan Akun
+        │   │   │   ├── AkunAndaFragment.kt          // Akun Anda
+        │   │   │   ├── PrivasiFragment.kt           // Privasi
+        │   │   │   ├── TentangFragment.kt           // Tentang
+        │   │   │   ├── popups/
+        │   │   │   │   ├── KonfirmasiKeluarDialog.kt  // Pop up konfirmasi keluar
+        │   │   │   │   └── BerhasilKirimLaporanDialog.kt // Pop up berhasil kirim laporan
         │   │   └── viewmodels/
         │   │       ├── ProfileViewModel.kt
         │   │       ├── PengaturanAkunViewModel.kt
@@ -77,7 +84,7 @@ com/
         │   │   ├── AuthRepository.kt
         │   │   ├── ArticleRepository.kt
         │   │   └── ProfileRepository.kt
-        │   └── local/
+        │   ├── local/
         │   │   └── LocalDatabase.kt  // Jika menggunakan Room untuk penyimpanan data lokal
         │   └── remote/
         │       └── RemoteDataSource.kt  // Jika menggunakan API untuk remote calls
