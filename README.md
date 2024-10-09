@@ -129,48 +129,58 @@ com/
     └── kabare/
         ├── res/
         │   ├── drawable/
-        │   │   ├── ic_launcher.xml           // Ikon aplikasi
-        │   │   ├── ic_launcher_foreground.xml // Ikon latar depan
-        │   │   ├── ic_launcher_background.xml  // Ikon latar belakang
-        │   │   └── other_drawable_files.xml    // Gambar drawable lainnya
+        │   │   ├── ic_launcher.xml                        // Ikon aplikasi
+        │   │   ├── ic_launcher_foreground.xml              // Ikon latar depan
+        │   │   ├── ic_launcher_background.xml               // Ikon latar belakang
+        │   │   ├── other_drawable_files.xml                 // Gambar drawable lainnya
+        │   │   └── other_drawable_files_2.xml               // Gambar drawable tambahan jika diperlukan
         │   ├── layout/
-        │   │   ├── activity_intro.xml          // Layout untuk IntroActivity
-        │   │   ├── fragment_intro.xml          // Layout untuk IntroFragment
-        │   │   ├── fragment_welcome_page_1.xml // Layout untuk WelcomePage1Fragment
-        │   │   ├── fragment_welcome_page_2.xml // Layout untuk WelcomePage2Fragment
-        │   │   ├── fragment_welcome_page_3.xml // Layout untuk WelcomePage3Fragment
-        │   │   ├── fragment_sign_in.xml         // Layout untuk SignInFragment
-        │   │   ├── fragment_sign_up_input.xml   // Layout untuk SignUpInputFragment
-        │   │   ├── fragment_lupa_password.xml    // Layout untuk LupaPasswordGantiFragment
-        │   │   ├── fragment_home.xml             // Layout untuk HomeFragment
-        │   │   ├── fragment_artikel.xml          // Layout untuk ArtikelFragment
-        │   │   ├── fragment_search_page.xml      // Layout untuk SearchPageFragment
-        │   │   ├── fragment_manajemen_artikel.xml // Layout untuk ManajemenArtikelFragment
-        │   │   ├── fragment_notifikasi.xml       // Layout untuk NotifikasiFragment
-        │   │   ├── fragment_profile.xml          // Layout untuk ProfileFragment
-        │   │   ├── fragment_pengaturan_akun.xml  // Layout untuk PengaturanAkunFragment
-        │   │   ├── fragment_akun_anda.xml        // Layout untuk AkunAndaFragment
-        │   │   ├── fragment_privasi.xml          // Layout untuk PrivasiFragment
-        │   │   ├── fragment_tentang.xml          // Layout untuk TentangFragment
-        │   │   ├── fragment_keamanan.xml         // Layout untuk KeamananFragment
+        │   │   ├── activity_intro.xml                       // Layout untuk IntroActivity
+        │   │   ├── fragment_intro.xml                       // Layout untuk IntroFragment
+        │   │   ├── fragment_welcome_page_1.xml              // Layout untuk WelcomePage1Fragment
+        │   │   ├── fragment_welcome_page_2.xml              // Layout untuk WelcomePage2Fragment
+        │   │   ├── fragment_welcome_page_3.xml              // Layout untuk WelcomePage3Fragment
+        │   │   ├── fragment_sign_in.xml                      // Layout untuk SignInFragment
+        │   │   ├── fragment_sign_up_input.xml                // Layout untuk SignUpInputFragment
+        │   │   ├── fragment_lupa_password.xml                // Layout untuk LupaPasswordGantiFragment
+        │   │   ├── fragment_home.xml                          // Layout untuk HomeFragment
+        │   │   ├── fragment_artikel.xml                       // Layout untuk ArtikelFragment
+        │   │   ├── fragment_search_page.xml                   // Layout untuk SearchPageFragment
+        │   │   ├── fragment_manajemen_artikel.xml             // Layout untuk ManajemenArtikelFragment
+        │   │   ├── fragment_notifikasi.xml                    // Layout untuk NotifikasiFragment
+        │   │   ├── fragment_profile.xml                       // Layout untuk ProfileFragment
+        │   │   ├── fragment_pengaturan_akun.xml               // Layout untuk PengaturanAkunFragment
+        │   │   ├── fragment_akun_anda.xml                     // Layout untuk AkunAndaFragment
+        │   │   ├── fragment_privasi.xml                       // Layout untuk PrivasiFragment
+        │   │   ├── fragment_tentang.xml                       // Layout untuk TentangFragment
+        │   │   ├── fragment_keamanan.xml                      // Layout untuk KeamananFragment
+        │   │   ├── fragment_umum.xml                          // Layout untuk UmumFragment
+        │   │   ├── fragment_notifikasi.xml                    // Layout untuk NotifikasiFragment
+        │   │   ├── fragment_bantuan.xml                       // Layout untuk BantuanFragment
+        │   │   ├── fragment_pusat_bantuan.xml                 // Layout untuk PusatBantuanFragment
+        │   │   ├── fragment_hubungi.xml                       // Layout untuk HubungiFragment
         │   │   └── popups/
         │   │       ├── dialog_lupa_password_konfirmasi_email.xml // Dialog pop-up konfirmasi email
         │   │       ├── dialog_lupa_password_verifikasi_email.xml  // Dialog pop-up verifikasi email
         │   │       ├── dialog_sign_up_konfirmasi_email.xml        // Dialog pop-up konfirmasi email saat mendaftar
         │   │       ├── dialog_sign_up_verifikasi_email.xml        // Dialog pop-up verifikasi email saat mendaftar
-        │   │       ├── dialog_social_media_links.xml             
+        │   │       ├── dialog_social_media_links.xml               // Dialog untuk social media links
+        │   │       ├── dialog_konfirmasi_keluar.xml                // Dialog pop-up konfirmasi keluar
+        │   │       ├── dialog_switch_account.xml                   // Dialog pop-up switch account
+        │   │       ├── dialog_berhasil_kirim_laporan.xml          // Dialog pop-up berhasil kirim laporan
         │   │       └── dialog_lupa_password_berhasil.xml          // Dialog pop-up berhasil mengganti password
         │   ├── values/
-        │   │   ├── strings.xml                     // String sumber daya untuk teks aplikasi
-        │   │   ├── colors.xml                      // Warna yang digunakan dalam aplikasi
-        │   │   ├── dimens.xml                      // Dimensi untuk margin dan padding
-        │   │   └── styles.xml                      // Gaya yang digunakan untuk elemen UI
+        │   │   ├── strings.xml                                  // String sumber daya untuk teks aplikasi
+        │   │   ├── colors.xml                                   // Warna yang digunakan dalam aplikasi
+        │   │   ├── dimens.xml                                   // Dimensi untuk margin dan padding
+        │   │   ├── styles.xml                                   // Gaya yang digunakan untuk elemen UI
+        │   │   └── themes.xml                                   // Tema yang digunakan dalam aplikasi
         │   ├── mipmap/
-        │   │   ├── ic_launcher.png                 // Ikon aplikasi dalam format PNG
-        │   │   ├── ic_launcher_round.png           // Ikon bulat aplikasi
-        │   │   └── other_mipmap_files.png          // Ikon mipmap lainnya
+        │   │   ├── ic_launcher.png                              // Ikon aplikasi dalam format PNG
+        │   │   ├── ic_launcher_round.png                        // Ikon bulat aplikasi
+        │   │   └── other_mipmap_files.png                       // Ikon mipmap lainnya
         │   └── navigation/
-        │       └── nav_graph.xml                  // Navigasi graph yang mendefinisikan navigasi antar fragment dan activity
+        │       └── nav_graph.xml                               // Navigasi graph yang mendefinisikan navigasi antar fragment dan activity
 ```
 
 ### Penjelasan Struktur Resource
