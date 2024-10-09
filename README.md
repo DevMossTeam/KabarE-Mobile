@@ -67,6 +67,8 @@ com/
         │   │   │   ├── PrivasiFragment.kt           // Privasi
         │   │   │   ├── TentangFragment.kt           // Tentang
         │   │   │   ├── popups/
+        │   │   │   │   ├── SocialMediaLinksDialog.kt  // Pop up konfirmasi keluar
+        │   │   │   │   ├── SwitchAccountDialog.kt  // Pop up konfirmasi keluar
         │   │   │   │   ├── KonfirmasiKeluarDialog.kt  // Pop up konfirmasi keluar
         │   │   │   │   └── BerhasilKirimLaporanDialog.kt // Pop up berhasil kirim laporan
         │   │   └── viewmodels/
