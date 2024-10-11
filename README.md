@@ -28,8 +28,7 @@ com/
         │   │   │   ├── LupaPasswordVerifEmailDialog.kt
         │   │   │   ├── SignUpVerifikasiEmailDialog.kt
         │   │   │   ├── LupaPasswordBerhasilDialog.kt
-        │   │   │   ├── ChangePasswordDialog.kt  // Sudah ada sebelumnya
-        │   │   │   └── SwitchAccountDialog.kt   // Pop up switch account
+        │   │   │   └── ChangePasswordDialog.kt   // Pop up switch account
         │   │   └── viewmodels/
         │   │       ├── SignInViewModel.kt
         │   │       ├── SignUpViewModel.kt
