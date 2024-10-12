@@ -56,7 +56,7 @@ com/
         │   │   ├── ProfileFragment.kt
         │   │   ├── settings/                        // Folder settings dipindahkan ke sini
         │   │   │   ├── UmumFragment.kt              // Umum
-        │   │   │   ├── NotifikasiFragment.kt        // Notifikasi
+        │   │   │   ├── SettingNotifikasiFragment.kt        // Notifikasi
         │   │   │   ├── KeamananFragment.kt          // Keamanan
         │   │   │   ├── BantuanFragment.kt           // Bantuan
         │   │   │   ├── PusatBantuanFragment.kt      // Pusat Bantuan
