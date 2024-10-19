@@ -3,6 +3,7 @@
     <!-- Definisi warna dasar -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grey">#BFBFBF</color>
 
     <!-- Warna tambahan yang umum digunakan -->
     <color name="colorPrimary">#4A99FF</color> <!-- Ganti dengan warna primer Anda -->
@@ -10,4 +11,9 @@
     <color name="colorAccent">#FF4081</color> <!-- Warna aksen untuk elemen UI seperti tombol -->
 
     <!-- Tambahkan warna lain sesuai kebutuhan -->
+    <color name="colorContrast">#FFEB3B</color> <!-- Kuning cerah -->
+    <color name="colorError">#FF0000</color> <!-- Merah untuk kesalahan -->
+    <color name="colorSuccess">#4CAF50</color> <!-- Hijau untuk sukses -->
+    <color name="colorWarning">#FFC107</color> <!-- Kuning untuk peringatan -->
+    <color name="transparent">#00000000</color> <!-- Transparan -->
 </resources>

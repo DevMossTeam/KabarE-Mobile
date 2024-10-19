@@ -39,15 +39,30 @@ class MainActivity : AppCompatActivity() {
         // Add listener to manage visibility of Toolbar and BottomNavigationView based on destination
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.navigation_home, R.id.navigation_cari, R.id.navigation_artikel, R.id.navigation_notifications, R.id.navigation_profil -> {
+                R.id.navigation_home, R.id.navigation_cari, R.id.navigation_artikel, R.id.navigation_notifications -> {
                     // Show the Toolbar and BottomNavigationView for these fragments
                     binding.toolbar.visibility = android.view.View.VISIBLE
                     binding.navView.visibility = android.view.View.VISIBLE
                     supportActionBar?.setDisplayHomeAsUpEnabled(false)  // Disable back button
                 }
+                R.id.navigation_profil -> {
+                    // Hide Toolbar and BottomNavigationView for profil screen
+                    binding.toolbar.visibility = android.view.View.GONE
+                    binding.navView.visibility = android.view.View.VISIBLE
+                }
                 R.id.introFragment, R.id.signInFragment, R.id.signUpFragment, R.id.welcomeFragment -> {
                     // Hide Toolbar and BottomNavigationView for intro, sign-in, sign-up, and welcome screens
                     binding.toolbar.visibility = android.view.View.GONE
+                    binding.navView.visibility = android.view.View.GONE
+                }
+                R.id.settingsFragment -> {
+                    // Hide Toolbar and BottomNavigationView for settings screen
+                    binding.toolbar.visibility = android.view.View.VISIBLE
+                    binding.navView.visibility = android.view.View.GONE
+                }
+                R.id.umumFragment -> {
+                    // Hide BottomNavigationView for Umum Fragment
+                    binding.toolbar.visibility = android.view.View.VISIBLE // Keep toolbar visible or manage it as needed
                     binding.navView.visibility = android.view.View.GONE
                 }
                 else -> {

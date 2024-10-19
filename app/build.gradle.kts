@@ -44,6 +44,7 @@ android {
 
 dependencies {
     // AndroidX libraries
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.fragment:fragment-ktx:1.6.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")

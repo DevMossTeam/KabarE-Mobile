@@ -22,12 +22,13 @@
             </intent-filter>
         </activity>
 
-        <!-- Ensure to add other activities or services if necessary -->
-        <!-- <activity android:name=".AnotherActivity" /> -->
-
     </application>
 
     <!-- Required permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
 
 </manifest>

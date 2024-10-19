@@ -43,12 +43,12 @@
             <!-- Message TextView -->
             <TextView
                 android:id="@+id/tv_verif_message"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="16dp"
-                android:textColor="@android:color/darker_gray"
-                android:paddingHorizontal="16dp" />
+                android:text="Silahkan buka email anda dan konfirmasi. Kami telah mengirimkan link ke email johndoe@gmail.com"
+                android:textColor="@android:color/darker_gray" />
 
             <!-- Timer TextView -->
             <TextView

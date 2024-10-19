@@ -83,8 +83,8 @@ class SignUpFragment : Fragment() {
         // Check if all inputs are valid before proceeding
         if (fullNameInputLayout.error == null && usernameInputLayout.error == null && emailInputLayout.error == null) {
             // Simulate successful sign-up (replace this with actual sign-up logic)
-            Toast.makeText(requireContext(), "Pendaftaran berhasil", Toast.LENGTH_SHORT).show()
-
+//            Toast.makeText(requireContext(), "Pendaftaran berhasil", Toast.LENGTH_SHORT).show()
+//
             // Show the email verification dialog with the provided email
             showEmailVerificationDialog(email)
         }

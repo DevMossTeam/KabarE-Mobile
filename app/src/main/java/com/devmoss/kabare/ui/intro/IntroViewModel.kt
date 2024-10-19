@@ -20,9 +20,9 @@ class IntroViewModel : ViewModel() {
         _introStatus.value = IntroStatus.Loading
 
         viewModelScope.launch {
-            delay(2000) // Simulate a delay of 2 seconds
+            delay(500) // Simulate a delay of 2 seconds
             _introStatus.value = IntroStatus.ShowIntro // Update status to ShowIntro after delay
-            delay(2000) // Optional: keep showing intro for 2 seconds
+            delay(500) // Optional: keep showing intro for 2 seconds
             proceedToNext() // Proceed to next state
         }
     }
