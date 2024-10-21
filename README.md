@@ -165,7 +165,7 @@ com/
         │   │   ├── fragment_tentang.xml                       // Layout untuk TentangFragment
         │   │   ├── fragment_keamanan.xml                      // Layout untuk KeamananFragment
         │   │   ├── fragment_umum.xml                          // Layout untuk UmumFragment
-        │   │   ├── fragment_notifikasi.xml                    // Layout untuk NotifikasiFragment
+        │   │   ├── fragment_settingnotifikasi.xml                    // Layout untuk NotifikasiFragment
         │   │   ├── fragment_bantuan.xml                       // Layout untuk BantuanFragment
         │   │   ├── fragment_pusat_bantuan.xml                 // Layout untuk PusatBantuanFragment
         │   │   ├── fragment_hubungi.xml                       // Layout untuk HubungiFragment
