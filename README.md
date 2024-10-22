@@ -28,6 +28,7 @@ com/
         │   │   │   ├── LupaPasswordVerifEmailDialog.kt
         │   │   │   ├── SignUpVerifikasiEmailDialog.kt
         │   │   │   ├── LupaPasswordBerhasilDialog.kt
+        │   │   │   ├── KonfirmasiUbahEmail.kt
         │   │   │   └── ChangePasswordDialog.kt   // Pop up switch account
         │   │   └── viewmodels/
         │   │       ├── SignInViewModel.kt
@@ -179,6 +180,7 @@ com/
         │   │       ├── dialog_switch_account.xml                   // Dialog pop-up switch account
         │   │       ├── dialog_berhasil_kirim_laporan.xml          // Dialog pop-up berhasil kirim laporan
         │   │       ├── dialog_change_password.xml                 // Dialog pop-up berhasil kirim laporan
+        │   │       ├── dialog_konfirmasi_ubah_email.xml  // Dialog pop-up verifikasi email
         │   │       └── dialog_lupa_password_berhasil.xml          // Dialog pop-up berhasil mengganti password
         │   ├── values/
         │   │   ├── strings.xml                                  // String sumber daya untuk teks aplikasi
