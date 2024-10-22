@@ -178,6 +178,7 @@ com/
         │   │       ├── dialog_konfirmasi_keluar.xml                // Dialog pop-up konfirmasi keluar
         │   │       ├── dialog_switch_account.xml                   // Dialog pop-up switch account
         │   │       ├── dialog_berhasil_kirim_laporan.xml          // Dialog pop-up berhasil kirim laporan
+        │   │       ├── dialog_change_password.xml                 // Dialog pop-up berhasil kirim laporan
         │   │       └── dialog_lupa_password_berhasil.xml          // Dialog pop-up berhasil mengganti password
         │   ├── values/
         │   │   ├── strings.xml                                  // String sumber daya untuk teks aplikasi
