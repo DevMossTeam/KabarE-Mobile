@@ -67,7 +67,7 @@
         android:id="@+id/tv_category_notifikasi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pusat Informasi"
+        android:text="Kategori Notifikasi"
         android:textColor="#555555"
         android:textSize="16sp"
         android:layout_marginTop="16dp"
@@ -93,25 +93,6 @@
             android:layout_height="wrap_content"
             android:padding="12dp"
             android:orientation="vertical">
-
-            <!-- Kategori Notifikasi -->
-            <TextView
-                android:id="@+id/tv_kategori_notifikasi"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Kategori Notifikasi"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_kategori_notifikasi_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pilihan kategori untuk menerima notifikasi."
-                android:textColor="@android:color/darker_gray"
-                android:textSize="14sp"
-                android:layout_marginTop="4dp" />
 
             <!-- Opsi Berita Terbaru -->
             <LinearLayout
@@ -177,6 +158,108 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Berita yang sedang ramai diperbincangkan."
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp" />
+
+            <!-- Opsi Interaksi Pengguna -->
+            <LinearLayout
+                android:id="@+id/ll_interaksi_pengguna"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_interaksi_pengguna"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Interaksi Pengguna"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:layout_weight="1" />
+
+                <Switch
+                    android:id="@+id/switch_interaksi_pengguna"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:trackTint="@android:color/holo_blue_light" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_interaksi_pengguna_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dapatkan pesan interaksi pengguna untuk berkomentar dan berbagi pendapat."
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp" />
+
+            <!-- Opsi Berita Terkait -->
+            <LinearLayout
+                android:id="@+id/ll_berita_terkait"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_berita_terkait"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Berita Terkait"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:layout_weight="1" />
+
+                <Switch
+                    android:id="@+id/switch_berita_terkait"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:trackTint="@android:color/darker_gray" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_berita_terkait_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lihat informasi tambahan melalui berita terkait dengan topik dan label yang Anda baca."
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp" />
+
+            <!-- Opsi Pengingat -->
+            <LinearLayout
+                android:id="@+id/ll_pengingat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_pengingat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Pengingat"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:layout_weight="1" />
+
+                <Switch
+                    android:id="@+id/switch_pengingat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:trackTint="@android:color/holo_blue_light" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_pengingat_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dapatkan pengingat penting tentang topik yang Anda ikuti."
                 android:textColor="@android:color/darker_gray"
                 android:textSize="14sp"
                 android:layout_marginTop="4dp" />
