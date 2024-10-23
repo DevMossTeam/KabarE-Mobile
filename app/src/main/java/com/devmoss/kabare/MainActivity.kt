@@ -66,6 +66,11 @@ class MainActivity : AppCompatActivity() {
                     binding.toolbar.visibility = android.view.View.VISIBLE // Keep toolbar visible or manage it as needed
                     binding.navView.visibility = android.view.View.GONE
                 }
+                R.id.licenseFragment -> {
+                    // Hide BottomNavigationView for the LicenseFragment
+                    binding.toolbar.visibility = android.view.View.VISIBLE
+                    binding.navView.visibility = android.view.View.GONE
+                }
                 else -> {
                     // Default behavior for other fragments, show the toolbar and bottom navigation
                     binding.toolbar.visibility = android.view.View.VISIBLE

@@ -156,16 +156,29 @@
         android:label="Pengaturan Notifikasi"
         tools:layout="@layout/fragment_keamanan" />
 
+    <!-- Pusat Bantuan Fragment -->
     <fragment
         android:id="@+id/pusatBantuanFragment"
         android:name="com.devmoss.kabare.ui.profile.settings.PusatBantuanFragment"
-    android:label="Pusat Bantuan"
-    tools:layout="@layout/fragment_pusat_bantuan" />
+        android:label="Pusat Bantuan"
+        tools:layout="@layout/fragment_pusat_bantuan" />
 
+    <!-- Tentang Fragment -->
     <fragment
         android:id="@+id/tentangFragment"
         android:name="com.devmoss.kabare.ui.profile.settings.TentangFragment"
-        android:label="Pusat Bantuan"
-        tools:layout="@layout/fragment_tentang" />
+        android:label="Tentang"
+        tools:layout="@layout/fragment_tentang">
+        <action
+            android:id="@+id/action_tentangFragment_to_licenseFragment"
+            app:destination="@id/licenseFragment" />
+    </fragment>
+
+    <!-- License Fragment -->
+    <fragment
+        android:id="@+id/licenseFragment"
+        android:name="com.devmoss.kabare.ui.license.LicenseFragment"
+        android:label="License"
+        tools:layout="@layout/fragment_license" />
 
 </navigation>
