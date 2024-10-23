@@ -8,6 +8,23 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="action_pusatBantuanFragment_to_hubungiFragment">
+                    <value>
+                      <LayoutPositions />
+                    </value>
+                  </entry>
+                  <entry key="hubungiFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="introFragment">
                     <value>
                       <LayoutPositions>
@@ -234,7 +251,7 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="tentanFragment">
+                  <entry key="tentangFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -251,18 +268,6 @@
                               </value>
                             </entry>
                           </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="tentangFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
-                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

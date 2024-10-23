@@ -163,6 +163,19 @@
         android:label="Pusat Bantuan"
         tools:layout="@layout/fragment_pusat_bantuan" />
 
+    <!-- Hubungi Fragment -->
+    <fragment
+        android:id="@+id/hubungiFragment"
+        android:name="com.devmoss.kabare.ui.profile.settings.HubungiFragment"
+        android:label="Hubungi"
+        tools:layout="@layout/fragment_hubungi" />
+
+    <!-- Action to navigate from Pusat Bantuan to Hubungi Fragment -->
+    <action
+        android:id="@+id/action_pusatBantuanFragment_to_hubungiFragment"
+        app:destination="@id/hubungiFragment" />
+
+
     <!-- Tentang Fragment -->
     <fragment
         android:id="@+id/tentangFragment"
