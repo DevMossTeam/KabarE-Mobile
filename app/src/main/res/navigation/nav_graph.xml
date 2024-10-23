@@ -127,6 +127,12 @@
         <action
             android:id="@+id/action_pengaturanAkunFragment_to_keamananFragment"
             app:destination="@id/keamananFragment" />
+        <action
+            android:id="@+id/action_pengaturanAkunFragment_to_pusatBantuanFragment"
+            app:destination="@id/pusatBantuanFragment" />
+        <action
+            android:id="@+id/action_pengaturanAkunFragment_to_tentangFragment"
+            app:destination="@id/tentangFragment" />
     </fragment>
 
     <!-- Umum Fragment -->
@@ -149,5 +155,17 @@
         android:name="com.devmoss.kabare.ui.profile.settings.KeamananFragment"
         android:label="Pengaturan Notifikasi"
         tools:layout="@layout/fragment_keamanan" />
+
+    <fragment
+        android:id="@+id/pusatBantuanFragment"
+        android:name="com.devmoss.kabare.ui.profile.settings.PusatBantuanFragment"
+    android:label="Pusat Bantuan"
+    tools:layout="@layout/fragment_pusat_bantuan" />
+
+    <fragment
+        android:id="@+id/tentangFragment"
+        android:name="com.devmoss.kabare.ui.profile.settings.TentangFragment"
+        android:label="Pusat Bantuan"
+        tools:layout="@layout/fragment_tentang" />
 
 </navigation>

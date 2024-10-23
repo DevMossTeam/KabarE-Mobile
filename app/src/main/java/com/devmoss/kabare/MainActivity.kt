@@ -60,8 +60,9 @@ class MainActivity : AppCompatActivity() {
                     binding.toolbar.visibility = android.view.View.VISIBLE
                     binding.navView.visibility = android.view.View.GONE
                 }
-                R.id.umumFragment -> {
-                    // Hide BottomNavigationView for Umum Fragment
+                R.id.umumFragment, R.id.settingNotifikasiFragment, R.id.keamananFragment,
+                R.id.pusatBantuanFragment, R.id.tentangFragment -> {
+                    // Hide BottomNavigationView for the specified fragments
                     binding.toolbar.visibility = android.view.View.VISIBLE // Keep toolbar visible or manage it as needed
                     binding.navView.visibility = android.view.View.GONE
                 }

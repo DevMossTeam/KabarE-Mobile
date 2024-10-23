@@ -50,6 +50,14 @@ class PengaturanAkunFragment : Fragment() {
             findNavController().navigate(R.id.action_pengaturanAkunFragment_to_keamananFragment)
         }
 
+        binding.tvBantuan.setOnClickListener { // Ensure this ID matches your layout
+            findNavController().navigate(R.id.action_pengaturanAkunFragment_to_pusatBantuanFragment)
+        }
+
+        binding.tvTentang.setOnClickListener { // Ensure this ID matches your layout
+            findNavController().navigate(R.id.action_pengaturanAkunFragment_to_tentangFragment)
+        }
+
         // Show the Logout Confirmation Dialog when the logout button is clicked
         binding.btnLogout.setOnClickListener { // Ensure this ID matches your layout
             if (isAdded) {

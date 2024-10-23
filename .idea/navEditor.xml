@@ -29,6 +29,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="keamananFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="navigation_artikel">
                     <value>
                       <LayoutPositions>
@@ -103,7 +115,7 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="settingNotifikasFragment">
+                  <entry key="pusatBantuanFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -138,7 +150,22 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_pengaturanAkunFragment_to_keamananFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_pengaturanAkunFragment_to_pusatBantuanFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_pengaturanAkunFragment_to_settingNotifikasiFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_pengaturanAkunFragment_to_tentangFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -191,6 +218,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="tentangFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

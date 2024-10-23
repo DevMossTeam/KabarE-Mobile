@@ -16,7 +16,7 @@
         android:textColor="#555555"
         android:textSize="16sp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="8dp" />
 
     <!-- CardView for Account Security Settings -->
     <androidx.cardview.widget.CardView
@@ -229,15 +229,6 @@
             android:layout_height="wrap_content"
             android:padding="12dp"
             android:orientation="vertical">
-
-            <!-- Help Section Title -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Bantuan"
-                android:textSize="18sp"
-                android:textColor="@android:color/black"
-                android:layout_marginBottom="12dp" />
 
             <!-- Forgot Password Section -->
             <LinearLayout

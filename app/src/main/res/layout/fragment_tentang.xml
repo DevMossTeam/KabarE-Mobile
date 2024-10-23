@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#FFFFFF"
+    android:padding="16dp">
+
+    <!-- Judul Halaman -->
+    <TextView
+        android:id="@+id/tvJudul"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kabar Explant"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginTop="32dp" />
+
+    <!-- Versi -->
+    <TextView
+        android:id="@+id/tvVersi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Versi 1.0"
+        android:textColor="#444444"
+        android:textSize="14sp"
+        android:layout_marginTop="8dp" />
+
+    <!-- Logo Aplikasi -->
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/e"
+        android:layout_marginTop="16dp"
+        app:tint="#5B99E9" />
+
+    <!-- Informasi Hak Cipta -->
+    <TextView
+        android:id="@+id/tvHakCipta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="© 2024 KabarE Application"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Sumber Terbuka -->
+    <TextView
+        android:id="@+id/tvSumberterbuka"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="KabarE for Android is built using open source software:"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        android:layout_marginTop="4dp"/>
+
+    <!-- Tautan Lisensi -->
+    <TextView
+        android:id="@+id/tvLicense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="License"
+        android:textColor="#007BFF"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_marginTop="4dp"/>
+
+</LinearLayout>
