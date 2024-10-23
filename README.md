@@ -65,6 +65,7 @@ com/
         │   │   │   ├── PengaturanAkunFragment.kt    // Pengaturan Akun
         │   │   │   ├── AkunAndaFragment.kt          // Akun Anda
         │   │   │   ├── PrivasiFragment.kt           // Privasi
+        │   │   │   ├── LicenseFragment.kt           // License
         │   │   │   ├── TentangFragment.kt           // Tentang
         │   │   │   ├── popups/
         │   │   │   │   ├── SocialMediaLinksDialog.kt  // Pop up konfirmasi keluar
@@ -170,6 +171,7 @@ com/
         │   │   ├── fragment_bantuan.xml                       // Layout untuk BantuanFragment
         │   │   ├── fragment_pusat_bantuan.xml                 // Layout untuk PusatBantuanFragment
         │   │   ├── fragment_hubungi.xml                       // Layout untuk HubungiFragment
+        │   │   ├── fragment_license.xml                       // Layout untuk LicenseFragment
         │   │   └── popups/
         │   │       ├── dialog_lupa_password_konfirmasi_email.xml // Dialog pop-up konfirmasi email
         │   │       ├── dialog_lupa_password_verifikasi_email.xml  // Dialog pop-up verifikasi email
