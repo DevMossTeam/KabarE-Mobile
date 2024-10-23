@@ -85,6 +85,9 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx:22.1.1")
     implementation("com.google.android.gms:play-services-auth:20.7.0")
 
+    implementation ("com.github.bumptech.glide:glide:4.15.1' // Use the latest version available")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
+
     // Testing dependencies
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:padding="16dp">
+
+    <!-- CardView Notifikasi Utama -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ll_notifikasi"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="4dp"
+        app:cardCornerRadius="8dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardElevation="6dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:orientation="vertical">
+
+            <!-- Bagian Notifikasi Utama -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_notifikasi"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Notifikasi"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:layout_weight="1" />
+
+                <Switch
+                    android:id="@+id/switch_notifikasi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:trackTint="@android:color/holo_blue_light" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_notifikasi_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dapatkan pesan suara masuk"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- "Pusat Informasi" Text View -->
+    <TextView
+        android:id="@+id/tv_category_notifikasi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pusat Informasi"
+        android:textColor="#555555"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/ll_notifikasi"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- CardView Kategori Notifikasi -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ll_kategori_notifikasi"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="4dp"
+        app:cardCornerRadius="8dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardElevation="6dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_category_notifikasi">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:orientation="vertical">
+
+            <!-- Kategori Notifikasi -->
+            <TextView
+                android:id="@+id/tv_kategori_notifikasi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kategori Notifikasi"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_kategori_notifikasi_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pilihan kategori untuk menerima notifikasi."
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp" />
+
+            <!-- Opsi Berita Terbaru -->
+            <LinearLayout
+                android:id="@+id/ll_berita_terbaru"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_berita_terbaru"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Berita Terbaru"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:layout_weight="1" />
+
+                <Switch
+                    android:id="@+id/switch_berita_terbaru"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:trackTint="@android:color/holo_blue_light" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_berita_terbaru_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dapatkan berita terbaru setiap hari."
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp" />
+
+            <!-- Opsi Berita Populer -->
+            <LinearLayout
+                android:id="@+id/ll_berita_populer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_berita_populer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Berita Populer"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:layout_weight="1" />
+
+                <Switch
+                    android:id="@+id/switch_berita_populer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:trackTint="@android:color/darker_gray" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_berita_populer_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Berita yang sedang ramai diperbincangkan."
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

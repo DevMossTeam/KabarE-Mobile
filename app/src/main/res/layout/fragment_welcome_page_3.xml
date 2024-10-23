@@ -8,23 +8,23 @@
 
     <TextView
         android:id="@+id/welcome_text"
-        android:layout_width="280dp"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="24dp"
-    android:gravity="center"
-    android:text="Dapatkan informasi terkini dalam genggaman tanganmu!"
-    android:textColor="@android:color/white"
-    android:textSize="18sp"
-    android:textStyle="bold"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.3" />
+        android:layout_width="250dp"
+        android:layout_height="53dp"
+        android:gravity="center"
+        android:text="Dapatkan informasi terkini dalam genggaman tanganmu!"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/vec3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
 
     <ImageView
         android:id="@+id/vec3"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="270dp"
+        android:layout_height="270dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/vec3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,17 +34,17 @@
 
     <TextView
         android:id="@+id/intro_description"
-        android:layout_width="280dp"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:gravity="center"
-    android:paddingHorizontal="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingHorizontal="16dp"
     android:text="Semua informasi penting dari kampusmu, sekarang lebih mudah diakses!"
-    android:textColor="@android:color/white"
-    android:textSize="16sp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/vec3"
-    app:layout_constraintVertical_bias="0.3" />
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vec3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

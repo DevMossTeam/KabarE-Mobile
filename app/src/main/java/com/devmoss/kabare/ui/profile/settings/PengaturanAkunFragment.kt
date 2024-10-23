@@ -10,10 +10,6 @@ import com.devmoss.kabare.R
 import com.devmoss.kabare.databinding.FragmentPengaturanAkunBinding
 import com.devmoss.kabare.ui.auth.popups.KonfirmasiKeluarDialog
 import com.devmoss.kabare.ui.auth.popups.SwitchAccountDialog
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class PengaturanAkunFragment : Fragment() {
 
@@ -31,26 +27,36 @@ class PengaturanAkunFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Show the Switch Account Dialog when the icon is clicked
-        binding.imgSwitchAccount.setOnClickListener {
+        // Show the Switch Account Dialog when the edit icon is clicked
+        binding.imgSwitch.setOnClickListener { // Update the ID to match your layout
             if (isAdded) {
                 val switchAccountDialog = SwitchAccountDialog()
                 switchAccountDialog.show(childFragmentManager, "SwitchAccountDialog")
             }
         }
 
-        // Navigate to "Umum" when "Umum" is clicked
-        binding.tvUmum.setOnClickListener {
-                findNavController().navigate(R.id.action_pengaturanAkunFragment_to_umumFragment)
-
+        // Navigate to "Umum" when "tv_umum" is clicked
+        binding.tvUmum.setOnClickListener { // Ensure this ID matches your layout
+            findNavController().navigate(R.id.action_pengaturanAkunFragment_to_umumFragment)
         }
 
-        // Show the Logout Confirmation Dialog when the logout option is clicked
-        binding.tvKeluar.setOnClickListener {
+        // Navigate to "Notifikasi" when "tv_notifikasi" is clicked
+        binding.tvNotifikasi.setOnClickListener { // Ensure this ID matches your layout
+            findNavController().navigate(R.id.action_pengaturanAkunFragment_to_settingNotifikasiFragment)
+        }
+
+        // Navigate to "Keamanan" when "tv_keamanan" is clicked
+        binding.tvKeamanan.setOnClickListener { // Ensure this ID matches your layout
+            findNavController().navigate(R.id.action_pengaturanAkunFragment_to_keamananFragment)
+        }
+
+        // Show the Logout Confirmation Dialog when the logout button is clicked
+        binding.btnLogout.setOnClickListener { // Ensure this ID matches your layout
             if (isAdded) {
                 val logoutDialog = KonfirmasiKeluarDialog(
                     onConfirm = {
-                        performLogout()
+                        // Perform the logout action here
+                        performLogout() // Uncomment and implement the logout functionality
                     },
                     onCancel = {
                         // Handle cancellation if needed (optional)
@@ -61,18 +67,8 @@ class PengaturanAkunFragment : Fragment() {
         }
     }
 
-    // Handle logout logic asynchronously
     private fun performLogout() {
-        CoroutineScope(Dispatchers.IO).launch {
-            // Simulate clearing session, or handle actual logout logic
-            // Add your logout logic here, such as clearing user data, token, etc.
-            // Example: clearUserSession()
-
-            // Return to the main thread to update UI
-            withContext(Dispatchers.Main) {
-                // Navigate to login screen or update UI after logout
-            }
-        }
+        // Implement your logout logic here (e.g., clear user session, navigate to login screen)
     }
 
     override fun onDestroyView() {

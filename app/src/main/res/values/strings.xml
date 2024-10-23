@@ -7,4 +7,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_web_client_id">304568136019-34mnp785n4tg1olj64lii12u810k8305.apps.googleusercontent.com</string>
+
+    <string name="notification_channel_name">General Notifications</string>
+    <string name="notification_channel_description">Notifications for Kabare app settings changes</string>
+
+        <string name="email_updated">Email berhasil diubah</string>
+        <string name="email_invalid">Email tidak boleh kosong dan harus valid</string>
+
 </resources>

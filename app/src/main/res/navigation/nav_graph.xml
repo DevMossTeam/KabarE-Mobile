@@ -79,17 +79,17 @@
         android:name="com.devmoss.kabare.ui.notifikasi.NotifikasiFragment"
         tools:layout="@layout/fragment_notifikasi" />
 
-    <!-- Profile Fragment (used once) -->
+    <!-- Profile Fragment -->
     <fragment
         android:id="@+id/navigation_profil"
         android:name="com.devmoss.kabare.ui.profile.ProfileFragment"
         tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_navigation_profil_to_signInFragment"
-            app:destination="@id/signInFragment" /> <!-- Action to Sign In Fragment -->
+            app:destination="@id/signInFragment" />
         <action
             android:id="@+id/action_profileFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" /> <!-- Action to Settings Fragment -->
+            app:destination="@id/settingsFragment" />
     </fragment>
 
     <!-- Sign In Fragment -->
@@ -99,32 +99,34 @@
         tools:layout="@layout/fragment_sign_in">
         <action
             android:id="@+id/action_signInFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment" /> <!-- Action to Sign Up Fragment -->
+            app:destination="@id/signUpFragment" />
     </fragment>
 
     <!-- Sign Up Fragment -->
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.devmoss.kabare.ui.auth.SignUpFragment"
-        tools:layout="@layout/fragment_sign_up" >
+        tools:layout="@layout/fragment_sign_up">
         <action
             android:id="@+id/action_signUpFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
-    </fragment> <!-- Sign Up Fragment -->
+    </fragment>
 
-    <!-- Settings Fragment (for Profile Settings) -->
+    <!-- Settings Fragment -->
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.devmoss.kabare.ui.profile.settings.PengaturanAkunFragment"
         android:label="Pengaturan Akun"
         tools:layout="@layout/fragment_pengaturan_akun">
-
-        <!-- Action to navigate to Umum -->
         <action
             android:id="@+id/action_pengaturanAkunFragment_to_umumFragment"
             app:destination="@id/umumFragment" />
-
-
+        <action
+            android:id="@+id/action_pengaturanAkunFragment_to_settingNotifikasiFragment"
+            app:destination="@id/settingNotifikasiFragment" />
+        <action
+            android:id="@+id/action_pengaturanAkunFragment_to_keamananFragment"
+            app:destination="@id/keamananFragment" />
     </fragment>
 
     <!-- Umum Fragment -->
@@ -133,5 +135,19 @@
         android:name="com.devmoss.kabare.ui.profile.settings.UmumFragment"
         android:label="Umum"
         tools:layout="@layout/fragment_umum" />
+
+    <!-- Setting Notifikasi Fragment -->
+    <fragment
+        android:id="@+id/settingNotifikasiFragment"
+        android:name="com.devmoss.kabare.ui.profile.settings.SettingNotifikasiFragment"
+        android:label="Pengaturan Notifikasi"
+        tools:layout="@layout/fragment_settingnotifikasi" />
+
+    <!-- Setting Notifikasi Fragment -->
+    <fragment
+        android:id="@+id/keamananFragment"
+        android:name="com.devmoss.kabare.ui.profile.settings.KeamananFragment"
+        android:label="Pengaturan Notifikasi"
+        tools:layout="@layout/fragment_keamanan" />
 
 </navigation>

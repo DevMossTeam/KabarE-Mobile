@@ -103,12 +103,24 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="pribadiFragment">
+                  <entry key="settingNotifikasFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="230" />
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="settingNotifikasiFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
                             <option name="y" value="12" />
                           </Point>
                         </option>
@@ -126,12 +138,12 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_settingsFragment_to_pribadiFragment">
+                            <entry key="action_pengaturanAkunFragment_to_settingNotifikasiFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_settingsFragment_to_umumFragment">
+                            <entry key="action_pengaturanAkunFragment_to_umumFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
