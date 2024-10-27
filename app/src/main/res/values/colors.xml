@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Definisi warna dasar -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="grey">#BFBFBF</color>
+    <color name="backroundwhite">#FAFAFA</color>
+    <color name="colorPrimary">#4A99FF</color>
+    <color name="colorPrimaryDark">#003DA5</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="blue">#5B99E9</color>
+    <color name="grey">#555555</color>
+    <color name="red">#FF0303</color>
+    <color name="backround_cardview">#EFEFEF</color>
+    <color name="bookmarkTrue">#FFD700</color>
+    <color name="bookmarkFalse">#808080</color>
+    <color name="text_gray">#A9A9A9</color>
 
-    <!-- Warna tambahan yang umum digunakan -->
-    <color name="colorPrimary">#4A99FF</color> <!-- Ganti dengan warna primer Anda -->
-    <color name="colorPrimaryDark">#003DA5</color> <!-- Warna gelap untuk toolbar/ status bar -->
-    <color name="colorAccent">#FF4081</color> <!-- Warna aksen untuk elemen UI seperti tombol -->
+    // color statusPeninjauan
+    <color name="colorDiajukan">#0371FF</color>
+    <color name="colorDitolak">#FF0303</color>
+    <color name="colorRevisiKecil">#2FA412</color>
+    <color name="colorRevisiBesar">#A49E12</color>
+
+
+
 
     <!-- Tambahkan warna lain sesuai kebutuhan -->
     <color name="colorContrast">#FFEB3B</color> <!-- Kuning cerah -->
@@ -16,4 +29,9 @@
     <color name="colorSuccess">#4CAF50</color> <!-- Hijau untuk sukses -->
     <color name="colorWarning">#FFC107</color> <!-- Kuning untuk peringatan -->
     <color name="transparent">#00000000</color> <!-- Transparan -->
+
+
+
+
+
 </resources>

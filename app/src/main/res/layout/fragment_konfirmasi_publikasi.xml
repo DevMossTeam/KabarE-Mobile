@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/backroundwhite"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="19dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:text="Buat Artikel"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/ivBack"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnMenu"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/blue"
+        android:text="Publish"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:elevation="5dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_height="wrap_content"
+                android:text="Visibilitas"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/tvDropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView5"
+                app:layout_constraintTop_toBottomOf="@+id/textView5"
+                tools:ignore="TouchTargetSizeCheck">
+
+                <TextView
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Atur visibilitas artikel agar dapat dilihat oleh kelompok yang diinginkan"
+                    android:textColor="@color/text_gray"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <ImageView
+                    android:id="@+id/arrow_bottom"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/ic_panah_dropdown_bottom" />
+
+                <ImageView
+                    android:id="@+id/arrow_top"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:visibility="gone"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/ic_panah_dropdown_top" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/visibility_radioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/tvDropdown"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/rbPublic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Public"
+                    android:textColor="@color/black"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="33dp"
+                    android:textColor="@color/text_gray"
+                    android:text="Terlihat oleh semua orang"/>
+
+                <RadioButton
+                    android:id="@+id/rbPrivate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="Private"
+                    android:textColor="@color/black"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="33dp"
+                    android:textColor="@color/text_gray"
+                    android:text="Hanya terlihat oleh admin, penulis, dan reviewer"/>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/backround_cardview"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/visibility_radioButton" />
+
+            <TextView
+                android:id="@+id/tvLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Label"
+                android:layout_marginStart="15dp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@+id/line1"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/label_dropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                app:layout_constraintStart_toStartOf="@+id/tvLabel"
+                app:layout_constraintTop_toBottomOf="@+id/tvLabel"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Menambahkan label untuk membantu pembaca menemukan berita artikel"
+                    android:textColor="@color/text_gray"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <ImageView
+                    android:id="@+id/label_arrow_bottom"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/ic_panah_dropdown_bottom" />
+
+                <ImageView
+                    android:id="@+id/label_arrow_top"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:visibility="gone"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/ic_panah_dropdown_top"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/rvLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:backgroundTint="@color/white"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/backround_cardview"
+                app:strokeWidth="2dp"
+                app:layout_constraintTop_toBottomOf="@id/label_dropdown">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp">
+
+                    <GridLayout
+                        android:id="@+id/labelContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:columnCount="3"
+                        android:orientation="horizontal" />
+
+                    <EditText
+                        android:id="@+id/etLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:hint="Tambahkan label"
+                        android:visibility="gone"
+                        tools:ignore="TouchTargetSizeCheck" />
+
+                    <TextView
+                        android:id="@+id/btnAddLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:backgroundTint="@color/white"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:text="Tambah: #Label"
+                        android:textColor="@color/black"
+                        tools:ignore="TouchTargetSizeCheck" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/backround_cardview"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/rvLabel" />
+
+            <TextView
+                android:id="@+id/tvKategori"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kategori"
+                android:layout_marginStart="15dp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/line2"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/kategori_dropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                app:layout_constraintStart_toStartOf="@+id/tvKategori"
+                app:layout_constraintTop_toBottomOf="@+id/tvKategori"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Menambah kategori untuk mempermudah pencarian artikel."
+                    android:textColor="@color/text_gray"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <ImageView
+                    android:id="@+id/kategori_arrow_bottom"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/ic_panah_dropdown_bottom" />
+
+                <ImageView
+                    android:id="@+id/kategori_arrow_top"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:visibility="gone"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/ic_panah_dropdown_top"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/rvKategori"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="15dp"
+                android:backgroundTint="@color/white"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/backround_cardview"
+                app:strokeWidth="2dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/kategori_dropdown">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:orientation="vertical">
+                    <!-- EditText untuk mencari kategori -->
+                    <EditText
+                        android:id="@+id/etSearchKategori"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:hint="Cari Kategori"
+                        android:inputType="text"
+                        android:padding="8dp"
+                        tools:ignore="TouchTargetSizeCheck" />
+                    <View
+                        android:id="@+id/line3"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/backround_cardview"/>
+
+                    <!-- ScrollView untuk menampilkan daftar kategori -->
+                    <ScrollView
+                        android:id="@+id/scrollKategori"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <LinearLayout
+                            android:id="@+id/llKategoriContainer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <!-- Kategori yang dapat dicentang (misal contoh) -->
+                            <CheckBox
+                                android:id="@+id/cbx_politik"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Politik" />
+
+                            <CheckBox
+                                android:id="@+id/cbx_ekonomi"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Ekonomi" />
+
+                            <CheckBox
+                                android:id="@+id/cbx_teknologi"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Teknologi" />
+                            <CheckBox
+                                android:id="@+id/cbx_olahraga"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Olahraga" />
+                            <CheckBox
+                                android:id="@+id/cbx_hiburan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Hiburan" />
+                            <CheckBox
+                                android:id="@+id/cbx_kesehatan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Kesehatan" />
+                            <CheckBox
+                                android:id="@+id/cbx_pendidikan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Pendidikan" />
+                            <CheckBox
+                                android:id="@+id/cbx_gayahidup"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Gaya Hidup" />
+                            <CheckBox
+                                android:id="@+id/cbx_internasional"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Internasional" />
+                            <CheckBox
+                                android:id="@+id/cbx_lingkungan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Lingkungan" />
+
+                            <!-- Tambahkan CheckBox kategori lainnya di sini -->
+                        </LinearLayout>
+                    </ScrollView>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

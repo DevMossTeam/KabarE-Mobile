@@ -1,50 +1,51 @@
 package com.devmoss.kabare.ui.home
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.devmoss.kabare.ui.home.adapters.ArticleAdapter
-import com.devmoss.kabare.ui.home.viewmodels.HomeViewModel
+import androidx.viewpager2.widget.ViewPager2
+import com.devmoss.kabare.R
 import com.devmoss.kabare.databinding.FragmentHomeBinding
+import com.devmoss.kabare.ui.home.homeadapters.HomeViewPager2Adapter
+import com.devmoss.kabare.ui.manajemenartikel.artikeladapters.ViewPagerAdapter
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
+
 
 class HomeFragment : Fragment() {
-
-    private lateinit var binding: FragmentHomeBinding
-    private lateinit var homeViewModel: HomeViewModel
-    private lateinit var articleAdapter: ArticleAdapter
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+    ): View? {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+        val viewPager: ViewPager2 = binding.viewPager
+        val tabLayout: TabLayout = binding.tabLayout
+        val adapter = HomeViewPager2Adapter(this)
+        viewPager.adapter = adapter
 
-        // Set up RecyclerView
-        articleAdapter = ArticleAdapter {
-            // Handle bookmark click
-            homeViewModel.toggleBookmark(it)
-        }
-        binding.rvHome.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = articleAdapter
-        }
 
-        // Observe article data
-        homeViewModel.sortedArticles.observe(viewLifecycleOwner) { articles ->
-            articleAdapter.submitList(articles)
-        }
+        // Hubungkan TabLayout dengan ViewPager
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            when (position) {
+                0 -> tab.text = "Terbaru"
+                1 -> tab.text = "Populer"
+            }
+        }.attach()
 
-        // Load data
-        homeViewModel.loadArticles()
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

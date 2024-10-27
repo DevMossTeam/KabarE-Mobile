@@ -12,10 +12,14 @@
         tools:layout="@layout/fragment_intro">
         <action
             android:id="@+id/action_introFragment_to_welcomeFragment"
-            app:destination="@id/welcomeFragment" />
+            app:destination="@id/welcomeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
-    <!-- Welcome Fragment -->
+    <!-- Welcome Flow -->
     <fragment
         android:id="@+id/welcomeFragment"
         android:name="com.devmoss.kabare.ui.welcome.WelcomeFragment"
@@ -25,7 +29,6 @@
             app:destination="@id/welcomePage1Fragment" />
     </fragment>
 
-    <!-- Welcome Page 1 Fragment -->
     <fragment
         android:id="@+id/welcomePage1Fragment"
         android:name="com.devmoss.kabare.ui.welcome.WelcomePage1Fragment"
@@ -35,7 +38,6 @@
             app:destination="@id/welcomePage2Fragment" />
     </fragment>
 
-    <!-- Welcome Page 2 Fragment -->
     <fragment
         android:id="@+id/welcomePage2Fragment"
         android:name="com.devmoss.kabare.ui.welcome.WelcomePage2Fragment"
@@ -45,39 +47,95 @@
             app:destination="@id/welcomePage3Fragment" />
     </fragment>
 
-    <!-- Welcome Page 3 Fragment -->
     <fragment
         android:id="@+id/welcomePage3Fragment"
         android:name="com.devmoss.kabare.ui.welcome.WelcomePage3Fragment"
         tools:layout="@layout/fragment_welcome_page_3">
         <action
             android:id="@+id/action_welcomePage3Fragment_to_navigation_home"
-            app:destination="@id/navigation_home" />
+            app:destination="@id/navigation_home"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
-    <!-- Home Fragment (Main App Start) -->
+    <!-- Main Navigation -->
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.devmoss.kabare.ui.home.HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_detailArtikelFragment"
+            app:destination="@id/detailArtikelFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 
-    <!-- Search Fragment -->
     <fragment
         android:id="@+id/navigation_cari"
         android:name="com.devmoss.kabare.ui.search.SearchFragment"
         tools:layout="@layout/fragment_search" />
 
-    <!-- Artikel Fragment -->
-    <fragment
-        android:id="@+id/navigation_artikel"
-        android:name="com.devmoss.kabare.ui.artikel.ArtikelFragment1"
-        tools:layout="@layout/fragment_artikel" />
-
-    <!-- Notifications Fragment -->
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.devmoss.kabare.ui.notifikasi.NotifikasiFragment"
         tools:layout="@layout/fragment_notifikasi" />
+
+    <!-- Article Management -->
+    <fragment
+        android:id="@+id/navigation_manajemen_artikel"
+        android:name="com.devmoss.kabare.ui.manajemenartikel.ManajemenArtikelFragment"
+        tools:layout="@layout/fragment_manajemen_artikel">
+        <action
+            android:id="@+id/action_navigation_manajemen_artikel_to_buatArtikelFragment"
+            app:destination="@id/buatArtikelFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/buatArtikelFragment"
+        android:name="com.devmoss.kabare.ui.manajemenartikel.BuatArtikelFragment"
+        tools:layout="@layout/fragment_buat_artikel">
+        <action
+            android:id="@+id/action_buatArtikelFragment_to_konfirmasiPublikasiFragment"
+            app:destination="@id/konfirmasiPublikasiFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/konfirmasiPublikasiFragment"
+        android:name="com.devmoss.kabare.ui.manajemenartikel.KonfirmasiPublikasiFragment"
+        tools:layout="@layout/fragment_konfirmasi_publikasi" />
+
+    <fragment
+        android:id="@+id/drafPenulisFragment"
+        android:name="com.devmoss.kabare.ui.manajemenartikel.DrafPenulisFragment"
+        tools:layout="@layout/fragment_draf_penulis" />
+
+    <fragment
+        android:id="@+id/dalamPeninjauanFragment"
+        android:name="com.devmoss.kabare.ui.manajemenartikel.DalamPeninjauanFragment"
+        tools:layout="@layout/fragment_dalam_peninjauan" />
+
+    <fragment
+        android:id="@+id/publishedArtikelFragment"
+        android:name="com.devmoss.kabare.ui.manajemenartikel.PublishedArtikelFragment"
+        tools:layout="@layout/fragment_published_artikel" />
+
+    <!-- Detail Article -->
+    <fragment
+        android:id="@+id/detailArtikelFragment"
+        android:name="com.devmoss.kabare.ui.home.DetailArtikelFragment"
+        tools:layout="@layout/fragment_detail_artikel" />
 
     <!-- Profile Fragment -->
     <fragment

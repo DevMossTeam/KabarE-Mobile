@@ -27,7 +27,13 @@ class MainActivity : AppCompatActivity() {
 
         // Define AppBarConfiguration for fragments with no up button
         val appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.navigation_home, R.id.navigation_cari, R.id.navigation_notifications, R.id.navigation_profil)
+            setOf(
+                R.id.navigation_home,
+                R.id.navigation_cari,
+                R.id.navigation_notifications,
+                R.id.navigation_profil,
+                R.id.navigation_manajemen_artikel
+            )
         )
 
         // Set up ActionBar with NavController and the AppBarConfiguration
@@ -36,51 +42,74 @@ class MainActivity : AppCompatActivity() {
         // Set up BottomNavigationView with NavController
         binding.navView.setupWithNavController(navController)
 
-        // Add listener to manage visibility of Toolbar and BottomNavigationView based on destination
+        // Add listener to manage visibility of Toolbar, BottomNavigationView, and other UI elements based on destination
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.navigation_home, R.id.navigation_cari, R.id.navigation_artikel, R.id.navigation_notifications -> {
-                    // Show the Toolbar and BottomNavigationView for these fragments
-                    binding.toolbar.visibility = android.view.View.VISIBLE
-                    binding.navView.visibility = android.view.View.VISIBLE
-                    supportActionBar?.setDisplayHomeAsUpEnabled(false)  // Disable back button
-                }
-                R.id.navigation_profil -> {
-                    // Hide Toolbar and BottomNavigationView for profil screen
-                    binding.toolbar.visibility = android.view.View.GONE
-                    binding.navView.visibility = android.view.View.VISIBLE
-                }
-                R.id.introFragment, R.id.signInFragment, R.id.signUpFragment, R.id.welcomeFragment -> {
-                    // Hide Toolbar and BottomNavigationView for intro, sign-in, sign-up, and welcome screens
+                R.id.introFragment,
+                R.id.welcomeFragment,
+                R.id.detailArtikelFragment,
+                R.id.konfirmasiPublikasiFragment,
+                R.id.buatArtikelFragment,
+                R.id.signInFragment,
+                R.id.signUpFragment -> {
+                    // Hide Toolbar and BottomNavigationView for these fragments
+                    binding.toolbarLogo.visibility = android.view.View.GONE
                     binding.toolbar.visibility = android.view.View.GONE
                     binding.navView.visibility = android.view.View.GONE
                 }
-                R.id.settingsFragment -> {
-                    // Hide Toolbar and BottomNavigationView for settings screen
+                R.id.navigation_home -> {
+                    // Set up for the home screen
+                    binding.toolbar.title = " "
+                    binding.toolbarLogo.visibility = android.view.View.VISIBLE
                     binding.toolbar.visibility = android.view.View.VISIBLE
-                    binding.navView.visibility = android.view.View.GONE
+                    binding.navView.visibility = BottomNavigationView.VISIBLE
                 }
-                R.id.umumFragment, R.id.settingNotifikasiFragment, R.id.keamananFragment,
-                R.id.pusatBantuanFragment, R.id.tentangFragment -> {
-                    // Hide BottomNavigationView for the specified fragments
-                    binding.toolbar.visibility = android.view.View.VISIBLE // Keep toolbar visible or manage it as needed
-                    binding.navView.visibility = android.view.View.GONE
-                }
-                R.id.licenseFragment -> {
-                    // Hide BottomNavigationView for the LicenseFragment
+                R.id.navigation_cari -> {
+                    // Set up for the search screen
+                    binding.toolbar.title = "Cari"
+                    binding.toolbarLogo.visibility = android.view.View.GONE
                     binding.toolbar.visibility = android.view.View.VISIBLE
-                    binding.navView.visibility = android.view.View.GONE
+                    binding.navView.visibility = BottomNavigationView.VISIBLE
                 }
+                R.id.navigation_notifications -> {
+                    // Set up for the notifications screen
+                    binding.toolbar.title = "Notifikasi"
+                    binding.toolbarLogo.visibility = android.view.View.GONE
+                    binding.toolbar.visibility = android.view.View.VISIBLE
+                    binding.navView.visibility = BottomNavigationView.VISIBLE
+                }
+
+                R.id.navigation_manajemen_artikel -> {
+                    // Set up for the article management screen
+                    binding.toolbar.title = "Post Artikel"
+                    binding.toolbarLogo.visibility = android.view.View.GONE
+                    binding.toolbar.visibility = android.view.View.VISIBLE
+                    binding.navView.visibility = android.view.View.VISIBLE
+                }
+                R.id.navigation_profil->{
+                    binding.toolbar.title = "Profile Saya"
+                    binding.toolbarLogo.visibility = android.view.View.GONE
+                    binding.toolbar.visibility = android.view.View.VISIBLE
+                    binding.navView.visibility = android.view.View.VISIBLE
+                }
+
+
+                R.id.settingsFragment,
+                R.id.umumFragment,
+                R.id.settingNotifikasiFragment,
+                R.id.keamananFragment,
+                R.id.pusatBantuanFragment,
+                R.id.tentangFragment,
+                R.id.licenseFragment,
                 R.id.hubungiFragment -> {
-                    // Hide BottomNavigationView and show Toolbar for HubungiFragment
+                    // Set up for settings and related fragments
                     binding.toolbar.visibility = android.view.View.VISIBLE
                     binding.navView.visibility = android.view.View.GONE
                 }
                 else -> {
-                    // Default behavior for other fragments, show the toolbar and bottom navigation
+                    // Default behavior for other fragments
                     binding.toolbar.visibility = android.view.View.VISIBLE
                     binding.navView.visibility = android.view.View.VISIBLE
-                    supportActionBar?.setDisplayHomeAsUpEnabled(true)  // Enable back button for other fragments
                 }
             }
         }

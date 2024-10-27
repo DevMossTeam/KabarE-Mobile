@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Menentukan warna latar belakang -->
+    <solid android:color="@color/backround_cardview"/> <!-- Ganti dengan warna yang diinginkan -->
+
+    <!-- Mengatur radius sudut -->
+    <corners android:radius="10dp"/> <!-- Ganti nilai sesuai kebutuhan -->
+</shape>

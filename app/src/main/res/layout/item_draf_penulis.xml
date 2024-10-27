@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="15dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:background="@color/backroundwhite"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/tvTanggal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:text="11 Oktober 2023"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTerakhirDiperbarui"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:gravity="end"
+        android:text="Diperbarui 2 jam yang lalu"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView5"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="@color/backround_cardview"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        app:layout_constraintStart_toStartOf="@+id/tvTanggal"
+        app:layout_constraintTop_toBottomOf="@+id/tvTanggal">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tvJudul"
+        android:paddingLeft="10dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:maxLines="3"
+        android:text="Polije Kembali Jadi Jadi Penyelenggara WMK 2024, Siap Cetak  Muda  Penyelenggara WMK 2024, Siap Cetak  Muda Kompeten"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cardView5"
+        app:layout_constraintTop_toBottomOf="@+id/tvTerakhirDiperbarui" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnEdit"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="66dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@drawable/ic_edit"
+        android:text="Edit"
+        android:textColor="@color/blue"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toStartOf="@+id/btnHapus"
+        app:layout_constraintTop_toBottomOf="@+id/tvJudul"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnHapus"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="78dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@drawable/ic_hapus"
+        android:text="Hapus"
+        android:textColor="@color/grey"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvJudul"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/backround_cardview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnEdit" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

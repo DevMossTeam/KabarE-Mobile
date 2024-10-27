@@ -7,6 +7,7 @@ buildscript {
     dependencies {
         classpath("com.android.tools.build:gradle:8.1.2") // Ensure correct version of Android Gradle plugin
         classpath("com.google.gms:google-services:4.3.14") // Firebase Google services classpath
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.8.1")
     }
 }
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="#FFFFFF"
+    android:background="@color/backroundwhite"
     android:padding="16dp">
 
     <!-- Judul Halaman -->

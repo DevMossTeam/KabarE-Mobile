@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/backroundwhite"
+    android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:id="@+id/notifikasi_ditolak"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/img_notifikasi"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_notifikasi_ditolak"/>
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_judul_notifikasi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Artikel dengan judul"
+                    android:textColor="@color/black"
+                    android:textSize="13dp"
+                    android:textStyle="bold"
+                    tools:ignore="TextSizeCheck" />
+
+                <TextView
+                    android:id="@+id/tv_judul_artikel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="“ Polije Selenggarakan Kick Off Program WMK”"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
+                    tools:ignore="TextSizeCheck" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_status_notifikasi"
+                android:layout_gravity="center"
+                android:gravity="right"
+                android:padding="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ditolak"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:textColor="@color/red"/>
+        </LinearLayout>
+
+    </LinearLayout>

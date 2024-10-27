@@ -1,7 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("com.google.gms.google-services")
+    id("com.google.gms.google-services") // Jika digunakan
+    id("kotlin-parcelize")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -14,22 +16,21 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildFeatures {
-        viewBinding = true // Enable View Binding
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false // Set to true for production to reduce APK size
+            isMinifyEnabled = false // Ubah ke true untuk produksi
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 
     compileOptions {
@@ -44,7 +45,6 @@ android {
 
 dependencies {
     // AndroidX libraries
-    implementation ("de.hdodenhof:circleimageview:3.1.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.fragment:fragment-ktx:1.6.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
@@ -52,6 +52,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("org.jetbrains.kotlin:kotlin-parcelize-runtime:1.5.31")
 
     // Navigation components
     implementation("androidx.navigation:navigation-fragment-ktx:2.8.1")
@@ -71,12 +72,8 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.15.1")
     annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
 
-    // ViewModel and LiveData for MVVM architecture
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.0")
-
-    // ConstraintLayout for flexible layout
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    // Picasso for image loading
+    implementation("com.squareup.picasso:picasso:2.71828")
 
     // CardView for material card UI
     implementation("androidx.cardview:cardview:1.0.0")
@@ -84,9 +81,8 @@ dependencies {
     // Firebase Authentication and Google Sign-In
     implementation("com.google.firebase:firebase-auth-ktx:22.1.1")
     implementation("com.google.android.gms:play-services-auth:20.7.0")
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
 
-    implementation ("com.github.bumptech.glide:glide:4.15.1' // Use the latest version available")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
 
     // Testing dependencies
     testImplementation(libs.junit)

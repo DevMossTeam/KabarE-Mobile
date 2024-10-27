@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/backroundwhite"
     android:padding="16dp">
 
     <!-- CardView Notifikasi Utama -->
@@ -48,7 +48,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:trackTint="@android:color/holo_blue_light" />
+                    android:trackTint="@android:color/holo_blue_light"
+                    tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
 
             <TextView
@@ -116,7 +117,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:trackTint="@android:color/holo_blue_light" />
+                    android:trackTint="@android:color/holo_blue_light"
+                    tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
 
             <TextView
@@ -150,7 +152,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
-                    android:trackTint="@android:color/darker_gray" />
+                    android:trackTint="@android:color/darker_gray"
+                    tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
 
             <TextView
@@ -184,7 +187,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:trackTint="@android:color/holo_blue_light" />
+                    android:trackTint="@android:color/holo_blue_light"
+                    tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
 
             <TextView
@@ -218,7 +222,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
-                    android:trackTint="@android:color/darker_gray" />
+                    android:trackTint="@android:color/darker_gray"
+                    tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
 
             <TextView
@@ -252,7 +257,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:trackTint="@android:color/holo_blue_light" />
+                    android:trackTint="@android:color/holo_blue_light"
+                    tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
 
             <TextView
