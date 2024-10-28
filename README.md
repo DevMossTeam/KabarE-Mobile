@@ -38,6 +38,7 @@ com/
         │   ├── home/
         │   │   ├── HomeFragment.kt
         │   │   ├── ArtikelFragment.kt
+        │   │   ├── KomentarFragment.kt
         │   │   ├── SearchPageFragment.kt
         │   │   ├── ManajemenArtikelFragment.kt
         │   │   ├── penulisan_artikel/
@@ -157,6 +158,7 @@ com/
         │   │   ├── fragment_lupa_password.xml                // Layout untuk LupaPasswordGantiFragment
         │   │   ├── fragment_home.xml                          // Layout untuk HomeFragment
         │   │   ├── fragment_artikel.xml                       // Layout untuk ArtikelFragment
+        │   │   ├── fragment_komentar.xml                       // Layout untuk ArtikelFragment
         │   │   ├── fragment_search_page.xml                   // Layout untuk SearchPageFragment
         │   │   ├── fragment_manajemen_artikel.xml             // Layout untuk ManajemenArtikelFragment
         │   │   ├── fragment_notifikasi.xml                    // Layout untuk NotifikasiFragment
