@@ -5,12 +5,13 @@ import android.os.Parcelable
 
 @Parcelize
 data class Artikel(
-    val id: Int,
+    val artikelid: Int,
     val image: ByteArray? = null,
     val title: String,
     val description: String,  // Opsional, deskripsi bisa tidak ada di draf atau peninjauan
     val kategori: String,
     val timestamp: Long,
+    var clickCount: Int = 0,
     val label:List<String>,
     val authorProfile: String? = null,
     val jumlahLike: Int = 0,

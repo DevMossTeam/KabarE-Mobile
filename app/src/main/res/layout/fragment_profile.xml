@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backroundwhite"
+    android:background="@color/background_white"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -105,26 +105,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <!-- Icon for Link -->
-                <ImageView
-                    android:id="@+id/iv_link_icon_1"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/link"
-                    app:tint="@android:color/black" />
-
-                <!-- First Link Text -->
-                <TextView
-                    android:id="@+id/tv_link_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="https://link1.com dan 2 lainnya"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black" />
-            </LinearLayout>
+                android:orientation="horizontal"/>
 
             <!-- Expandable Links (Initially Hidden) -->
             <LinearLayout
@@ -196,7 +177,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/backroundwhite"
+            android:backgroundTint="@color/background_white"
             android:text="Setelan"
             android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"

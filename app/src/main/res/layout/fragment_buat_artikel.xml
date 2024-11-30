@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/backroundwhite"
+    android:background="@color/background_white"
     android:layout_height="match_parent">
 
     <ImageView
@@ -52,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_marginTop="60dp"
-        android:background="@color/backround_cardview"
+        android:background="@color/background_cardview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,20 +81,20 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:background="@color/backroundwhite"
+                android:background="@color/background_white"
                 android:hint="Judul Artikel"
                 android:padding="10dp"
                 tools:ignore="Autofill,HardcodedText,TextContrastCheck,TextFields,TouchTargetSizeCheck" />
 
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="2dp"
-                android:background="@color/backround_cardview" />
+                android:layout_height="1dp"
+                android:background="@color/background_cardview" />
             <ImageView
                 android:id="@+id/ivArticleImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/backround_cardview"
+                android:background="@color/background_cardview"
                 tools:ignore="ContentDescription"/>
 
             <EditText
@@ -103,7 +103,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:background="@color/backroundwhite"
+                android:background="@color/background_white"
                 android:gravity="top"
                 android:hint="Tuliskan isi artikel..."
                 android:importantForAutofill="no"

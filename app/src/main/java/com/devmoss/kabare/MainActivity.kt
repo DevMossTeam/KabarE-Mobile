@@ -1,7 +1,10 @@
 package com.devmoss.kabare
 
+import android.os.Build
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -14,6 +17,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        window.statusBarColor = resources.getColor(R.color.background_white)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
 
         // Initialize view binding
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -50,20 +59,21 @@ class MainActivity : AppCompatActivity() {
                 R.id.detailArtikelFragment,
                 R.id.konfirmasiPublikasiFragment,
                 R.id.buatArtikelFragment,
-                R.id.signInFragment,
-                R.id.signUpFragment -> {
+                R.id.signUpInputFragment -> { // Tambahkan SignUpInputFragment
                     // Hide Toolbar and BottomNavigationView for these fragments
                     binding.toolbarLogo.visibility = android.view.View.GONE
                     binding.toolbar.visibility = android.view.View.GONE
                     binding.navView.visibility = android.view.View.GONE
                 }
+
                 R.id.navigation_home -> {
                     // Set up for the home screen
-                    binding.toolbar.title = " "
+                    binding.toolbar.title = null
                     binding.toolbarLogo.visibility = android.view.View.VISIBLE
                     binding.toolbar.visibility = android.view.View.VISIBLE
                     binding.navView.visibility = BottomNavigationView.VISIBLE
                 }
+
                 R.id.navigation_cari -> {
                     // Set up for the search screen
                     binding.toolbar.title = "Cari"
@@ -71,6 +81,7 @@ class MainActivity : AppCompatActivity() {
                     binding.toolbar.visibility = android.view.View.VISIBLE
                     binding.navView.visibility = BottomNavigationView.VISIBLE
                 }
+
                 R.id.navigation_notifications -> {
                     // Set up for the notifications screen
                     binding.toolbar.title = "Notifikasi"
@@ -86,13 +97,29 @@ class MainActivity : AppCompatActivity() {
                     binding.toolbar.visibility = android.view.View.VISIBLE
                     binding.navView.visibility = android.view.View.VISIBLE
                 }
-                R.id.navigation_profil->{
-                    binding.toolbar.title = "Profile Saya"
+
+                R.id.navigation_profil -> {
+                    binding.toolbar.title = "Profile"
                     binding.toolbarLogo.visibility = android.view.View.GONE
                     binding.toolbar.visibility = android.view.View.VISIBLE
                     binding.navView.visibility = android.view.View.VISIBLE
                 }
 
+                R.id.signInFragment -> {
+                    // Set up for the Sign In screen
+                    binding.toolbar.title = "Sign In"
+                    binding.toolbarLogo.visibility = android.view.View.GONE
+                    binding.toolbar.visibility = android.view.View.VISIBLE
+                    binding.navView.visibility = android.view.View.GONE
+                }
+
+                R.id.signUpFragment -> {
+                    // Set up for the Sign Up screen
+                    binding.toolbar.title = "Sign Up"
+                    binding.toolbarLogo.visibility = android.view.View.GONE
+                    binding.toolbar.visibility = android.view.View.VISIBLE
+                    binding.navView.visibility = android.view.View.GONE
+                }
 
                 R.id.settingsFragment,
                 R.id.umumFragment,
@@ -106,6 +133,7 @@ class MainActivity : AppCompatActivity() {
                     binding.toolbar.visibility = android.view.View.VISIBLE
                     binding.navView.visibility = android.view.View.GONE
                 }
+
                 else -> {
                     // Default behavior for other fragments
                     binding.toolbar.visibility = android.view.View.VISIBLE

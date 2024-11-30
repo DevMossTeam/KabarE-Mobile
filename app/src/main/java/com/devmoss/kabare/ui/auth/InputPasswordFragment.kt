@@ -79,6 +79,7 @@ class InputPasswordFragment : Fragment() {
         }
 
         if (confirmPassword.isEmpty()) {
+
             confirmPasswordInputLayout.error = "Confirm your password"
             isValid = false
         } else {

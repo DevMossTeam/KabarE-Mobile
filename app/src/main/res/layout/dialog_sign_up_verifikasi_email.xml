@@ -16,10 +16,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp"
             android:background="@android:color/white"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <!-- Icon -->
             <ImageView
@@ -27,59 +27,173 @@
                 android:layout_width="102dp"
                 android:layout_height="103dp"
                 android:layout_marginBottom="16dp"
-                android:src="@drawable/lp_vec2"   />
+                android:src="@drawable/lp_vec2" />
 
             <!-- Title TextView -->
             <TextView
                 android:id="@+id/tv_verif_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
                 android:text="Verifikasi Email"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_gravity="center"
-                android:layout_marginBottom="8dp" />
+                android:textStyle="bold" />
 
-            <!-- Message TextView -->
             <TextView
-                android:id="@+id/tv_verif_message"
-                android:layout_width="300dp"
+                android:id="@+id/tv_instruction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="4dp"
+                android:text=""
+                android:textColor="#6E6E6E"
+                android:textSize="14sp"
+                android:gravity="center" />
+
+            <!-- OTP Input Section -->
+            <LinearLayout
+                android:id="@+id/otp_container"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="16dp"
-                android:text="Silahkan buka email anda dan konfirmasi. Kami telah mengirimkan link ke email johndoe@gmail.com"
-                android:textColor="@android:color/darker_gray" />
+                android:orientation="horizontal">
+
+                <!-- OTP Input Boxes -->
+                <EditText
+                    android:id="@+id/et_otp_1"
+                    android:layout_width="40dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="4dp"
+                    android:background="@android:color/darker_gray"
+                    android:backgroundTint="#DADADA"
+                    android:elevation="2dp"
+                    android:gravity="center"
+                    android:hint="-"
+                    android:inputType="number"
+                    android:padding="0dp"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_otp_2"
+                    android:layout_width="40dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="4dp"
+                    android:background="@android:color/darker_gray"
+                    android:backgroundTint="#DADADA"
+                    android:elevation="2dp"
+                    android:gravity="center"
+                    android:hint="-"
+                    android:inputType="number"
+                    android:padding="0dp"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_otp_3"
+                    android:layout_width="40dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="4dp"
+                    android:background="@android:color/darker_gray"
+                    android:backgroundTint="#DADADA"
+                    android:elevation="2dp"
+                    android:gravity="center"
+                    android:hint="-"
+                    android:inputType="number"
+                    android:padding="0dp"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_otp_4"
+                    android:layout_width="40dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="4dp"
+                    android:background="@android:color/darker_gray"
+                    android:backgroundTint="#DADADA"
+                    android:elevation="2dp"
+                    android:gravity="center"
+                    android:hint="-"
+                    android:inputType="number"
+                    android:padding="0dp"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_otp_5"
+                    android:layout_width="40dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="4dp"
+                    android:background="@android:color/darker_gray"
+                    android:backgroundTint="#DADADA"
+                    android:elevation="2dp"
+                    android:gravity="center"
+                    android:hint="-"
+                    android:inputType="number"
+                    android:padding="0dp"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_otp_6"
+                    android:layout_width="40dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="4dp"
+                    android:background="@android:color/darker_gray"
+                    android:backgroundTint="#DADADA"
+                    android:elevation="2dp"
+                    android:gravity="center"
+                    android:hint="-"
+                    android:inputType="number"
+                    android:padding="0dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
 
             <!-- Timer TextView -->
             <TextView
                 android:id="@+id/tv_timer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="02:00"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
                 android:layout_gravity="center"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp"
+                android:text="05:00"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
             <!-- Resend Section -->
             <TextView
                 android:id="@+id/tv_no_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="Tidak menerima email?"
-                android:textColor="@android:color/darker_gray"
-                android:layout_gravity="center" />
+                android:textColor="@android:color/darker_gray" />
+
+            <!-- ProgressBar -->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_resend" />
+
 
             <TextView
                 android:id="@+id/tv_resend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:padding="8dp"
                 android:text="Kirim Ulang"
                 android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
-                android:layout_gravity="center"
-                android:layout_marginTop="8dp"
-                android:padding="8dp" />
+                android:textStyle="bold" />
 
         </LinearLayout>
     </ScrollView>

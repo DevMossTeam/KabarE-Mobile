@@ -21,7 +21,6 @@ class WelcomeFragment : Fragment() {
     private lateinit var viewPager: ViewPager2
     private lateinit var welcomePagerAdapter: WelcomePagerAdapter
     private val viewModel: WelcomeViewModel by viewModels()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -1,17 +1,20 @@
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="30dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:backgroundTint="#539EFF"
-    app:cardCornerRadius="10dp"
-    android:layout_marginRight="8dp"
-    android:layout_marginBottom="8dp">
+    android:backgroundTint="@color/background_white"
+    app:cardCornerRadius="8dp"
+    android:layout_marginEnd="10dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/blue"
+    app:strokeWidth="1dp">
 
     <TextView
         android:id="@+id/labelTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:padding="5dp"
-        android:textColor="@color/white" />
-</androidx.cardview.widget.CardView>
+        android:text="Prestasi"
+        android:textColor="@color/blue"/>
+</com.google.android.material.card.MaterialCardView>

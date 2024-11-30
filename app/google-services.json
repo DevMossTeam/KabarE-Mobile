@@ -1,26 +1,44 @@
 {
   "project_info": {
-    "project_number": "304568136019",
-    "project_id": "kabare-7f7bf",
-    "storage_bucket": "kabare-7f7bf.appspot.com"
+    "project_number": "675057825306",
+    "project_id": "kabare-cf940",
+    "storage_bucket": "kabare-cf940.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:304568136019:android:8d286ff978e20b95a1f1a6",
+        "mobilesdk_app_id": "1:675057825306:android:52e08a9394602111bc43a3",
         "android_client_info": {
           "package_name": "com.devmoss.kabare"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "675057825306-2mjoq50crgq5ar0ug7hhhtc4g94eiq4b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devmoss.kabare",
+            "certificate_hash": "f789543f07d7082b7d5a2c6074c0060e0e946adf"
+          }
+        },
+        {
+          "client_id": "675057825306-o6uo32prlu21blktajd5mf32pm6p4rbf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyC1cVIDFNW5zmc1CylacxwiwBtIdjZ1xVQ"
+          "current_key": "AIzaSyCy4x0-rRgRZZhpQNXJQP1fL_I6IeSMapQ"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "675057825306-o6uo32prlu21blktajd5mf32pm6p4rbf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

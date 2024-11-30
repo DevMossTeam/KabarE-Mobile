@@ -1,12 +1,18 @@
 package com.devmoss.kabare.utils
 
-import java.text.SimpleDateFormat
-import java.util.*
+fun timeAgo(timestamp: Long): String {
+    val currentTime = System.currentTimeMillis()
+    val timeDifference = currentTime - timestamp
 
-object DateUtils {
+    val seconds = (timeDifference / 1000).toInt()
+    val minutes = seconds / 60
+    val hours = minutes / 60
+    val days = hours / 24
 
-    fun formatTimestamp(timestamp: Long): String {
-        val sdf = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault())
-        return sdf.format(Date(timestamp))
+    return when {
+        seconds < 60 -> "$seconds detik yang lalu"
+        minutes < 60 -> "$minutes menit yang lalu"
+        hours < 24 -> "$hours jam yang lalu"
+        else -> "$days hari yang lalu"
     }
 }

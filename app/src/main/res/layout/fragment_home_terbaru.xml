@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.core.widget.NestedScrollView
+    android:id="@+id/nestedScrollView"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="@color/backroundwhite"
-    tools:context=".ui.home.HomeTerbaruFragment"
-    android:clipToPadding="false"
-    android:clipChildren="false">
+    android:layout_height="wrap_content"
+    android:paddingBottom="100dp"
+    android:background="@color/background_white"
+    android:scrollbars="none"
+    tools:context=".ui.home.terbaru.HomeTerbaruFragment">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -23,61 +24,77 @@
             android:layout_marginTop="20dp"
             android:text="Berita Terkini"
             android:textColor="@color/black"
-            android:textSize="14sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginLeft="16dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <!-- Shimmer Effect untuk Berita Terkini -->
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_berita_terkini"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/tv_berita_terkini">
+            <include layout="@layout/layout_shimmer_loading" />
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <!-- RecyclerView untuk Berita Terkini -->
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_berita_terkini"
             android:layout_width="0dp"
+            android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:paddingBottom="8dp"
-            android:nestedScrollingEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_berita_terkini"
-            tools:listitem="@layout/item_berita_terkini"/>
+            />
+
+        <View
+            android:id="@+id/lineTeratas"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/background_cardview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_berita_terkini" />
+
+
 
         <TextView
             android:id="@+id/tv_berita_teratas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="16dp"
-            android:text="Berita Teratas"
+            android:text="Berita Terkait"
             android:textColor="@color/black"
-            android:textSize="14sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rv_berita_terkini" />
+            app:layout_constraintTop_toBottomOf="@+id/lineTeratas" />
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="0dp"
-            android:layout_height="3dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:background="@color/backround_cardview"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_berita_teratas" />
 
+
+        <!-- RecyclerView untuk Berita Teratas -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_berita_teratas"
+            android:id="@+id/rv_berita_terkait"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:nestedScrollingEnabled="false"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view"
-            tools:listitem="@layout/item_berita_teratas" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_berita_teratas"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

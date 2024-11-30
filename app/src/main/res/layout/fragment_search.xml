@@ -4,15 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backroundwhite">
+    android:background="@color/background_white">
 
     <EditText
         android:id="@+id/etSearch"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="20dp"
         android:drawableEnd="@drawable/ic_search"
         android:hint="Search"
         android:paddingStart="20dp"
@@ -27,45 +27,43 @@
         android:id="@+id/tvSearchHistory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Riwayat Pencarian"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/etSearch"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="30dp" />
+        android:text="Riwayat Pencarian"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/etSearch"
+        app:layout_constraintTop_toBottomOf="@id/etSearch" />
 
     <!-- GridLayout untuk Riwayat Pencarian -->
     <GridLayout
         android:id="@+id/gridLayoutHistory"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:columnCount="2"
-        android:layout_margin="16dp"
-        app:layout_constraintTop_toBottomOf="@id/tvSearchHistory"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/etSearch"
+        app:layout_constraintStart_toStartOf="@+id/etSearch"
+        app:layout_constraintTop_toBottomOf="@id/tvSearchHistory" />
 
     <TextView
         android:id="@+id/tvHotTopics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Topik Hangat Hari Ini"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/gridLayoutHistory"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="30dp" />
+        android:text="Topik Hangat Hari Ini"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/gridLayoutHistory"
+        app:layout_constraintTop_toBottomOf="@id/gridLayoutHistory" />
 
     <!-- GridLayout untuk Topik Hangat -->
     <GridLayout
         android:id="@+id/gridLayoutHotTopics"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:columnCount="2"
-        android:layout_margin="16dp"
-        app:layout_constraintTop_toBottomOf="@id/tvHotTopics"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/etSearch"
+        app:layout_constraintStart_toStartOf="@+id/etSearch"
+        app:layout_constraintTop_toBottomOf="@id/tvHotTopics" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backroundwhite"
+    android:background="@color/background_white"
     tools:context=".ui.auth.SignInFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:padding="16dp">
 
         <!-- Logo -->
@@ -17,7 +17,7 @@
             android:id="@+id/logo_kabare"
             android:layout_width="180dp"
             android:layout_height="90dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="1dp"
             android:src="@drawable/kabare"
             android:contentDescription="Kabare Logo"
             app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +73,7 @@
                 android:id="@+id/et_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Username"
+                android:hint="Username atau Email"
                 android:inputType="text"
                 android:backgroundTint="@android:color/white" />
         </com.google.android.material.textfield.TextInputLayout>

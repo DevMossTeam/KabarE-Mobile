@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backroundwhite"
-    tools:context=".ui.manajemenartikel.PublishedArtikelFragment">
+    android:background="@color/background_white"
+    tools:context=".ui.manajemenartikel.manajemenpenulis.PublishedArtikelFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_published_artikel"

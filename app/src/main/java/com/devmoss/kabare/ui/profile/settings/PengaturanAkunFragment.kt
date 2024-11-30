@@ -76,7 +76,7 @@ class PengaturanAkunFragment : Fragment() {
     }
 
     private fun performLogout() {
-        // Implement your logout logic here (e.g., clear user session, navigate to login screen)
+        findNavController().navigate(R.id.action_pengaturanAkunFragment_to_signInFragment)
     }
 
     override fun onDestroyView() {

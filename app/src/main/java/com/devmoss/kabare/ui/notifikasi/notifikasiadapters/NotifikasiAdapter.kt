@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.devmoss.kabare.data.model.Notifikasi
 import com.devmoss.kabare.databinding.ItemNotifikasiBinding
-import com.devmoss.kabare.ui.manajemenartikel.artikeladapters.DrafPenulisAdapter.OnItemClickListener
 
 class NotifikasiAdapter(
     private val notifikasiList: List<Notifikasi>,

@@ -33,6 +33,11 @@ android {
         viewBinding = true
     }
 
+    packagingOptions {
+        exclude ("META-INF/LICENSE.md")
+        exclude("META-INF/NOTICE.md")
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -48,44 +53,57 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.fragment:fragment-ktx:1.6.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-    implementation("org.jetbrains.kotlin:kotlin-parcelize-runtime:1.5.31")
+    implementation("org.jetbrains.kotlin:kotlin-parcelize-runtime:1.9.0")
 
     // Navigation components
     implementation("androidx.navigation:navigation-fragment-ktx:2.8.1")
     implementation("androidx.navigation:navigation-ui-ktx:2.8.1")
 
     // Material Design components
-    implementation("com.google.android.material:material:1.9.0")
-
-    // Core libraries
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.activity)
+    implementation("com.google.android.material:material:1.10.0-alpha04")
 
     // RecyclerView
-    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation("androidx.recyclerview:recyclerview:1.3.0")
 
     // Glide for image loading
     implementation("com.github.bumptech.glide:glide:4.15.1")
+    implementation(libs.firebase.firestore.ktx)
     annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
 
     // Picasso for image loading
-    implementation("com.squareup.picasso:picasso:2.71828")
+    implementation("com.squareup.picasso:picasso:2.8")
 
     // CardView for material card UI
     implementation("androidx.cardview:cardview:1.0.0")
 
     // Firebase Authentication and Google Sign-In
-    implementation("com.google.firebase:firebase-auth-ktx:22.1.1")
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+    implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.android.gms:play-services-auth:20.7.0")
-    implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+    implementation ("com.google.android.gms:play-services-auth:19.0.0")
 
+    // Retrofit and OkHttp for networking
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
+
+    // Shimmer effect
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
+
+    // JSoup for HTML parsing
+    implementation("org.jsoup:jsoup:1.16.1")
+
+    // Email dependencies for SMTP (use only if you're handling email via SMTP directly)
+    implementation("com.sun.mail:android-mail:1.6.7")
+    implementation("com.sun.mail:android-activation:1.6.7")
 
     // Testing dependencies
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }

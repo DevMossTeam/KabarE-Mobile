@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/backroundwhite"
+    android:background="@color/background_white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -17,6 +17,7 @@
         android:textColor="@color/black"
         android:textSize="14dp"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/cardView"
@@ -26,9 +27,10 @@
     <View
         android:id="@+id/textView2"
         android:layout_width="0dp"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:layout_marginTop="5dp"
-        android:background="@color/backround_cardview"
+        android:visibility="gone"
+        android:background="@color/background_cardview"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -47,6 +49,7 @@
         <GridLayout
             android:id="@+id/labelContainer"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             android:columnCount="3">
 
@@ -58,7 +61,8 @@
                 app:cardCornerRadius="10dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/labelBeritaTerkini"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="#habiburrohman"
@@ -83,6 +87,7 @@
         android:foreground="?attr/selectableItemBackground"
         app:cardCornerRadius="10dp"
         app:cardElevation="4dp"
+        android:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -93,15 +98,47 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp">
 
-            <ImageView
-                android:id="@+id/ivArticleImage"
+            <FrameLayout
+                android:id="@+id/frameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:background="@color/backround_cardview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+                <ImageView
+                    android:id="@+id/ivArticleImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@color/background_cardview"
+                    android:scaleType="centerCrop"/>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:backgroundTint="#4D000000"
+                    app:cardCornerRadius="50dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp"
+                    tools:ignore="SpeakableTextPresentCheck">
+
+                    <ImageView
+                        android:id="@+id/ivBookmark"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:padding="7dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        app:srcCompat="@drawable/ic_bookmark"
+                        tools:ignore="SpeakableTextPresentCheck" />
+                </com.google.android.material.card.MaterialCardView>
+
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/tvTimestamp"
@@ -109,15 +146,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="40dp"
+                android:layout_marginRight="20dp"
                 android:text="Kamis, 19 Sep 2024 09:48"
                 android:textColor="@color/black"
-                android:textSize="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/ivArticleImage"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="@+id/frameLayout"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/ivArticleImage"
-                app:layout_constraintTop_toBottomOf="@+id/ivArticleImage"
-                tools:ignore="TextSizeCheck" />
+                app:layout_constraintStart_toStartOf="@+id/frameLayout"
+                app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+                tools:ignore="SmallSp,TextSizeCheck" />
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -128,31 +165,20 @@
                 android:maxLines="3"
                 android:text="Geger 7 Mayat ditemukan di Kali Bekasi "
                 android:textColor="@color/black"
-                android:textSize="14dp"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/tvTimestamp"
                 app:layout_constraintStart_toStartOf="@+id/tvTimestamp"
                 app:layout_constraintTop_toBottomOf="@+id/tvTimestamp"
                 tools:ignore="TextSizeCheck" />
 
-            <ImageView
-                android:id="@+id/ivBookmark"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvTitle"
-                app:srcCompat="@drawable/ic_bookmark"
-                tools:ignore="SpeakableTextPresentCheck" />
+
 
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView2"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_marginTop="10dp"
                 app:cardCornerRadius="50dp"
                 app:cardElevation="0dp"
@@ -168,6 +194,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/ic_akun"
                     tools:ignore="SpeakableTextPresentCheck" />
 
@@ -180,7 +207,7 @@
                 android:layout_marginTop="17dp"
                 android:text="Habiburrohman"
                 android:textColor="@color/black"
-                android:textSize="10dp"
+                android:textSize="10sp"
                 app:layout_constraintEnd_toEndOf="@+id/tvTitle"
                 app:layout_constraintHorizontal_bias="0.02"
                 app:layout_constraintStart_toEndOf="@+id/cardView2"
@@ -188,11 +215,11 @@
                 tools:ignore="TextSizeCheck" />
 
             <TextView
-                android:id="@+id/tvDescription"
+                android:id="@+id/kontenBerita"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginEnd="20dp"
                 android:ellipsize="end"
                 android:maxLines="3"
                 android:text="Penemuan korban tersebut juga viral. Dalam video yang diterima detikcom, tampak jasad yang mengambang di kali ditemukan warga sekitar..."
