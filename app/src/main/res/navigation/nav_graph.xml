@@ -87,6 +87,24 @@
     </fragment>
 
     <fragment
+        android:id="@+id/ResetPasswordFragment"
+        android:name="com.devmoss.kabare.ui.auth.ResetPasswordFragment"
+        android:label="fragment_input_password"
+        tools:layout="@layout/fragment_input_password">
+        <action
+            android:id="@+id/action_inputPasswordFragment_to_introFragment"
+            app:destination="@id/introFragment" />
+    </fragment>
+
+    <action
+        android:id="@+id/action_lupaPasswordVerifEmailDialog_to_resetPasswordFragment"
+        app:destination="@id/ResetPasswordFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
+
+    <fragment
         android:id="@+id/navigation_home"
         android:name="com.devmoss.kabare.ui.home.HomeFragment"
         tools:layout="@layout/fragment_home">

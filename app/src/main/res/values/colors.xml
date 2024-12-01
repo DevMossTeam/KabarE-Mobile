@@ -15,6 +15,9 @@
     <color name="text_gray">#A9A9A9</color>
     <color name="line">#B3B3B3</color>
     <color name="yellow">#f5b935</color>
+    <color name="resend_enabled">#4A99FF</color>
+    <color name="resend_disabled">#A9A9A9</color>
+    <color name="gray">#B0B0B0</color>
 
     // color statusPeninjauan
     <color name="colorDiajukan">#0371FF</color>
@@ -30,9 +33,5 @@
     <color name="colorSuccess">#4CAF50</color> <!-- Hijau untuk sukses -->
     <color name="colorWarning">#FFC107</color> <!-- Kuning untuk peringatan -->
     <color name="transparent">#00000000</color> <!-- Transparan -->
-
-
-
-
 
 </resources>

@@ -59,6 +59,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.detailArtikelFragment,
                 R.id.konfirmasiPublikasiFragment,
                 R.id.buatArtikelFragment,
+                R.id.ResetPasswordFragment,
                 R.id.signUpInputFragment -> { // Tambahkan SignUpInputFragment
                     // Hide Toolbar and BottomNavigationView for these fragments
                     binding.toolbarLogo.visibility = android.view.View.GONE

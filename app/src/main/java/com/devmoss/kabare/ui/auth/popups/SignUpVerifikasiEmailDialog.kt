@@ -41,9 +41,11 @@ class SignUpVerifikasiEmailDialog : BottomSheetDialogFragment() {
         resendTextView = view.findViewById(R.id.tv_resend)
         val messageTextView = view.findViewById<TextView>(R.id.tv_instruction)
         loadingProgressBar = view.findViewById(R.id.progressBar)
+        resendTextView.isEnabled = false
+        updateResendTextViewState(false) // Default tidak aktif
 
         // Initialize SharedPreferences
-        sharedPreferences = requireContext().getSharedPreferences("auth_prefs", Context.MODE_PRIVATE)
+        sharedPreferences = requireContext().getSharedPreferences("SignUpPrefs", Context.MODE_PRIVATE)
 
         // Initialize OTP Input fields
         otpInputs = listOf(
@@ -62,7 +64,7 @@ class SignUpVerifikasiEmailDialog : BottomSheetDialogFragment() {
             "Silahkan buka email Anda dan masukkan OTP yang telah dikirimkan ke $it."
         } ?: "Email tidak ditemukan, silakan coba lagi."
 
-        // Start the timer
+        // Mulai timer langsung
         startTimer()
 
         // Set resend OTP listener
@@ -72,6 +74,7 @@ class SignUpVerifikasiEmailDialog : BottomSheetDialogFragment() {
         isCancelable = false
 
         return view
+
     }
 
     private fun setupOtpInputListeners() {
@@ -116,40 +119,50 @@ class SignUpVerifikasiEmailDialog : BottomSheetDialogFragment() {
     }
 
     private fun startTimer() {
-        signUpViewModel.otpExpiry.observe(viewLifecycleOwner) { otpExpiry ->
-            if (otpExpiry == 0L) {
-                // Tidak ada waktu kedaluwarsa yang valid
+        if (::countDownTimer.isInitialized) {
+            countDownTimer.cancel()
+        }
+
+        val currentTime = System.currentTimeMillis()
+        val otpExpiry = sharedPreferences.getLong("otp_expiry", 0L)
+
+        if (otpExpiry == 0L || otpExpiry <= currentTime) {
+            timerTextView.text = "00:00"
+            resendTextView.isEnabled = true
+            updateResendTextViewState(true) // Update warna saat tombol bisa diklik
+            return
+        }
+
+        val timeRemaining = otpExpiry - currentTime
+
+        countDownTimer = object : CountDownTimer(timeRemaining, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val minutes = (millisUntilFinished / 60000) % 60
+                val seconds = (millisUntilFinished / 1000) % 60
+                timerTextView.text = String.format("%02d:%02d", minutes, seconds)
+            }
+
+            override fun onFinish() {
+                timerTextView.text = "00:00"
                 resendTextView.isEnabled = true
-                return@observe
+                updateResendTextViewState(true) // Update warna saat tombol bisa diklik
             }
+        }.start()
 
-            val currentTime = System.currentTimeMillis()
-            val timeRemaining = otpExpiry - currentTime
+        resendTextView.isEnabled = false
+        updateResendTextViewState(false) // Update warna saat tombol tidak bisa diklik
+    }
 
-            if (timeRemaining <= 0) {
-                // OTP expired
-                Toast.makeText(
-                    requireContext(),
-                    "OTP telah kedaluwarsa. Mohon kirim ulang OTP.",
-                    Toast.LENGTH_SHORT
-                ).show()
-                return@observe
-            }
-
-            // Countdown Timer
-            countDownTimer = object : CountDownTimer(timeRemaining, 1000) {
-                override fun onTick(millisUntilFinished: Long) {
-                    val minutes = (millisUntilFinished / 60000) % 60
-                    val seconds = (millisUntilFinished / 1000) % 60
-                    timerTextView.text = String.format("%02d:%02d", minutes, seconds)
-                }
-                override fun onFinish() {
-                }
-            }.start()
-
-            resendTextView.isEnabled = false
+    private fun updateResendTextViewState(isEnabled: Boolean) {
+        resendTextView.apply {
+            this.isEnabled = isEnabled
+            setTextColor(
+                if (isEnabled) resources.getColor(R.color.colorPrimary, null)
+                else resources.getColor(R.color.gray, null)
+            )
         }
     }
+
 
     private fun resendVerificationEmail() {
         loadingProgressBar.visibility = View.VISIBLE
@@ -160,11 +173,8 @@ class SignUpVerifikasiEmailDialog : BottomSheetDialogFragment() {
             when (result.status) {
                 SignUpViewModel.AuthStatus.SUCCESS -> {
                     Toast.makeText(requireContext(), "OTP telah dikirim ulang ke $email", Toast.LENGTH_SHORT).show()
-
-                    // Save new expiry time (5 minutes from now)
-                    val newExpiryTime = System.currentTimeMillis() + (5 * 60 * 1000) // 5 minutes
+                    val newExpiryTime = System.currentTimeMillis() + (5 * 60 * 1000)
                     sharedPreferences.edit().putLong("otp_expiry", newExpiryTime).apply()
-
                     startTimer() // Restart the timer
                 }
                 SignUpViewModel.AuthStatus.FAILURE -> {

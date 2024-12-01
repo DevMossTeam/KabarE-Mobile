@@ -2,6 +2,7 @@ package com.devmoss.kabare.data.api
 
 import com.devmoss.kabare.data.model.CheckUserRequest
 import com.devmoss.kabare.data.model.ReaksiRequest
+import com.devmoss.kabare.data.model.ResetPasswordRequest
 import com.devmoss.kabare.data.model.ResponseBookmark
 import com.devmoss.kabare.data.model.ResponseCheckUser
 import com.devmoss.kabare.data.model.ResponseGetBerita
@@ -68,4 +69,7 @@ interface ApiInterface {
 
     @POST("check_user.php")
     fun checkUser(@Body request: CheckUserRequest): Call<ResponseCheckUser>
+
+    @POST("reset_password.php")
+    fun resetPassword(@Body request: ResetPasswordRequest): Call<ResponseBody>
 }

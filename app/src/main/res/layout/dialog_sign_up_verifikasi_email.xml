@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="4dp"
-                android:text=""
+                android:text="Masukkan kode OTP yang dikirim ke email Anda"
                 android:textColor="#6E6E6E"
                 android:textSize="14sp"
                 android:gravity="center" />
@@ -54,101 +54,90 @@
             <!-- OTP Input Section -->
             <LinearLayout
                 android:id="@+id/otp_container"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="16dp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <!-- OTP Input Boxes -->
                 <EditText
                     android:id="@+id/et_otp_1"
-                    android:layout_width="40dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:layout_margin="4dp"
-                    android:background="@android:color/darker_gray"
+                    android:layout_width="48dp"
+                    android:layout_height="56dp"
+                    android:layout_margin="1dp"
                     android:backgroundTint="#DADADA"
-                    android:elevation="2dp"
+                    android:background="@android:drawable/dialog_holo_light_frame"
                     android:gravity="center"
                     android:hint="-"
                     android:inputType="number"
-                    android:padding="0dp"
+                    android:maxLength="1"
                     android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/et_otp_2"
-                    android:layout_width="40dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:layout_margin="4dp"
-                    android:background="@android:color/darker_gray"
+                    android:layout_width="48dp"
+                    android:layout_height="56dp"
+                    android:layout_margin="1dp"
                     android:backgroundTint="#DADADA"
-                    android:elevation="2dp"
+                    android:background="@android:drawable/dialog_holo_light_frame"
                     android:gravity="center"
                     android:hint="-"
                     android:inputType="number"
-                    android:padding="0dp"
+                    android:maxLength="1"
                     android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/et_otp_3"
-                    android:layout_width="40dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:layout_margin="4dp"
-                    android:background="@android:color/darker_gray"
+                    android:layout_width="48dp"
+                    android:layout_height="56dp"
+                    android:layout_margin="1dp"
                     android:backgroundTint="#DADADA"
-                    android:elevation="2dp"
+                    android:background="@android:drawable/dialog_holo_light_frame"
                     android:gravity="center"
                     android:hint="-"
                     android:inputType="number"
-                    android:padding="0dp"
+                    android:maxLength="1"
                     android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/et_otp_4"
-                    android:layout_width="40dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:layout_margin="4dp"
-                    android:background="@android:color/darker_gray"
+                    android:layout_width="48dp"
+                    android:layout_height="56dp"
+                    android:layout_margin="1dp"
                     android:backgroundTint="#DADADA"
-                    android:elevation="2dp"
+                    android:background="@android:drawable/dialog_holo_light_frame"
                     android:gravity="center"
                     android:hint="-"
                     android:inputType="number"
-                    android:padding="0dp"
+                    android:maxLength="1"
                     android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/et_otp_5"
-                    android:layout_width="40dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:layout_margin="4dp"
-                    android:background="@android:color/darker_gray"
+                    android:layout_width="48dp"
+                    android:layout_height="56dp"
+                    android:layout_margin="1dp"
                     android:backgroundTint="#DADADA"
-                    android:elevation="2dp"
+                    android:background="@android:drawable/dialog_holo_light_frame"
                     android:gravity="center"
                     android:hint="-"
                     android:inputType="number"
-                    android:padding="0dp"
+                    android:maxLength="1"
                     android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/et_otp_6"
-                    android:layout_width="40dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:layout_margin="4dp"
-                    android:background="@android:color/darker_gray"
+                    android:layout_width="48dp"
+                    android:layout_height="56dp"
+                    android:layout_margin="1dp"
                     android:backgroundTint="#DADADA"
-                    android:elevation="2dp"
+                    android:background="@android:drawable/dialog_holo_light_frame"
                     android:gravity="center"
                     android:hint="-"
                     android:inputType="number"
-                    android:padding="0dp"
+                    android:maxLength="1"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -177,19 +166,13 @@
                 android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_resend" />
-
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_resend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="0dp"
                 android:padding="8dp"
                 android:text="Kirim Ulang"
                 android:textColor="@color/colorPrimary"

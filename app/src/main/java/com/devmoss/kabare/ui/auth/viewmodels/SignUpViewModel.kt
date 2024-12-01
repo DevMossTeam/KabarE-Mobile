@@ -7,6 +7,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.devmoss.kabare.data.api.ApiConfig
+import com.devmoss.kabare.data.model.CheckUserRequest
 import com.devmoss.kabare.utils.EmailSender
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,8 +33,32 @@ class SignUpViewModel(application: Application) : AndroidViewModel(application) 
 
         _signUpResult.value = AuthResult(AuthStatus.LOADING, null)
 
+        // Memeriksa apakah email atau username sudah ada di database
         viewModelScope.launch(Dispatchers.IO) {
             try {
+                val apiService = ApiConfig.getApiService()  // Dapatkan instansi ApiInterface
+                val emailCheckRequest = CheckUserRequest(email = email)
+                val usernameCheckRequest = CheckUserRequest(username = username)
+
+                // Memeriksa apakah email sudah ada
+                val emailCheckResponse = apiService.checkUser(emailCheckRequest).execute()
+                if (emailCheckResponse.isSuccessful && emailCheckResponse.body()?.exists == true) {
+                    _signUpResult.postValue(
+                        AuthResult(AuthStatus.FAILURE, "Email sudah terdaftar.")
+                    )
+                    return@launch
+                }
+
+                // Memeriksa apakah username sudah ada
+                val usernameCheckResponse = apiService.checkUser(usernameCheckRequest).execute()
+                if (usernameCheckResponse.isSuccessful && usernameCheckResponse.body()?.exists == true) {
+                    _signUpResult.postValue(
+                        AuthResult(AuthStatus.FAILURE, "Username sudah terdaftar.")
+                    )
+                    return@launch
+                }
+
+                // Jika email dan username belum terdaftar, lanjutkan ke proses pendaftaran
                 saveUserDataToPreferences(fullName, username, email)
                 val otp = generateOtp()
                 saveOtpToPreferences(otp)
