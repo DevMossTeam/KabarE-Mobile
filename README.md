@@ -88,23 +88,11 @@ com/
         │   │   ├── AuthRepository.kt
         │   │   ├── ArticleRepository.kt
         │   │   └── ProfileRepository.kt
-        │   ├── local/
-        │   │   └── LocalDatabase.kt  // Jika menggunakan Room untuk penyimpanan data lokal
-        │   └── remote/
-        │       └── RemoteDataSource.kt  // Jika menggunakan API untuk remote calls
-        ├── domain/
-        │   ├── usecase/
-        │   │   ├── SignInUseCase.kt  // Use case untuk Sign In
-        │   │   └── GetArticlesUseCase.kt // Use case untuk mendapatkan artikel
         ├── network/
-        │   ├── ApiClient.kt
-        │   └── ApiService.kt
-        ├── di/
-        │   ├── AppModule.kt  // Dependency Injection module jika menggunakan Hilt/Dagger
+        │   ├── ApiConfig.kt
+        │   └── ApiInterface.kt
         └── utils/
-            ├── Constants.kt
             ├── SessionManager.kt
-            └── ExtensionFunctions.kt  // Helper untuk extension functions
 ```
 ### Penjelasan Struktur Proyek Utama
 
@@ -124,16 +112,7 @@ Berisi model data dan repository untuk mengelola akses data, termasuk:
 - **model/**: Kelas model untuk pengguna dan artikel.
 - **repository/**: Kelas repository untuk mengakses data dari database lokal dan remote.
 
-#### 3. **domain/**
-Folder ini berisi logika bisnis aplikasi, termasuk use case untuk menangani interaksi bisnis.
-
-#### 4. **network/**
-Kelas untuk mengelola komunikasi dengan API, termasuk klien dan layanan API.
-
-#### 5. **di/** (Dependency Injection)
-Folder ini berisi konfigurasi untuk Dependency Injection menggunakan Hilt atau Dagger.
-
-#### 6. **utils/**
+#### 3. **utils/**
 Kelas utilitas untuk fungsi umum dalam aplikasi, termasuk konstanta, pengelolaan sesi, dan fungsi ekstensi.
 ## Struktur Direktori Proyek Resource
 
