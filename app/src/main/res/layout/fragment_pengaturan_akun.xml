@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backroundwhite"
+    android:background="@color/background_white"
     android:padding="16dp">
 
     <!-- Header Layout -->
@@ -40,7 +40,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Chiquita Clairina Kyrevi"
                 android:textColor="#000000"
                 android:textStyle="bold"
                 android:textSize="18sp" />
@@ -50,7 +49,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="Jurnalis / Penulis"
                 android:textColor="#A9A9A9"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -70,30 +68,8 @@
                 android:src="@drawable/ic_akun"
                 android:contentDescription="Foto Profil"
                 android:scaleType="centerCrop"
-                app:shapeAppearanceOverlay="@style/CircularShape"
-                android:clickable="true"
-                android:focusable="true" />
+                app:shapeAppearanceOverlay="@style/CircularShape" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/img_switch"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="4dp"
-                app:cardCornerRadius="20dp"
-                app:cardBackgroundColor="@android:color/holo_blue_dark"
-                android:clickable="true"
-                android:focusable="true">
-
-                <ImageView
-                    android:id="@+id/resource_switch"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:contentDescription="Edit Profile Picture"
-                    android:scaleType="center"
-                    android:src="@drawable/resource_switch"
-                    app:tint="@android:color/white" />
-            </androidx.cardview.widget.CardView>
         </FrameLayout>
     </LinearLayout>
 

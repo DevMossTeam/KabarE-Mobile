@@ -60,6 +60,50 @@
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
+    <fragment
+        android:id="@+id/signUpInputFragment"
+        android:name="com.devmoss.kabare.ui.auth.SignUpInputFragment"
+        android:label="fragment_sign_up_input"
+        tools:layout="@layout/fragment_sign_up_input">
+        <action
+            android:id="@+id/action_signUpInputFragment_to_introFragment"
+            app:destination="@id/introFragment" />
+    </fragment>
+
+    <!-- Sign In Fragment -->
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.devmoss.kabare.ui.auth.SignInFragment"
+        tools:layout="@layout/fragment_sign_in">
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_introFragment"
+            app:destination="@id/introFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_signUpInputFragment"
+            app:destination="@id/signUpInputFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ResetPasswordFragment"
+        android:name="com.devmoss.kabare.ui.auth.ResetPasswordFragment"
+        android:label="fragment_input_password"
+        tools:layout="@layout/fragment_input_password">
+        <action
+            android:id="@+id/action_inputPasswordFragment_to_introFragment"
+            app:destination="@id/introFragment" />
+    </fragment>
+
+    <action
+        android:id="@+id/action_lupaPasswordVerifEmailDialog_to_resetPasswordFragment"
+        app:destination="@id/ResetPasswordFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
+
     <!-- Main Navigation -->
     <fragment
         android:id="@+id/navigation_home"
@@ -68,16 +112,29 @@
         <action
             android:id="@+id/action_navigation_home_to_detailArtikelFragment"
             app:destination="@id/detailArtikelFragment"
+            />
+        <action
+            android:id="@+id/action_navigation_home_to_searchResultsFragment"
+            app:destination="@id/searchResultsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
+
 
     <fragment
         android:id="@+id/navigation_cari"
         android:name="com.devmoss.kabare.ui.search.SearchFragment"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_navigation_cari_to_searchResultsFragment"
+            app:destination="@id/searchResultsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_notifications"
@@ -87,7 +144,7 @@
     <!-- Article Management -->
     <fragment
         android:id="@+id/navigation_manajemen_artikel"
-        android:name="com.devmoss.kabare.ui.manajemenartikel.ManajemenArtikelFragment"
+        android:name="com.devmoss.kabare.ui.manajemenartikel.manajemenpenulis.ManajemenArtikelFragment"
         tools:layout="@layout/fragment_manajemen_artikel">
         <action
             android:id="@+id/action_navigation_manajemen_artikel_to_buatArtikelFragment"
@@ -100,7 +157,7 @@
 
     <fragment
         android:id="@+id/buatArtikelFragment"
-        android:name="com.devmoss.kabare.ui.manajemenartikel.BuatArtikelFragment"
+        android:name="com.devmoss.kabare.ui.manajemenartikel.manajemenpenulis.BuatArtikelFragment"
         tools:layout="@layout/fragment_buat_artikel">
         <action
             android:id="@+id/action_buatArtikelFragment_to_konfirmasiPublikasiFragment"
@@ -113,29 +170,38 @@
 
     <fragment
         android:id="@+id/konfirmasiPublikasiFragment"
-        android:name="com.devmoss.kabare.ui.manajemenartikel.KonfirmasiPublikasiFragment"
+        android:name="com.devmoss.kabare.ui.manajemenartikel.manajemenpenulis.KonfirmasiPublikasiFragment"
         tools:layout="@layout/fragment_konfirmasi_publikasi" />
 
     <fragment
         android:id="@+id/drafPenulisFragment"
-        android:name="com.devmoss.kabare.ui.manajemenartikel.DrafPenulisFragment"
+        android:name="com.devmoss.kabare.ui.manajemenartikel.manajemenpenulis.DrafPenulisFragment"
         tools:layout="@layout/fragment_draf_penulis" />
 
     <fragment
         android:id="@+id/dalamPeninjauanFragment"
-        android:name="com.devmoss.kabare.ui.manajemenartikel.DalamPeninjauanFragment"
+        android:name="com.devmoss.kabare.ui.manajemenartikel.manajemenpenulis.DalamPeninjauanFragment"
         tools:layout="@layout/fragment_dalam_peninjauan" />
 
     <fragment
         android:id="@+id/publishedArtikelFragment"
-        android:name="com.devmoss.kabare.ui.manajemenartikel.PublishedArtikelFragment"
+        android:name="com.devmoss.kabare.ui.manajemenartikel.manajemenpenulis.PublishedArtikelFragment"
         tools:layout="@layout/fragment_published_artikel" />
 
     <!-- Detail Article -->
     <fragment
         android:id="@+id/detailArtikelFragment"
-        android:name="com.devmoss.kabare.ui.home.DetailArtikelFragment"
-        tools:layout="@layout/fragment_detail_artikel" />
+        android:name="com.devmoss.kabare.ui.home.detailberita.DetailArtikelFragment"
+        tools:layout="@layout/fragment_detail_artikel" >
+        <action
+            android:id="@+id/action_detailArtikelFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+        <!-- Definisi aksi navigasi ke fragment yang sama -->
+        <action
+            android:id="@+id/action_detailArtikelFragment_self"
+            app:destination="@id/detailArtikelFragment" />
+
+    </fragment>
 
     <!-- Profile Fragment -->
     <fragment
@@ -148,16 +214,9 @@
         <action
             android:id="@+id/action_profileFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
-    </fragment>
-
-    <!-- Sign In Fragment -->
-    <fragment
-        android:id="@+id/signInFragment"
-        android:name="com.devmoss.kabare.ui.auth.SignInFragment"
-        tools:layout="@layout/fragment_sign_in">
         <action
-            android:id="@+id/action_signInFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment" />
+            android:id="@+id/action_navigation_profil_to_detailArtikelFragment"
+            app:destination="@id/detailArtikelFragment" />
     </fragment>
 
     <!-- Sign Up Fragment -->
@@ -169,6 +228,14 @@
             android:id="@+id/action_signUpFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
     </fragment>
+
+    <action
+        android:id="@+id/action_signUpVerifikasiEmailDialog_to_signUpInputFragment"
+        app:destination="@id/signUpInputFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
 
     <!-- Settings Fragment -->
     <fragment
@@ -191,6 +258,9 @@
         <action
             android:id="@+id/action_pengaturanAkunFragment_to_tentangFragment"
             app:destination="@id/tentangFragment" />
+        <action
+            android:id="@+id/action_pengaturanAkunFragment_to_introFragment"
+            app:destination="@id/introFragment" />
     </fragment>
 
     <!-- Umum Fragment -->
@@ -251,5 +321,25 @@
         android:name="com.devmoss.kabare.ui.license.LicenseFragment"
         android:label="License"
         tools:layout="@layout/fragment_license" />
+
+    <fragment
+        android:id="@+id/searchResultsFragment"
+        android:name="com.devmoss.kabare.ui.search.SearchResultsFragment"
+        android:label="SearchResultsFragment"
+        tools:layout="@layout/fragment_search_results">
+        <action
+            android:id="@+id/action_searchResultsFragment_to_navigation_cari"
+            app:destination="@id/navigation_cari"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_searchResultsFragment_to_detailArtikelFragment"
+            app:destination="@id/detailArtikelFragment" />
+        <action
+            android:id="@+id/action_searchResultsFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
 
 </navigation>

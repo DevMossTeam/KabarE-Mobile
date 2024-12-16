@@ -3,5 +3,5 @@
     <!-- Warna untuk state terpilih -->
     <item android:color="@color/blue" android:state_checked="true"/>
     <!-- Warna untuk state tidak terpilih -->
-    <item android:color="@color/grey" android:state_checked="false"/>
+    <item android:color="#bfbfbf" android:state_checked="false"/>
 </selector>

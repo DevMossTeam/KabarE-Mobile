@@ -12,10 +12,10 @@ object ArticleRepository {
         // Add some sample articles
         articles.add(
             Artikel(
-                id = 1,
+                artikelid = 1,
                 label = listOf("#habiburrohman","#technology","#prestasi"),
                 title = "Diterbitkan,Diterima Event Metode dalam pengujian perangkat lunak terbagi menjadi beberapa kategori utama berdasarkan aspek yang diuji, tingkat detail pengujian, dan pendekatan yang digunakan. Berikut adalah beberapa metode pengujian perangkat lunak yang umum:",
-                timestamp = System.currentTimeMillis() - 60000, // 1 minute ago
+                timestamp = System.currentTimeMillis() - 60000,
                 authorProfile = "John Doe",
                 kategori = "Prestasi",
                 description = "Metode dalam pengujian perangkat lunak terbagi menjadi beberapa kategori utama berdasarkan aspek yang diuji, tingkat detail pengujian, dan pendekatan yang digunakan. Berikut adalah beberapa metode pengujian perangkat lunak yang umum:\n" +
@@ -59,7 +59,7 @@ object ArticleRepository {
                 jumlahShare = 90,
                 isTerkini = true,
                 tanggalPengajuan ="12 September 2024",
-                tanggalDiperbarui = "Diperbarui 2 jam yang lalu",
+                tanggalDiperbarui = "23 September 2024, 20:50",
                 status = com.devmoss.kabare.data.model.StatusArtikel.DITERBITKAN,
                 statusPeninjauan = com.devmoss.kabare.data.model.StatusPeninjauan.PUBLISHED,
                 isTeratas = false
@@ -67,10 +67,10 @@ object ArticleRepository {
         )
         articles.add(
             Artikel(
-                id = 44,
+                artikelid = 2,
                 label = listOf("#polije","#technology","#prestasi"),
                 title = "Diterbitkan,Diterima Didik SMPN 1 Paiton di Ajang Polije Open Karate Championship Direktur Cup XII Tahun 2024",
-                timestamp = System.currentTimeMillis() - 60000, // 1 minute ago
+                timestamp = System.currentTimeMillis() - 60000,
                 authorProfile = "John Doe",
                 kategori = "Prestasi",
                 description = "Prestasi Gemilang Peserta Didik SMPN 1 Paiton di Ajang Polije Open Karate Championship Direktur Cup XII Tahun 2024\n" +
@@ -89,7 +89,7 @@ object ArticleRepository {
                 jumlahLike = 552,
                 jumlahShare = 90,
                 tanggalPengajuan ="12 September 2024",
-                tanggalDiperbarui = "Diperbarui 2 jam yang lalu",
+                tanggalDiperbarui = "23 September 2024, 20:50",
                 status = com.devmoss.kabare.data.model.StatusArtikel.DITERBITKAN,
                 statusPeninjauan = com.devmoss.kabare.data.model.StatusPeninjauan.PUBLISHED,
                 isTerkini = true,
@@ -99,7 +99,7 @@ object ArticleRepository {
 
         articles.add(
             Artikel(
-                id = 3,
+                artikelid = 3,
                 label = listOf("#nnfkfjk","#JKNjnjjnk"),
                 title = "Draf,Diterima Sertifikasi TOEIC untuk Guru Bahasa Inggris SMK di Jember",
                 timestamp = System.currentTimeMillis() - 3600000, // 1 hour ago
@@ -120,7 +120,7 @@ object ArticleRepository {
         )
         articles.add(
             Artikel(
-                id = 4,
+                artikelid = 4,
                 label = listOf("#hanay","#sport"),
                 title = "Diterbitkan,Diterima Latest Tech Innovations",
                 timestamp = System.currentTimeMillis() - 3600000, // 1 hour ago
@@ -132,13 +132,13 @@ object ArticleRepository {
                 status = com.devmoss.kabare.data.model.StatusArtikel.DITERBITKAN,
                 statusPeninjauan = com.devmoss.kabare.data.model.StatusPeninjauan.PUBLISHED,
                 tanggalPengajuan ="12 September 2024",
-                tanggalDiperbarui = "Diperbarui 2 jam yang lalu",
+                tanggalDiperbarui = "23 September 2024, 20:50",
                 isTeratas = true // Tambahkan atribut ini
             )
         )
         articles.add(
             Artikel(
-                id = 5,
+                artikelid = 5,
                 label = listOf("#habi","#baan"),
                 title = "Dalam Peninjauan,Diterima Latest Tech Innovations",
                 timestamp = System.currentTimeMillis() - 3600000, // 1 hour ago
@@ -148,7 +148,7 @@ object ArticleRepository {
                 kategori = "Sport",
                 isTerkini = false,
                 tanggalPengajuan ="12 September 2024",
-                tanggalDiperbarui = "Diperbarui 2 jam yang lalu",
+                tanggalDiperbarui = "23 September 2024, 20:50",
                 status = com.devmoss.kabare.data.model.StatusArtikel.DALAM_PENINJAUAN,
                 statusPeninjauan = com.devmoss.kabare.data.model.StatusPeninjauan.DIAJUKAN,
                 isTeratas = true // Tambahkan atribut ini
@@ -156,7 +156,7 @@ object ArticleRepository {
         )
         articles.add(
             Artikel(
-                id = 10,
+                artikelid = 10,
                 label = listOf("#habi","#baan"),
                 title = "Dalam Peninjauan,Diterima Latest Tech Innovations",
                 timestamp = System.currentTimeMillis() - 3600000, // 1 hour ago
@@ -166,7 +166,7 @@ object ArticleRepository {
                 kategori = "Sport",
                 isTerkini = false,
                 tanggalPengajuan ="12 September 2024",
-                tanggalDiperbarui = "Diperbarui 2 jam yang lalu",
+                tanggalDiperbarui = "23 September 2024, 20:50",
                 status = com.devmoss.kabare.data.model.StatusArtikel.DALAM_PENINJAUAN,
                 statusPeninjauan = com.devmoss.kabare.data.model.StatusPeninjauan.REVISI_KECIL,
                 isTeratas = true // Tambahkan atribut ini
@@ -174,7 +174,7 @@ object ArticleRepository {
         )
         articles.add(
             Artikel(
-                id = 110,
+                artikelid = 110,
                 label = listOf("#habi","#baan"),
                 title = "Dalam Peninjauan,Diterima Latest Tech Innovations",
                 timestamp = System.currentTimeMillis() - 3600000, // 1 hour ago
@@ -184,7 +184,7 @@ object ArticleRepository {
                 kategori = "Sport",
                 isTerkini = false,
                 tanggalPengajuan ="12 September 2024",
-                tanggalDiperbarui = "Diperbarui 2 jam yang lalu",
+                tanggalDiperbarui = "23 September 2024, 20:50",
                 status = com.devmoss.kabare.data.model.StatusArtikel.DALAM_PENINJAUAN,
                 statusPeninjauan = com.devmoss.kabare.data.model.StatusPeninjauan.DITOLAK,
                 isTeratas = true // Tambahkan atribut ini
@@ -192,7 +192,7 @@ object ArticleRepository {
         )
         articles.add(
             Artikel(
-                id = 5,
+                artikelid = 5,
                 label = listOf("#habi","#baan"),
                 title = "Dalam Peninjauan,Diterima Latest Tech Innovations",
                 timestamp = System.currentTimeMillis() - 3600000, // 1 hour ago
@@ -201,7 +201,7 @@ object ArticleRepository {
                 isBookmarked = false,
                 kategori = "Sport",
                 tanggalPengajuan ="12 September 2024",
-                tanggalDiperbarui = "Diperbarui 2 jam yang lalu",
+                tanggalDiperbarui = "23 September 2024, 20:50",
                 isTerkini = false,
                 status = com.devmoss.kabare.data.model.StatusArtikel.DALAM_PENINJAUAN,
                 statusPeninjauan = com.devmoss.kabare.data.model.StatusPeninjauan.REVISI_BESAR,
@@ -210,7 +210,7 @@ object ArticleRepository {
         )
         articles.add(
             Artikel(
-                id = 6,
+                artikelid = 6,
                 label = listOf("#hbhjdb","#djddnd"),
                 title = "Diterbitkan,Diterima Latest Tech Innovations",
                 timestamp = System.currentTimeMillis() - 3600000, // 1 hour ago
@@ -220,30 +220,137 @@ object ArticleRepository {
                 kategori = "Olahraga",
                 isTerkini = false,
                 tanggalPengajuan ="12 September 2024",
-                tanggalDiperbarui = "Diperbarui 2 jam yang lalu",
+                tanggalDiperbarui = "23 September 2024, 20:50",
                 status = com.devmoss.kabare.data.model.StatusArtikel.DITERBITKAN,
                 statusPeninjauan = com.devmoss.kabare.data.model.StatusPeninjauan.PUBLISHED,
                 isTeratas = true // Tambahkan atribut ini
             )
         )
+
         articles.add(
             Artikel(
-                id = 7,
-                label = listOf("#ghvdgv","#dddd"),
-                title = "Diterbitkan,Diterima Latest Tech Innovations",
+                artikelid = 6,
+                label = listOf("#hbhjdb","#djddnd"),
+                title = "Diter haba fagaaimana kareaa= bitkan,Diterima Latest Tech Innovations",
                 timestamp = System.currentTimeMillis() - 3600000, // 1 hour ago
                 authorProfile = "Jane Smith",
                 description = "This article discusses the latest innovations in technology.",
                 isBookmarked = false,
-                kategori = "Balap",
+                kategori = "Olahraga",
+                clickCount = 100,
                 tanggalPengajuan ="12 September 2024",
-                tanggalDiperbarui = "Diperbarui 2 jam yang lalu",
+                tanggalDiperbarui = "23 September 2024, 20:50",
                 status = com.devmoss.kabare.data.model.StatusArtikel.DITERBITKAN,
                 statusPeninjauan = com.devmoss.kabare.data.model.StatusPeninjauan.PUBLISHED,
-                isTerkini = false,
-                isTeratas = true // Tambahkan atribut ini
             )
         )
+
+        articles.add(
+            Artikel(
+                artikelid = 7,
+                label = listOf("#hbhjdb","#djddnd"),
+                title = "Diterbi ndbdbdjb okasomj kaameja ak o tkan,Diterima Latest Tech Innovations",
+                timestamp = System.currentTimeMillis() - 3600000, // 1 hour ago
+                authorProfile = "Jane Smith",
+                description = "This article discusses the latest innovations in technology.",
+                isBookmarked = false,
+                kategori = "Olahraga",
+                clickCount = 1090,
+                tanggalPengajuan ="12 September 2024",
+                tanggalDiperbarui = "23 September 2024, 20:50",
+                status = com.devmoss.kabare.data.model.StatusArtikel.DITERBITKAN,
+                statusPeninjauan = com.devmoss.kabare.data.model.StatusPeninjauan.PUBLISHED,
+            )
+        )
+        articles.add(
+            Artikel(
+                artikelid = 8,
+                label = listOf("#hbhjdb","#djddnd"),
+                title = "Dis nd nsd nd mndssnterbitkan,Diterima Latest Tech Innovations",
+                timestamp = System.currentTimeMillis() - 3600000, // 1 hour ago
+                authorProfile = "Jane Smith",
+                description = "This article discusses the latest innovations in technology.",
+                isBookmarked = false,
+                kategori = "Olahraga",
+                clickCount = 1100,
+                tanggalPengajuan ="12 September 2024",
+                tanggalDiperbarui = "23 September 2024, 20:50",
+                status = com.devmoss.kabare.data.model.StatusArtikel.DITERBITKAN,
+                statusPeninjauan = com.devmoss.kabare.data.model.StatusPeninjauan.PUBLISHED,
+            )
+        )
+        articles.add(
+            Artikel(
+                artikelid = 9,
+                label = listOf("#hbhjdb","#djddnd"),
+                title = "Ddsnndsndnd mdmsdn iterbitkan,Diterima Latest Tech Innovations",
+                timestamp = System.currentTimeMillis() - 3600000, // 1 hour ago
+                authorProfile = "Jane Smith",
+                description = "This article discusses the latest innovations in technology.",
+                isBookmarked = false,
+                kategori = "Olahraga",
+                clickCount = 1200,
+                tanggalPengajuan ="12 September 2024",
+                tanggalDiperbarui = "23 September 2024, 20:50",
+                status = com.devmoss.kabare.data.model.StatusArtikel.DITERBITKAN,
+                statusPeninjauan = com.devmoss.kabare.data.model.StatusPeninjauan.PUBLISHED,
+            )
+        )
+        articles.add(
+            Artikel(
+                artikelid = 10,
+                label = listOf("#hbhjdb","#djddnd"),
+                title = "Diterbitkan jsndjsjndjn,Diterima Latest Tech Innovations",
+                timestamp = System.currentTimeMillis() - 3600000, // 1 hour ago
+                authorProfile = "Jane Smith",
+                description = "This article discusses the latest innovations in technology.",
+                isBookmarked = false,
+                kategori = "Olahraga",
+                clickCount = 100,
+                tanggalPengajuan ="12 September 2024",
+                tanggalDiperbarui = "23 September 2024, 20:50",
+                status = com.devmoss.kabare.data.model.StatusArtikel.DITERBITKAN,
+                statusPeninjauan = com.devmoss.kabare.data.model.StatusPeninjauan.PUBLISHED,
+            )
+        )
+        articles.add(
+            Artikel(
+                artikelid = 11,
+                label = listOf("#hbhjdb","#djddnd"),
+                title = "Diterbitkan,d nsbjbjb Diterima Latest Tech Innovations",
+                timestamp = System.currentTimeMillis() - 3600000, // 1 hour ago
+                authorProfile = "Jane Smith",
+                description = "This article discusses the latest innovations in technology.",
+                isBookmarked = false,
+                kategori = "Olahraga",
+                clickCount = 10,
+                tanggalPengajuan ="12 September 2024",
+                tanggalDiperbarui = "23 September 2024, 20:50",
+                status = com.devmoss.kabare.data.model.StatusArtikel.DITERBITKAN,
+                statusPeninjauan = com.devmoss.kabare.data.model.StatusPeninjauan.PUBLISHED,
+            )
+        )
+
+        articles.add(
+            Artikel(
+                artikelid = 12,
+                label = listOf("#hbhjdb","#djddnd"),
+                title = "Diterbitkan,Diterima djsnsjnj Latest Tech Innovations",
+                timestamp = System.currentTimeMillis() - 3600000, // 1 hour ago
+                authorProfile = "Jane Smith",
+                description = "This article discusses the latest innovations in technology.",
+                isBookmarked = false,
+                kategori = "Olahraga",
+                clickCount = 10220,
+                tanggalPengajuan ="12 September 2024",
+                tanggalDiperbarui = "23 September 2024, 20:50",
+                status = com.devmoss.kabare.data.model.StatusArtikel.DITERBITKAN,
+                statusPeninjauan = com.devmoss.kabare.data.model.StatusPeninjauan.PUBLISHED,
+            )
+        )
+
+
+
     }
 
     // Function to retrieve all articles
@@ -253,7 +360,7 @@ object ArticleRepository {
 
     // Function to toggle bookmark status of an article
     fun toggleBookmark(articleId: Int) {
-        val article = articles.find { it.id == articleId }
+        val article = articles.find { it.artikelid == articleId }
         article?.let {
             it.isBookmarked = !it.isBookmarked
         }
@@ -266,6 +373,6 @@ object ArticleRepository {
 
     // Function to remove an article (optional)
     fun removeArticle(articleId: Int) {
-        articles.removeAll { it.id == articleId }
+        articles.removeAll { it.artikelid == articleId }
     }
 }

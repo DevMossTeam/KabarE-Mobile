@@ -1,0 +1,139 @@
+package com.devmoss.kabare.ui.auth.viewmodels
+
+import android.app.Application
+import android.content.SharedPreferences
+import android.util.Log
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.devmoss.kabare.data.api.ApiConfig
+import com.devmoss.kabare.data.repository.UserRepository
+import com.devmoss.kabare.model.User
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import android.content.Context
+
+class SignUpInputViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val sharedPreferences: SharedPreferences =
+        application.getSharedPreferences("SignUpPrefs", Context.MODE_PRIVATE)
+
+    private val _firebaseRegistrationResult = MutableLiveData<String>()
+    val firebaseRegistrationResult: LiveData<String> get() = _firebaseRegistrationResult
+
+    private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val userRepository: UserRepository = UserRepository(application) // UserRepository instance
+
+    fun savePassword(newPassword: String, confirmPassword: String) {
+        if (newPassword != confirmPassword) {
+            _firebaseRegistrationResult.value = "Passwords do not match"
+            return
+        }
+
+        // Retrieve user data from SharedPreferences
+        val fullName = sharedPreferences.getString("full_name", null)
+        val username = sharedPreferences.getString("username", null)
+        val email = sharedPreferences.getString("email", null)
+
+        if (fullName.isNullOrBlank() || username.isNullOrBlank() || email.isNullOrBlank()) {
+            _firebaseRegistrationResult.value = "Incomplete user data."
+            return
+        }
+
+        // Handle user deletion and registration sequentially
+        viewModelScope.launch {
+            val deletionSuccess = deleteExistingAccount(email)
+            if (deletionSuccess) {
+                registerInFirebase(email, newPassword, username, fullName)
+            }
+        }
+    }
+
+    private suspend fun deleteExistingAccount(email: String): Boolean {
+        return try {
+            val user = firebaseAuth.currentUser
+            if (user != null && user.email == email) {
+                user.delete().await()
+                Log.d("SignUpInputViewModel", "Existing account deleted successfully.")
+                true
+            } else {
+                Log.d("SignUpInputViewModel", "No account found to delete.")
+                true // No account found is considered successful
+            }
+        } catch (e: Exception) {
+            Log.e("SignUpInputViewModel", "Error deleting existing account: ${e.localizedMessage}")
+            false
+        }
+    }
+
+    private fun registerInFirebase(
+        email: String,
+        password: String,
+        username: String,
+        fullName: String
+    ) {
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val uid = task.result?.user?.uid
+                    if (uid != null) {
+                        // Save UID to UserRepository
+                        userRepository.saveUserUid(uid)
+                        // Push user data to the database
+                        pushUserDataToDatabase(uid, username, fullName, email, password)
+                    } else {
+                        _firebaseRegistrationResult.postValue("Firebase UID not found.")
+                    }
+                } else {
+                    _firebaseRegistrationResult.postValue(
+                        task.exception?.localizedMessage ?: "Firebase registration failed."
+                    )
+                }
+            }
+    }
+
+    private fun pushUserDataToDatabase(
+        uid: String,
+        username: String,
+        fullName: String,
+        email: String,
+        password: String
+    ) {
+        val apiService = ApiConfig.getApiService()
+
+        val user = User(
+            uid = uid,
+            nama_pengguna = username,
+            nama_lengkap = fullName,
+            email = email,
+            password = password,
+            role = "Pembaca" // Default role
+        )
+
+        apiService.createUser(user).enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful) {
+                    Log.d("SignUpInputViewModel", "User registration successful: ${response.message()}")
+                    _firebaseRegistrationResult.postValue("Registration successful!")
+                    // Mark the user as logged in
+                    userRepository.saveLoginStatus(true)
+                } else {
+                    Log.e("SignUpInputViewModel", "Failed to save user data: ${response.message()}")
+                    response.errorBody()?.let { Log.e("SignUpInputViewModel", "Error body: ${it.string()}") }
+                    _firebaseRegistrationResult.postValue("Failed to save data: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.e("SignUpInputViewModel", "API call failed: ${t.localizedMessage}", t)
+                _firebaseRegistrationResult.postValue("Error: ${t.localizedMessage}")
+            }
+        })
+    }
+}

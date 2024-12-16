@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.devmoss.kabare.R
 import com.devmoss.kabare.databinding.FragmentIntroBinding
@@ -14,7 +13,8 @@ class IntroFragment : Fragment() {
 
     private var _binding: FragmentIntroBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: IntroViewModel by viewModels()
+
+    private lateinit var viewModel: IntroViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,25 +27,26 @@ class IntroFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Observe the introStatus from the ViewModel
+        viewModel = IntroViewModel()
+
         viewModel.introStatus.observe(viewLifecycleOwner) { status ->
             when (status) {
                 is IntroViewModel.IntroStatus.Loading -> {
-                    // Optionally show a loading indicator
+                    // Handle loading
                 }
                 is IntroViewModel.IntroStatus.ShowIntro -> {
-                    // Optionally show the intro UI
+                    // Show intro screen if necessary
                 }
                 is IntroViewModel.IntroStatus.NavigateToWelcome -> {
-                    // Navigate to Welcome Fragment
+                    // Skip intro and directly navigate to the Welcome page
                     findNavController().navigate(R.id.action_introFragment_to_welcomeFragment)
                 }
             }
-        }
+        }   
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null // Avoid memory leaks by nullifying the binding reference
+        _binding = null
     }
 }

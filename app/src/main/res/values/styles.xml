@@ -13,4 +13,10 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="TextAppearance.BottomNavigation" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:paddingStart">20dp</item> <!-- Atur jarak di sebelah kiri teks -->
+        <item name="android:paddingEnd">20dp</item>   <!-- Atur jarak di sebelah kanan teks -->
+        <item name="android:textSize">8sp</item>    <!-- Ukuran teks -->
+    </style>
+
 </resources>

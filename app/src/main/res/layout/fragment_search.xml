@@ -2,70 +2,370 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backroundwhite">
+    android:background="@color/background_white">
 
     <EditText
         android:id="@+id/etSearch"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginStart="30dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/radius_edit_text"
         android:drawableEnd="@drawable/ic_search"
-        android:hint="Search"
+        android:drawableTint="@color/grey"
+        android:hint="Cari berita..."
+        android:imeOptions="actionSearch"
         android:paddingStart="20dp"
         android:paddingEnd="10dp"
-        android:drawableTint="@color/grey"
-        android:background="@drawable/radius_edit_text"
+        android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+
+
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tvSearchHistory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Riwayat Pencarian"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/etSearch"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="30dp" />
+        android:text="Riwayat Pencarian"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/etSearch"
+        app:layout_constraintTop_toBottomOf="@id/etSearch" />
 
     <!-- GridLayout untuk Riwayat Pencarian -->
     <GridLayout
+        android:visibility="gone"
         android:id="@+id/gridLayoutHistory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:columnCount="2"
+        app:layout_constraintEnd_toEndOf="@+id/etSearch"
+        app:layout_constraintStart_toStartOf="@+id/etSearch"
+        app:layout_constraintTop_toBottomOf="@id/tvSearchHistory" />
+
+    <TextView
+        android:id="@+id/tvKategori"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Kategori"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/etSearch"
+        app:layout_constraintTop_toBottomOf="@id/gridLayoutHistory" />
+
+    <!-- kategori -->
+
+    <GridLayout
+        android:paddingTop="10dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:id="@+id/gridLayoutKategori"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:columnCount="2"
-        android:layout_margin="16dp"
-        app:layout_constraintTop_toBottomOf="@id/tvSearchHistory"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tvKategori">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/kampus"
+            android:layout_width="172dp"
+            android:layout_height="30dp"
+            android:backgroundTint="#DCEBFF"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="Kampus"
+                android:textColor="@color/black"
+                android:textStyle="italic" />
+
+            <ImageView
+                android:layout_width="12sp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_kategori_search" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/prestasi"
+            android:layout_width="172dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:backgroundTint="#DCEBFF"
+            app:cardCornerRadius="8dp"
+            android:layout_gravity="end"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="Prestasi"
+                android:textColor="@color/black"
+                android:textStyle="italic" />
+
+            <ImageView
+                android:layout_width="12sp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_kategori_search" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/politik"
+            android:layout_width="172dp"
+            android:layout_height="30dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#DCEBFF"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="Politik"
+                android:textColor="@color/black"
+                android:textStyle="italic" />
+
+            <ImageView
+                android:layout_width="12sp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_kategori_search" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/kesehatan"
+            android:layout_gravity="end"
+            android:layout_width="172dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#DCEBFF"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="Kesehatan"
+                android:textColor="@color/black"
+                android:textStyle="italic" />
+
+            <ImageView
+                android:layout_width="12sp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_kategori_search" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/olahraga"
+            android:layout_width="172dp"
+            android:layout_height="30dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#DCEBFF"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="Olahraga"
+                android:textColor="@color/black"
+                android:textStyle="italic" />
+
+            <ImageView
+                android:layout_width="12sp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_kategori_search" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/ekonomi"
+            android:layout_width="172dp"
+            android:layout_gravity="end"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#DCEBFF"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="Ekonomi"
+                android:textColor="@color/black"
+                android:textStyle="italic" />
+
+            <ImageView
+                android:layout_width="12sp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_kategori_search" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/bisnis"
+            android:layout_width="172dp"
+            android:layout_height="30dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#DCEBFF"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="Bisnis"
+                android:textColor="@color/black"
+                android:textStyle="italic" />
+
+            <ImageView
+                android:layout_width="12sp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_kategori_search" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/ukm"
+            android:layout_gravity="end"
+            android:layout_width="172dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#DCEBFF"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="UKM"
+                android:textColor="@color/black"
+                android:textStyle="italic" />
+
+            <ImageView
+                android:layout_width="12sp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_kategori_search" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/beritaLainnya"
+            android:layout_width="172dp"
+            android:layout_height="30dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#DCEBFF"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="Berita Lainnya"
+                android:textColor="@color/black"
+                android:textStyle="italic" />
+
+            <ImageView
+                android:layout_width="12sp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_kategori_search" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+    </GridLayout>
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tvHotTopics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Topik Hangat Hari Ini"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/gridLayoutHistory"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="30dp" />
+        android:text="Topik Hangat Hari Ini"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/etSearch"
+        app:layout_constraintTop_toBottomOf="@id/gridLayoutKategori" />
 
     <!-- GridLayout untuk Topik Hangat -->
     <GridLayout
+        android:visibility="gone"
         android:id="@+id/gridLayoutHotTopics"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:columnCount="2"
-        android:layout_margin="16dp"
-        app:layout_constraintTop_toBottomOf="@id/tvHotTopics"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/etSearch"
+        app:layout_constraintStart_toStartOf="@+id/etSearch"
+        app:layout_constraintTop_toBottomOf="@id/tvHotTopics" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

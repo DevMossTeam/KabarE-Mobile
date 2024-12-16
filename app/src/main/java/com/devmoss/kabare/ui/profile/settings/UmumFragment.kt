@@ -1,32 +1,32 @@
 package com.devmoss.kabare.ui.profile.settings
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.net.Uri
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.devmoss.kabare.R
-import android.Manifest
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
+import com.devmoss.kabare.R
+import com.devmoss.kabare.ui.profile.settings.viewmodels.UmumViewModel
+import com.devmoss.kabare.data.repository.UserRepository
 
 class UmumFragment : Fragment() {
 
-    // Deklarasi variabel untuk Nama Lengkap
     private lateinit var tvNamaLengkap: TextView
     private lateinit var imgEditNamaLengkap: ImageView
     private lateinit var etNamaLengkap: EditText
@@ -35,7 +35,6 @@ class UmumFragment : Fragment() {
     private lateinit var llNamaLengkapDisplay: LinearLayout
     private lateinit var llNamaLengkapEdit: LinearLayout
 
-    // Deklarasi variabel untuk Username
     private lateinit var tvUsername: TextView
     private lateinit var imgEditUsername: ImageView
     private lateinit var etUsername: EditText
@@ -44,43 +43,52 @@ class UmumFragment : Fragment() {
     private lateinit var llUsernameDisplay: LinearLayout
     private lateinit var llUsernameEdit: LinearLayout
 
-    // Deklarasi variabel untuk Bio
-    private lateinit var tvBio: TextView
-    private lateinit var imgEditBio: ImageView
-    private lateinit var etBio: EditText
-    private lateinit var btnSimpanBio: TextView
-    private lateinit var btnBatalBio: TextView
-    private lateinit var llBioDisplay: LinearLayout
-    private lateinit var llBioEdit: LinearLayout
-
-    // Deklarasi variabel untuk Info
-    private lateinit var tvInfo: TextView
-    private lateinit var imgEditInfo: ImageView
-    private lateinit var etInfo: EditText
-    private lateinit var btnSimpanInfo: TextView
-    private lateinit var btnBatalInfo: TextView
-    private lateinit var llInfoDisplay: LinearLayout
-    private lateinit var llInfoEdit: LinearLayout
-    private lateinit var tvBatasKarakterInfo: TextView
-
-    // Deklarasi variabel untuk Status
     private lateinit var tvStatus: TextView
     private lateinit var imgEditStatus: ImageView
 
     private lateinit var imgProfile: ImageView
     private lateinit var imgCamera: CardView
-    private val PICK_IMAGE_REQUEST = 1
     private val PICK_IMAGE_REQUEST_CODE = 1
-    private val CAMERA_REQUEST_CODE = 2
-    private val CAMERA_PERMISSION_CODE = 3
-    private val REQUEST_CAMERA_PERMISSION = 100
     private val REQUEST_IMAGE_CAPTURE = 101
+    private val CAMERA_PERMISSION_CODE = 3
+
+    private val umumViewModel: UmumViewModel by viewModels()
+
+    private val cameraPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            openCamera()
+        } else {
+            Toast.makeText(context, "Camera permission denied", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private val galleryResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == AppCompatActivity.RESULT_OK) {
+            val imageUri = result.data?.data
+            imageUri?.let {
+                Glide.with(this)
+                    .load(it)
+                    .circleCrop()
+                    .into(imgProfile)
+            }
+        }
+    }
+
+    private val cameraResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == AppCompatActivity.RESULT_OK) {
+            val imageBitmap = result.data?.extras?.get("data") as? Bitmap
+            imageBitmap?.let {
+                imgProfile.setImageBitmap(it)
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_umum, container, false)
 
         // Initialize components
@@ -101,25 +109,6 @@ class UmumFragment : Fragment() {
         llUsernameDisplay = view.findViewById(R.id.ll_username_display)
         llUsernameEdit = view.findViewById(R.id.ll_username_edit)
 
-        // Initialize Bio components
-        tvBio = view.findViewById(R.id.tv_bio)
-        imgEditBio = view.findViewById(R.id.img_edit_bio)
-        etBio = view.findViewById(R.id.et_bio)
-        btnSimpanBio = view.findViewById(R.id.btn_simpan_bio)
-        btnBatalBio = view.findViewById(R.id.btn_batal_bio)
-        llBioDisplay = view.findViewById(R.id.ll_bio_display)
-        llBioEdit = view.findViewById(R.id.ll_bio_edit)
-
-        // Initialize Info components
-        tvInfo = view.findViewById(R.id.tv_info)
-        imgEditInfo = view.findViewById(R.id.img_edit_identitas_saya)
-        etInfo = view.findViewById(R.id.et_info)
-        btnSimpanInfo = view.findViewById(R.id.btn_simpan_info)
-        btnBatalInfo = view.findViewById(R.id.btn_batal_info)
-        llInfoDisplay = view.findViewById(R.id.ll_info_display)
-        llInfoEdit = view.findViewById(R.id.ll_info_edit)
-        tvBatasKarakterInfo = view.findViewById(R.id.tv_batas_karakter_info)
-
         // Initialize Status components
         tvStatus = view.findViewById(R.id.tv_posisi)
         imgEditStatus = view.findViewById(R.id.img_edit_status)
@@ -127,8 +116,9 @@ class UmumFragment : Fragment() {
         imgProfile = view.findViewById(R.id.img_profile)
         imgCamera = view.findViewById<CardView>(R.id.img_camera)
 
+        // Set listeners for actions
         imgCamera.setOnClickListener {
-            showCameraGalleryOptions() // Call method to show options
+            showCameraGalleryOptions() // Show camera/gallery options
         }
 
         imgEditNamaLengkap.setOnClickListener { showEditNamaLengkap() }
@@ -139,30 +129,51 @@ class UmumFragment : Fragment() {
         btnSimpanUsername.setOnClickListener { saveUsername() }
         btnBatalUsername.setOnClickListener { cancelEditUsername() }
 
-        imgEditBio.setOnClickListener { showEditBio() }
-        btnSimpanBio.setOnClickListener { saveBio() }
-        btnBatalBio.setOnClickListener { cancelEditBio() }
-
-        imgEditInfo.setOnClickListener { showEditInfo() }
-        btnSimpanInfo.setOnClickListener { saveInfo() }
-        btnBatalInfo.setOnClickListener { cancelEditInfo() }
-
         imgEditStatus.setOnClickListener { showWarningDialog() }
 
-        etInfo.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        // Fetch UID from UserRepository
+        val userRepository = UserRepository(requireContext())
+        val userUid = userRepository.getUserUid()
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                tvBatasKarakterInfo.text = "${s?.length ?: 0}/50"
+        if (!userUid.isNullOrEmpty()) {
+            // If UID is not null or empty, fetch user data
+            umumViewModel.fetchUserData(userUid)
+        } else {
+            Toast.makeText(context, "User not logged in", Toast.LENGTH_SHORT).show()
+        }
+
+        // Observe user data from ViewModel
+        umumViewModel.userData.observe(viewLifecycleOwner, Observer { result ->
+            result.onSuccess { user ->
+                tvNamaLengkap.text = user.nama_lengkap
+                tvUsername.text = user.nama_pengguna
+                tvStatus.text = user.role
+
+                // Ensure profile picture URL is available and load with Glide
+                if (!user.profile_pic.isNullOrEmpty()) {
+                    if (user.profile_pic.startsWith("http")) {
+                        Glide.with(this)
+                            .load(user.profile_pic)  // Load image from URL
+                            .circleCrop()
+                            .into(imgProfile)
+                    } else {
+                        val imageBytes = Base64.decode(user.profile_pic, Base64.DEFAULT)
+                        val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                        imgProfile.setImageBitmap(decodedImage)
+                    }
+                } else {
+                    imgProfile.setImageResource(R.drawable.ic_akun)
+                }
             }
-
-            override fun afterTextChanged(s: Editable?) {}
+            result.onFailure {
+                Toast.makeText(context, "Failed to load user data", Toast.LENGTH_SHORT).show()
+            }
         })
 
         return view
     }
 
-    // Metode untuk menampilkan dialog peringatan
+    // Method to show warning dialog
     private fun showWarningDialog() {
         val alertDialogBuilder = AlertDialog.Builder(requireContext())
         alertDialogBuilder.setTitle("Perhatian")
@@ -172,7 +183,7 @@ class UmumFragment : Fragment() {
         alertDialog.show()
     }
 
-    // Metode untuk menampilkan dan menyembunyikan layout edit Nama Lengkap
+    // Method to show and hide the layout for editing Nama Lengkap
     private fun showEditNamaLengkap() {
         llNamaLengkapDisplay.visibility = View.GONE
         llNamaLengkapEdit.visibility = View.VISIBLE
@@ -196,7 +207,7 @@ class UmumFragment : Fragment() {
         llNamaLengkapDisplay.visibility = View.VISIBLE
     }
 
-    // Metode untuk menampilkan dan menyembunyikan layout edit Username
+    // Method to show and hide the layout for editing Username
     private fun showEditUsername() {
         llUsernameDisplay.visibility = View.GONE
         llUsernameEdit.visibility = View.VISIBLE
@@ -220,143 +231,37 @@ class UmumFragment : Fragment() {
         llUsernameDisplay.visibility = View.VISIBLE
     }
 
-    // Metode untuk menampilkan dan menyembunyikan layout edit Bio
-    private fun showEditBio() {
-        llBioDisplay.visibility = View.GONE
-        llBioEdit.visibility = View.VISIBLE
-        etBio.setText(tvBio.text.toString())
-    }
-
-    private fun saveBio() {
-        val newBio = etBio.text.toString().trim()
-        if (newBio.isNotEmpty()) {
-            tvBio.text = newBio
-            Toast.makeText(context, "Bio berhasil diubah", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(context, "Bio tidak boleh kosong", Toast.LENGTH_SHORT).show()
-        }
-        llBioEdit.visibility = View.GONE
-        llBioDisplay.visibility = View.VISIBLE
-    }
-
-    private fun cancelEditBio() {
-        llBioEdit.visibility = View.GONE
-        llBioDisplay.visibility = View.VISIBLE
-    }
-
-    // Metode untuk menampilkan dan menyembunyikan layout edit Info
-    private fun showEditInfo() {
-        llInfoDisplay.visibility = View.GONE
-        llInfoEdit.visibility = View.VISIBLE
-        etInfo.setText(tvInfo.text.toString())
-    }
-
-    private fun saveInfo() {
-        val newInfo = etInfo.text.toString().trim()
-        if (newInfo.isNotEmpty()) {
-            tvInfo.text = newInfo
-            Toast.makeText(context, "Info berhasil diubah", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(context, "Info tidak boleh kosong", Toast.LENGTH_SHORT).show()
-        }
-        llInfoEdit.visibility = View.GONE
-        llInfoDisplay.visibility = View.VISIBLE
-    }
-
-    private fun cancelEditInfo() {
-        llInfoEdit.visibility = View.GONE
-        llInfoDisplay.visibility = View.VISIBLE
-    }
-
+    // Methods for Camera and Gallery options
     private fun checkCameraPermission() {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+        if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CAMERA)
             != PackageManager.PERMISSION_GRANTED
         ) {
-            // If permission is not granted, request it
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_CODE
-            )
+            cameraPermissionLauncher.launch(android.Manifest.permission.CAMERA)
         } else {
-            // Permission is already granted, open camera
             openCamera()
         }
     }
 
     private fun openCamera() {
-        // Start camera intent here
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE)
+        cameraResultLauncher.launch(cameraIntent)
     }
 
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(intent, PICK_IMAGE_REQUEST_CODE)
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == CAMERA_PERMISSION_CODE) {
-            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                // Permission granted, open camera
-                openCamera()
-            } else {
-                // Permission denied, show a message to the user
-                Toast.makeText(
-                    requireContext(),
-                    "Camera permission is required to take a picture.",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
+        galleryResultLauncher.launch(intent)
     }
 
     private fun showCameraGalleryOptions() {
-        val options = arrayOf("Camera", "Gallery")
+        val options = arrayOf("Open Camera", "Open Gallery")
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Choose an option")
+        builder.setTitle("Choose Option")
         builder.setItems(options) { dialog, which ->
             when (which) {
-                0 -> checkCameraPermission() // Check permission before opening camera
-                1 -> openGallery() // If Gallery is selected
+                0 -> checkCameraPermission()
+                1 -> openGallery()
             }
         }
         builder.show()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == Activity.RESULT_OK) {
-            when (requestCode) {
-                PICK_IMAGE_REQUEST_CODE -> {
-                    // Get the image from the gallery
-                    val selectedImageUri: Uri? = data?.data
-                    selectedImageUri?.let {
-                        // Use Glide to load the selected image into imgProfile
-                        Glide.with(requireContext())
-                            .load(it)
-                            .circleCrop() // Apply circular crop to the image
-                            .into(imgProfile)
-                    }
-                }
-
-                CAMERA_REQUEST_CODE -> {
-                    // Get the photo taken by the camera
-                    val photo: Bitmap? = data?.extras?.get("data") as? Bitmap
-                    photo?.let {
-                        // Use Glide to load the captured photo into imgProfile
-                        Glide.with(requireContext())
-                            .load(it) // Convert Bitmap to URI for Glide
-                            .circleCrop() // Apply circular crop to the image
-                            .into(imgProfile)
-                    }
-                }
-            }
-        }
     }
 }

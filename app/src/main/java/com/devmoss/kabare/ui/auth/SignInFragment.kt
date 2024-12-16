@@ -1,32 +1,33 @@
 package com.devmoss.kabare.ui.auth
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.devmoss.kabare.R
 import com.devmoss.kabare.ui.auth.popups.LupaPasswordKonfirmasiEmailDialog
+import com.devmoss.kabare.ui.auth.viewmodels.SignInViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
 class SignInFragment : Fragment() {
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var googleSignInClient: GoogleSignInClient
+    private val signInViewModel: SignInViewModel by activityViewModels()
 
     private lateinit var usernameInputLayout: TextInputLayout
     private lateinit var usernameEditText: TextInputEditText
@@ -37,17 +38,24 @@ class SignInFragment : Fragment() {
     private lateinit var forgotPasswordTextView: TextView
     private lateinit var signUpTextView: TextView
 
+    private lateinit var googleSignInClient: GoogleSignInClient
+
     // Google Sign-In launcher
     private val googleSignInLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == AppCompatActivity.RESULT_OK) {
+                Log.d("SignInFragment", "Google Sign-In intent received")
                 val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
                 try {
                     val account = task.getResult(ApiException::class.java)
-                    firebaseAuthWithGoogle(account)
+                    Log.d("SignInFragment", "Google account retrieved: ${account.email}")
+                    signInViewModel.firebaseAuthWithGoogle(account)
                 } catch (e: ApiException) {
-                    Toast.makeText(requireContext(), "Google Sign-In Failed: ${e.message}", Toast.LENGTH_LONG).show()
+                    Log.e("SignInFragment", "Google Sign-In failed: ${e.message}")
+                    signInViewModel.showToast.value = getString(R.string.google_sign_in_failed, e.message)
                 }
+            } else {
+                Log.d("SignInFragment", "Google Sign-In intent cancelled or failed")
             }
         }
 
@@ -55,42 +63,53 @@ class SignInFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_sign_in, container, false)
 
         // Initialize UI components
         initializeUIComponents(view)
 
-        // Set up Google Sign-In
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id)) // Replace with actual ID
-            .requestEmail()
-            .build()
+        // Initialize Google Sign-In client
+        googleSignInClient = GoogleSignIn.getClient(requireContext(), signInViewModel.getGoogleSignInOptions())
 
-        googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
-        auth = FirebaseAuth.getInstance()
+        // Observe LiveData dari ViewModel
+        observeViewModel()
 
         // Set up sign-in button click listener for email sign-in
-        signInButton.setOnClickListener {
-            performEmailSignIn()
-        }
+        signInButton.setOnClickListener { performEmailSignIn() }
 
         // Set up Google Sign-In button click listener
-        googleSignInButton.setOnClickListener {
-            signInWithGoogle()
-        }
+        googleSignInButton.setOnClickListener { signInWithGoogle() }
 
         // Set up forgot password click listener
-        forgotPasswordTextView.setOnClickListener {
-            showForgotPasswordDialog()
-        }
+        forgotPasswordTextView.setOnClickListener { showForgotPasswordDialog() }
 
         // Set up sign-up click listener
-        signUpTextView.setOnClickListener {
-            navigateToSignUp()
-        }
+        signUpTextView.setOnClickListener { navigateToSignUp() }
+
+        // Set up back button handling for Toolbar and device back button
+        setupBackButton()
 
         return view
+    }
+
+    private fun observeViewModel() {
+        // Observe sign-in status
+        signInViewModel.signInStatus.observe(viewLifecycleOwner, Observer { status ->
+            if (status == "success") navigateToHome()
+        })
+
+        // Observe toast messages
+        signInViewModel.showToast.observe(viewLifecycleOwner, Observer { message ->
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        })
+
+        // Observe navigation actions
+        signInViewModel.navigationAction.observe(viewLifecycleOwner, Observer { action ->
+            when (action) {
+                "navigate_to_intro" -> navigateToHome()
+                "navigate_to_sign_up_input" -> navigateToSignUpInput()
+            }
+        })
     }
 
     private fun initializeUIComponents(view: View) {
@@ -108,65 +127,50 @@ class SignInFragment : Fragment() {
         val username = usernameEditText.text.toString().trim()
         val password = passwordEditText.text.toString().trim()
 
-        // Validate inputs
-        if (validateInputs(username, password)) {
-            // Simulate sign-in validation logic (replace with real authentication logic)
-            if (username == "testuser" && password == "password") {
-                Toast.makeText(requireContext(), "Sign In Successful", Toast.LENGTH_SHORT).show()
-                // Navigate to the next screen or perform any action on successful sign-in
-            } else {
-                Toast.makeText(requireContext(), "Invalid Username or Password", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    private fun validateInputs(username: String, password: String): Boolean {
-        var isValid = true
-
-        if (username.isEmpty()) {
-            usernameInputLayout.error = "Username cannot be empty"
-            isValid = false
-        } else {
-            usernameInputLayout.error = null // Clear error
+        if (username.isEmpty() || password.isEmpty()) {
+            Toast.makeText(requireContext(), getString(R.string.username_or_password_empty), Toast.LENGTH_SHORT).show()
+            return
         }
 
-        if (password.isEmpty()) {
-            passwordInputLayout.error = "Password cannot be empty"
-            isValid = false
-        } else {
-            passwordInputLayout.error = null // Clear error
-        }
-
-        return isValid
+        signInViewModel.signInWithApi(username, password)
     }
 
     private fun signInWithGoogle() {
+        Log.d("SignInFragment", "Launching Google Sign-In")
         val signInIntent = googleSignInClient.signInIntent
         googleSignInLauncher.launch(signInIntent)
+
     }
 
-    private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
-        val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
-        auth.signInWithCredential(credential)
-            .addOnCompleteListener(requireActivity()) { task ->
-                if (task.isSuccessful) {
-                    // Google Sign-In succeeded, navigate to a new fragment or activity
-                    Toast.makeText(requireContext(), "Sign-In Successful", Toast.LENGTH_SHORT).show()
-                    // Redirect to another activity/fragment
-                } else {
-                    Toast.makeText(requireContext(), "Authentication Failed", Toast.LENGTH_LONG).show()
-                }
-            }
+    private fun navigateToHome() {
+        findNavController().navigate(R.id.action_signInFragment_to_introFragment)
     }
 
     private fun showForgotPasswordDialog() {
-        // Create and show the Forgot Password Bottom Sheet Dialog
         val lupaPasswordDialog = LupaPasswordKonfirmasiEmailDialog()
         lupaPasswordDialog.show(parentFragmentManager, "LupaPasswordKonfirmasiEmailDialog")
     }
 
     private fun navigateToSignUp() {
-        // Navigate to the Sign Up Fragment
         findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
+    }
+
+    private fun navigateToSignUpInput() {
+        findNavController().navigate(R.id.action_signInFragment_to_signUpInputFragment)
+    }
+
+    private fun setupBackButton() {
+        // Handle Toolbar back button
+        val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar) // Sesuaikan ID toolbar
+        toolbar?.setNavigationOnClickListener {
+            findNavController().navigate(R.id.action_signInFragment_to_introFragment)
+        }
+
+        // Handle device back button
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.action_signInFragment_to_introFragment)
+            }
+        })
     }
 }

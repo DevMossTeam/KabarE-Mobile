@@ -4,23 +4,24 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/ic_navigation_home"
         android:title="@string/title_beranda"
         />
     <item
         android:id="@+id/navigation_cari"
-        android:icon="@drawable/ic_search"
+        android:icon="@drawable/ic_navigation_search"
         android:title="@string/title_cari" />
     <item
         android:id="@+id/navigation_manajemen_artikel"
         android:icon="@drawable/ic_artikel"
+        android:visible="false"
         android:title="" />
     <item
         android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/ic_notifikasi"
         android:title="@string/title_notifications" />
     <item
         android:id="@+id/navigation_profil"
-        android:icon="@drawable/ic_akun"
+        android:icon="@drawable/ic_navigation_profile"
         android:title="@string/title_akun" />
 </menu>

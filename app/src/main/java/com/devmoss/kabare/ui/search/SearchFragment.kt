@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
+import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import android.widget.TextView
-import android.widget.GridLayout
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import com.devmoss.kabare.R
 import com.devmoss.kabare.databinding.FragmentSearchBinding
 
@@ -16,6 +17,7 @@ class SearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
+    private val searchViewModel: SearchViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,40 +26,50 @@ class SearchFragment : Fragment() {
     ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
 
-        // Inisialisasi GridLayouts untuk Riwayat Pencarian dan Topik Hangat
-        val gridLayoutHistory = binding.gridLayoutHistory
-        val gridLayoutHotTopics = binding.gridLayoutHotTopics
-
-        // Set riwayat pencarian dan topik hangat
-        val historyList = listOf("Berita 1", "Berita 2", "Berita 3", "Berita 4")
-        val hotTopicsList = listOf("Topik 1", "Topik 2", "Topik 3", "Topik 4")
-
-        addCardsToGridLayout(gridLayoutHistory, historyList)
-        addCardsToGridLayout(gridLayoutHotTopics, hotTopicsList)
+        setupSearch()
+        setupCategoryClickListeners()
 
         return binding.root
     }
 
-    // Fungsi untuk menambahkan CardView ke GridLayout
-    private fun addCardsToGridLayout(gridLayout: GridLayout, items: List<String>) {
-        for (item in items) {
-            val cardView = createCardView(item)
-            val layoutParams = GridLayout.LayoutParams().apply {
-                width = 0 // Mengatur CardView untuk mengambil ruang sama rata
-                height = ViewGroup.LayoutParams.WRAP_CONTENT
-                columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
-                setMargins(16, 16, 16, 16)
+    private fun setupSearch() {
+        binding.etSearch.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                val inputKatakunci = binding.etSearch.text.toString().trim()
+                if (inputKatakunci.isNotEmpty()) {
+                    performSearch(katakunci = inputKatakunci)
+                } else {
+                    Toast.makeText(context, "Kata kunci pencarian tidak boleh kosong", Toast.LENGTH_SHORT).show()
+                }
+                true
+            } else {
+                false
             }
-            gridLayout.addView(cardView, layoutParams)
         }
     }
 
-    // Fungsi untuk membuat CardView
-    private fun createCardView(text: String): CardView {
-        val cardView = LayoutInflater.from(requireContext()).inflate(R.layout.card_item, null) as CardView
-        val textView = cardView.findViewById<TextView>(R.id.cardText)
-        textView.text = text
-        return cardView
+    private fun setupCategoryClickListeners() {
+        binding.apply {
+            kampus.setOnClickListener { performSearch(kategori = "Kampus") }
+            prestasi.setOnClickListener { performSearch(kategori = "Prestasi") }
+            politik.setOnClickListener { performSearch(kategori = "Politik") }
+            kesehatan.setOnClickListener { performSearch(kategori = "Kesehatan") }
+            olahraga.setOnClickListener { performSearch(kategori = "Olahraga") }
+            ekonomi.setOnClickListener { performSearch(kategori = "Ekonomi") }
+            bisnis.setOnClickListener { performSearch(kategori = "Bisnis") }
+            ukm.setOnClickListener { performSearch(kategori = "UKM") }
+            beritaLainnya.setOnClickListener { performSearch(kategori = "Berita Lainnya") }
+        }
+    }
+
+    private fun performSearch(katakunci: String? = null, kategori: String? = null) {
+        if (katakunci.isNullOrEmpty() && kategori.isNullOrEmpty()) {
+            Toast.makeText(context, "Harap masukkan kata kunci atau pilih kategori untuk pencarian", Toast.LENGTH_SHORT).show()
+            return
+        }
+        // Panggil ViewModel untuk memuat pencarian dengan parameter yang sesuai
+        searchViewModel.loadSearch(katakunci = katakunci, kategori = kategori)
+        findNavController().navigate(R.id.action_navigation_cari_to_searchResultsFragment)
     }
 
     override fun onDestroyView() {

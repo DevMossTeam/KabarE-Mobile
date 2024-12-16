@@ -1,0 +1,11 @@
+<!-- res/drawable/rounded_blue_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Latar belakang transparan -->
+    <solid android:color="@android:color/transparent" />
+
+    <!-- Garis tepi warna biru -->
+    <stroke android:width="1dp" android:color="@color/blue" />
+
+    <!-- Sudut melengkung 20dp -->
+    <corners android:radius="20dp" />
+</shape>
