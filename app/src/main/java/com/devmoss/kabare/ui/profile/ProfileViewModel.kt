@@ -5,10 +5,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.devmoss.kabare.data.api.ApiConfig
+import com.devmoss.kabare.data.repository.UserRepository
 import com.devmoss.kabare.model.User
 import com.devmoss.kabare.model.UserRequest
 import com.devmoss.kabare.model.UserResponse
-import com.devmoss.kabare.data.repository.UserRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,10 +21,11 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> get() = _errorMessage
 
-    private val apiService = ApiConfig.getApiService()
-
     private val userRepository = UserRepository(application)
 
+    private val apiService = ApiConfig.getApiService()
+
+    // Fetch user profile from the API
     fun fetchUserProfile() {
         val userId = userRepository.getUserUid()
 
@@ -54,6 +55,12 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         })
     }
 
+    // Get login status from UserRepository
+    fun isUserLoggedIn(): Boolean {
+        return userRepository.isUserLoggedIn()
+    }
+
+    // Clear error messages
     fun clearErrorMessage() {
         _errorMessage.postValue(null)
     }

@@ -19,11 +19,11 @@
             android:contentDescription="Foto Profil"
             android:scaleType="centerCrop"
             android:background="@android:color/transparent"
-            android:elevation="1dp"
             android:layout_marginBottom="8dp"
             app:shapeAppearanceOverlay="@style/CircularShape"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_akun" />
 
         <!-- Full Name -->
         <TextView
@@ -31,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text=""
+            android:text="Siapakah Anda?"
             android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="@android:color/black"
@@ -39,45 +39,129 @@
             app:layout_constraintTop_toTopOf="@id/iv_profile_picture"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Username -->
-        <TextView
-            android:id="@+id/tv_username"
+        <!-- User Info Section -->
+        <LinearLayout
+            android:id="@+id/ll_user_info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="14sp"
+            android:orientation="vertical"
             app:layout_constraintStart_toStartOf="@id/tv_full_name"
             app:layout_constraintTop_toBottomOf="@id/tv_full_name"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- User Status -->
+            <!-- Username -->
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Username"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
+            <!-- User Status -->
+            <TextView
+                android:id="@+id/tv_user_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Pembaca"
+                android:visibility="gone"
+                android:textColor="@android:color/darker_gray" />
+
+            <!-- Description -->
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textSize="15sp"
+                android:text="Anda masuk tanpa akun. Yuk, login untuk menikmati fitur lengkapnya!"
+                android:textColor="@android:color/darker_gray" />
+        </LinearLayout>
+
+        <!-- Sign-In and Setting Buttons -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ll_sign_in_settings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_user_info"
+            android:layout_marginTop="32dp">
+
+            <!-- Sign-In Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_sign_in"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:text="Masuk"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="@android:color/white"
+                android:elevation="4dp"
+                app:iconPadding="8dp"
+                android:visibility="visible"
+                app:iconTint="@android:color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btn_setting"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <!-- Edit Profile Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_edit_profile"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:text="Edit Profil"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="@android:color/white"
+                android:elevation="4dp"
+                app:iconPadding="8dp"
+                android:visibility="gone"
+                app:iconTint="@android:color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btn_setting"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <!-- Settings Button -->
+            <ImageView
+                android:id="@+id/btn_setting"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:scaleType="centerCrop"
+                android:src="@drawable/setting"
+                android:contentDescription="Pengaturan"
+                app:layout_constraintStart_toEndOf="@id/btn_sign_in"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Register Prompt -->
         <TextView
-            android:id="@+id/tv_user_status"
+            android:id="@+id/tv_register_prompt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:textColor="@android:color/darker_gray"
-            app:layout_constraintStart_toStartOf="@id/tv_username"
-            app:layout_constraintTop_toBottomOf="@id/tv_username" />
+            android:text="Belum Memiliki Akun? Daftar"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/ll_sign_in_settings"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Settings Button -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_settings"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="16dp"
-            android:text="Pengaturan"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:backgroundTint="@color/black"
-            android:textColor="@android:color/white"
-            android:elevation="4dp"
-            app:iconPadding="8dp"
-            app:iconTint="@android:color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_user_status" />
-
+        <!-- Tabs and ViewPager Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -86,7 +170,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_settings">
+            app:layout_constraintTop_toBottomOf="@id/tv_register_prompt">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
@@ -112,8 +196,6 @@
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-
-
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

@@ -212,8 +212,14 @@
             android:id="@+id/action_navigation_profil_to_signInFragment"
             app:destination="@id/signInFragment" />
         <action
+            android:id="@+id/action_navigation_profil_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
             android:id="@+id/action_profileFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_umumFragment"
+            app:destination="@id/umumFragment" />
         <action
             android:id="@+id/action_navigation_profil_to_detailArtikelFragment"
             app:destination="@id/detailArtikelFragment" />

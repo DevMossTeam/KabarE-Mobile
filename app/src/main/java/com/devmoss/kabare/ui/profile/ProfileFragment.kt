@@ -14,10 +14,11 @@ import com.bumptech.glide.Glide
 import com.devmoss.kabare.R
 import com.devmoss.kabare.databinding.FragmentProfileBinding
 import com.devmoss.kabare.model.User
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import android.graphics.BitmapFactory
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
@@ -44,24 +45,35 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         profileViewModel.fetchUserProfile()
 
         // Handle settings navigation
-        binding.btnSettings.setOnClickListener {
+        binding.btnSetting.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_settingsFragment)
+        }
+
+        // Navigate to sign-in
+        binding.btnSignIn.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_profil_to_signInFragment)
+        }
+
+        // Navigate to sign-up
+        binding.tvRegisterPrompt.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_profil_to_signUpFragment)
         }
 
         // Observe user profile LiveData
         profileViewModel.userProfile.observe(viewLifecycleOwner, Observer { user ->
             user?.let {
                 updateProfileUI(it)
-            } ?: run {
-                showSnackbar("Failed to load user profile.")
             }
         })
+
+        // Observe login status LiveData
+        val isLoggedIn = profileViewModel.isUserLoggedIn()  // Use UserRepository method
+        handleLoginState(isLoggedIn)
 
         // Observe error messages LiveData
         profileViewModel.errorMessage.observe(viewLifecycleOwner, Observer { errorMessage ->
             errorMessage?.let {
-                showSnackbar(it)
-                profileViewModel.clearErrorMessage()
+                profileViewModel.clearErrorMessage() // Clear error after displaying it
             }
         })
     }
@@ -105,8 +117,57 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
     }
 
-    private fun showSnackbar(message: String) {
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
+    private fun handleLoginState(isLoggedIn: Boolean) {
+        if (isLoggedIn) {
+            // Hide Sign-In button and show Edit Profile button
+            binding.btnSignIn.visibility = View.GONE
+            binding.btnEditProfile.visibility = View.VISIBLE
+
+            // Hide description and show username, user status
+            binding.tvDesc.visibility = View.GONE
+            binding.tvUsername.visibility = View.VISIBLE
+            binding.tvUserStatus.visibility = View.VISIBLE
+            binding.tvRegisterPrompt.visibility = View.GONE
+
+            // Handle Edit Profile button click
+            binding.btnEditProfile.setOnClickListener {
+                findNavController().navigate(R.id.action_profileFragment_to_umumFragment)
+            }
+
+            // Adjust btn_setting constraints to btn_edit_profile
+            adjustButtonConstraints(binding.btnEditProfile.id)
+        } else {
+            // Show Sign-In button and register prompt
+            binding.btnSignIn.visibility = View.VISIBLE
+            binding.btnEditProfile.visibility = View.GONE
+
+            // Show description and hide username, user status
+            binding.tvDesc.visibility = View.VISIBLE
+            binding.tvUsername.visibility = View.GONE
+            binding.tvUserStatus.visibility = View.GONE
+            binding.tvRegisterPrompt.visibility = View.VISIBLE
+
+            // Adjust btn_setting constraints to btn_sign_in
+            adjustButtonConstraints(binding.btnSignIn.id)
+        }
+    }
+
+    private fun adjustButtonConstraints(anchorViewId: Int) {
+        val constraintLayout = binding.llSignInSettings as ConstraintLayout
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(constraintLayout)
+
+        // Update start-to-end constraint for btn_setting
+        constraintSet.connect(
+            binding.btnSetting.id,
+            ConstraintSet.START,
+            anchorViewId,
+            ConstraintSet.END,
+            8 // Margin
+        )
+
+        // Apply updated constraints
+        constraintSet.applyTo(constraintLayout)
     }
 
     override fun onDestroyView() {
