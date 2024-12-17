@@ -81,8 +81,8 @@ class ResetPasswordViewModel(application: Application) : AndroidViewModel(applic
         if (newPassword.isBlank()) {
             newPasswordError = "Password cannot be empty"
             isValid = false
-        } else if (newPassword.length < 6) {
-            newPasswordError = "Password must be at least 6 characters"
+        } else if (newPassword.length < 8) {
+            newPasswordError = "Password must be at least 8 characters"
             isValid = false
         }
 

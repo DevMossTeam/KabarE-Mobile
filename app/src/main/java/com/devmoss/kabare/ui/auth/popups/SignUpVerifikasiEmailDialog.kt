@@ -96,15 +96,33 @@ class SignUpVerifikasiEmailDialog : BottomSheetDialogFragment() {
                     start: Int,
                     count: Int,
                     after: Int
-                ) {}
+                ) {
+                }
 
                 override fun onTextChanged(
                     charSequence: CharSequence?,
                     start: Int,
                     before: Int,
                     count: Int
-                ) {}
+                ) {
+                }
             })
+
+            otpInputs[i].setOnKeyListener { _, keyCode, event ->
+                if (keyCode == android.view.KeyEvent.KEYCODE_DEL && event.action == android.view.KeyEvent.ACTION_DOWN) {
+                    if (otpInputs[i].text.isNotEmpty()) {
+                        // Hapus input terlebih dahulu
+                        otpInputs[i].text.clear()
+                    } else if (i > 0) {
+                        // Pindahkan fokus ke kotak sebelumnya jika input kosong
+                        otpInputs[i - 1].requestFocus()
+                        otpInputs[i - 1].text.clear() // Hapus input kotak sebelumnya
+                    }
+                    true
+                } else {
+                    false
+                }
+            }
         }
     }
 

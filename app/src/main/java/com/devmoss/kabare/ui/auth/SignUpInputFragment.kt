@@ -76,7 +76,7 @@ class SignUpInputFragment : Fragment(R.layout.fragment_sign_up_input) {
         // Add TextWatcher for password validation
         etNewPassword.doOnTextChanged { text, _, _, _ ->
             if (!isPasswordValid(text.toString())) {
-                newPasswordInputLayout.error = "Password must be at least 6 characters"
+                newPasswordInputLayout.error = "Password must be at least 8 characters"
             } else {
                 newPasswordInputLayout.error = null
             }
@@ -108,7 +108,7 @@ class SignUpInputFragment : Fragment(R.layout.fragment_sign_up_input) {
     private fun isFormValid(newPassword: String, confirmPassword: String): Boolean {
         return when {
             !isPasswordValid(newPassword) -> {
-                newPasswordInputLayout.error = "Password must be at least 6 characters"
+                newPasswordInputLayout.error = "Password must be at least 8 characters"
                 false
             }
             confirmPassword.isEmpty() -> {
@@ -128,7 +128,7 @@ class SignUpInputFragment : Fragment(R.layout.fragment_sign_up_input) {
     }
 
     private fun isPasswordValid(password: String): Boolean {
-        return password.length >= 6
+        return password.length >= 8
     }
 
     private fun showLoading(isLoading: Boolean) {
