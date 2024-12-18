@@ -15,6 +15,19 @@ data class UserRequest(
     val uid: String
 )
 
+data class UserUpdateRequest(
+    val uid: String,
+    val profile_pic: String? = null,      // Profile picture URL, nullable
+    val nama_lengkap: String,             // Full name (non-nullable)
+    val nama_pengguna: String,            // Username (non-nullable)
+)
+
+data class SecurityUpdateRequest(
+    val uid: String,
+    val email: String,                    // User's email (non-nullable)
+    val password: String                 // Password (non-nullable)
+)
+
 data class UserResponse(
     val message: String,
     val data: User

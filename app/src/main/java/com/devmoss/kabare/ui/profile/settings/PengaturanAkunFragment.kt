@@ -22,7 +22,7 @@ class PengaturanAkunFragment : Fragment() {
     private var _binding: FragmentPengaturanAkunBinding? = null
     private val binding get() = _binding!!
 
-    private val pengaturanAkunViewModel: PengaturanAkunViewModel by viewModels()
+    private val viewModel: PengaturanAkunViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,46 +35,58 @@ class PengaturanAkunFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Observe ViewModel data
         observeViewModel()
-
-        // Fetch user data
-        pengaturanAkunViewModel.fetchUserData()
-
-        // Setup button and navigation listeners
+        viewModel.fetchUserData()
+        viewModel.checkUserLoginStatus() // Cek status login saat fragment dimuat
         setupClickListeners()
     }
 
     private fun observeViewModel() {
-        pengaturanAkunViewModel.userName.observe(viewLifecycleOwner) { userName ->
-            binding.tvUserName.text = userName
-        }
+        viewModel.apply {
+            userName.observe(viewLifecycleOwner) { name ->
+                binding.tvUserName.text = name
+            }
 
-        pengaturanAkunViewModel.userRole.observe(viewLifecycleOwner) { userRole ->
-            binding.tvUserRole.text = userRole
-        }
+            userRole.observe(viewLifecycleOwner) { role ->
+                binding.tvUserRole.text = role
+            }
 
-        pengaturanAkunViewModel.imgProfile.observe(viewLifecycleOwner) { imgProfile ->
-            if (!imgProfile.isNullOrEmpty()) {
-                if (imgProfile.startsWith("http")) {
-                    Glide.with(this)
-                        .load(imgProfile)
-                        .circleCrop()
-                        .into(binding.imgProfile)
-                } else {
-                    val imageBytes = Base64.decode(imgProfile, Base64.DEFAULT)
-                    val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-                    binding.imgProfile.setImageBitmap(decodedImage)
-                }
+            imgProfile.observe(viewLifecycleOwner) { imgProfile ->
+                loadImageProfile(imgProfile)
+            }
+
+            isUserLoggedIn.observe(viewLifecycleOwner) { isLoggedIn ->
+                setVisibilityForLoginStatus(isLoggedIn)
+            }
+
+            logoutStatus.observe(viewLifecycleOwner) { isLoggedOut ->
+                if (isLoggedOut) navigateToIntro()
+            }
+        }
+    }
+
+    private fun loadImageProfile(imgProfile: String?) {
+        if (!imgProfile.isNullOrEmpty()) {
+            if (imgProfile.startsWith("http")) {
+                Glide.with(this)
+                    .load(imgProfile)
+                    .circleCrop()
+                    .into(binding.imgProfile)
             } else {
-                binding.imgProfile.setImageResource(R.drawable.ic_akun)
+                val imageBytes = Base64.decode(imgProfile, Base64.DEFAULT)
+                val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                binding.imgProfile.setImageBitmap(decodedImage)
             }
+        } else {
+            binding.imgProfile.setImageResource(R.drawable.ic_akun)
         }
+    }
 
-        pengaturanAkunViewModel.logoutStatus.observe(viewLifecycleOwner) { isLoggedOut ->
-            if (isLoggedOut) {
-                navigateToIntro()
-            }
+    private fun setVisibilityForLoginStatus(isLoggedIn: Boolean) {
+        with(binding) {
+            tvUmum.visibility = if (isLoggedIn) View.VISIBLE else View.GONE
+            tvKeamanan.visibility = if (isLoggedIn) View.VISIBLE else View.GONE
+            btnLogout.visibility = if (isLoggedIn) View.VISIBLE else View.GONE
         }
     }
 
@@ -94,15 +106,14 @@ class PengaturanAkunFragment : Fragment() {
         KonfirmasiKeluarDialog(
             onLogoutComplete = {
                 Log.d("LogoutDialog", "onLogoutComplete called")
-                navigateToIntro() // Navigate to intro page
+                navigateToIntro()
             },
             onConfirm = {
                 Log.d("LogoutDialog", "Logout confirmed")
-                pengaturanAkunViewModel.logout() // Handle any additional logout logic
+                viewModel.logout()
             },
             onCancel = {
                 Log.d("LogoutDialog", "Logout canceled")
-                // Optional: Handle cancellation logic
             }
         ).show(childFragmentManager, "KonfirmasiKeluarDialog")
     }
@@ -113,17 +124,17 @@ class PengaturanAkunFragment : Fragment() {
         val currentDestination = navController.currentDestination?.id
         val introDestination = R.id.introFragment
 
-        if (currentDestination != introDestination) {
-            Log.d("PengaturanAkunFragment", "Current destination: $currentDestination")
-            val navOptions = NavOptions.Builder()
-                .setPopUpTo(R.id.settingsFragment, true) // Clear back stack
-                .setLaunchSingleTop(true)  // Avoid multiple instances of the same fragment
-                .build()
-
-            navController.navigate(R.id.action_pengaturanAkunFragment_to_introFragment, null, navOptions)
-        } else {
+        if (currentDestination == introDestination) {
             Log.d("PengaturanAkunFragment", "Already on IntroFragment")
+            return // Hindari navigasi berulang
         }
+
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.settingsFragment, true) // Clear back stack
+            .setLaunchSingleTop(true) // Avoid multiple instances
+            .build()
+
+        navController.navigate(R.id.action_pengaturanAkunFragment_to_introFragment, null, navOptions)
     }
 
     private fun navigateTo(destinationId: Int) {
@@ -134,6 +145,6 @@ class PengaturanAkunFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null // Prevent memory leaks
+        _binding = null
     }
 }

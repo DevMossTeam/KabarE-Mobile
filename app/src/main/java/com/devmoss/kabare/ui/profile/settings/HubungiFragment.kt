@@ -9,13 +9,16 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.devmoss.kabare.R
+import com.devmoss.kabare.ui.profile.settings.viewmodels.HubungiViewModel
 
 class HubungiFragment : Fragment() {
 
     private lateinit var etComplaint: EditText
     private lateinit var btnSubmit: Button
     private lateinit var tvAdditionalInfo: TextView
+    private val hubungiViewModel: HubungiViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,24 +34,23 @@ class HubungiFragment : Fragment() {
 
         // Set click listener for the submit button
         btnSubmit.setOnClickListener {
-            submitComplaint()
-        }
+            val complaintText = etComplaint.text.toString().trim()
 
+            if (complaintText.isEmpty()) {
+                Toast.makeText(requireContext(), "Harap masukkan keluhan anda", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Call ViewModel to submit complaint
+            hubungiViewModel.submitComplaint(complaintText, {
+                // On success
+                Toast.makeText(requireContext(), "Keluhan berhasil dikirim", Toast.LENGTH_SHORT).show()
+                etComplaint.text.clear() // Clear input after success
+            }, { errorMessage ->
+                // On failure
+                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+            })
+        }
         return view
-    }
-
-    private fun submitComplaint() {
-        val complaintText = etComplaint.text.toString().trim()
-        if (complaintText.isEmpty()) {
-            Toast.makeText(requireContext(), "Harap masukkan keluhan anda", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        // Here, you can handle the complaint submission (e.g., send to server, save locally, etc.)
-        // For now, we will just show a toast message
-        Toast.makeText(requireContext(), "Keluhan berhasil dikirim", Toast.LENGTH_SHORT).show()
-
-        // Clear the input field after submission
-        etComplaint.text.clear()
     }
 }

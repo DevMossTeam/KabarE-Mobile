@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -142,30 +143,40 @@ class UmumFragment : Fragment() {
             Toast.makeText(context, "User not logged in", Toast.LENGTH_SHORT).show()
         }
 
-        // Observe user data from ViewModel
         umumViewModel.userData.observe(viewLifecycleOwner, Observer { result ->
             result.onSuccess { user ->
+                // Set user data to TextViews and EditText
                 tvNamaLengkap.text = user.nama_lengkap
                 tvUsername.text = user.nama_pengguna
                 tvStatus.text = user.role
 
-                // Ensure profile picture URL is available and load with Glide
+                // Load profile picture
                 if (!user.profile_pic.isNullOrEmpty()) {
                     if (user.profile_pic.startsWith("http")) {
+                        // If the profile picture is a URL, load it with Glide
                         Glide.with(this)
                             .load(user.profile_pic)  // Load image from URL
-                            .circleCrop()
+                            .circleCrop()  // Apply circle crop to image
                             .into(imgProfile)
                     } else {
-                        val imageBytes = Base64.decode(user.profile_pic, Base64.DEFAULT)
-                        val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-                        imgProfile.setImageBitmap(decodedImage)
+                        try {
+                            // If the profile picture is a Base64 string, decode and set it
+                            val imageBytes = Base64.decode(user.profile_pic, Base64.DEFAULT)
+                            val decodedImage =
+                                BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                            imgProfile.setImageBitmap(decodedImage)
+                        } catch (e: Exception) {
+                            // In case Base64 decoding fails, log the error and set a default image
+                            Log.e("ProfileImage", "Error decoding Base64 image", e)
+                            imgProfile.setImageResource(R.drawable.ic_akun) // Default profile image
+                        }
                     }
                 } else {
                     imgProfile.setImageResource(R.drawable.ic_akun)
                 }
             }
             result.onFailure {
+                // In case of failure, show a toast message
                 Toast.makeText(context, "Failed to load user data", Toast.LENGTH_SHORT).show()
             }
         })
@@ -192,14 +203,28 @@ class UmumFragment : Fragment() {
 
     private fun saveNamaLengkap() {
         val newName = etNamaLengkap.text.toString().trim()
-        if (newName.isNotEmpty()) {
-            tvNamaLengkap.text = newName
-            Toast.makeText(context, "Nama lengkap berhasil diubah", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(context, "Nama lengkap tidak boleh kosong", Toast.LENGTH_SHORT).show()
+
+        if (newName.isEmpty() || newName == tvNamaLengkap.text.toString()) {
+            Toast.makeText(context, "Nama lengkap tidak valid atau sama seperti sebelumnya", Toast.LENGTH_SHORT).show()
+            return
         }
-        llNamaLengkapEdit.visibility = View.GONE
-        llNamaLengkapDisplay.visibility = View.VISIBLE
+
+        val userUid = getUserUid()
+        if (!userUid.isNullOrEmpty()) {
+            // Now, we pass the new full name and the existing username (tvUsername.text.toString())
+            umumViewModel.updateUserData(userUid, newName, tvUsername.text.toString())
+            umumViewModel.updateResult.observe(viewLifecycleOwner) { result ->
+                result.onSuccess {
+                    tvNamaLengkap.text = newName
+                    Toast.makeText(context, "Nama lengkap berhasil diperbarui", Toast.LENGTH_SHORT).show()
+                    llNamaLengkapEdit.visibility = View.GONE
+                    llNamaLengkapDisplay.visibility = View.VISIBLE
+                }
+                result.onFailure {
+                    Toast.makeText(context, "Gagal memperbarui nama lengkap", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     private fun cancelEditNamaLengkap() {
@@ -216,20 +241,41 @@ class UmumFragment : Fragment() {
 
     private fun saveUsername() {
         val newUsername = etUsername.text.toString().trim()
-        if (newUsername.isNotEmpty()) {
-            tvUsername.text = newUsername
-            Toast.makeText(context, "Username berhasil diubah", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(context, "Username tidak boleh kosong", Toast.LENGTH_SHORT).show()
+        if (newUsername.isEmpty() || newUsername == tvUsername.text.toString()) {
+            Toast.makeText(context, "Username tidak valid atau sama seperti sebelumnya", Toast.LENGTH_SHORT).show()
+            return
         }
-        llUsernameEdit.visibility = View.GONE
-        llUsernameDisplay.visibility = View.VISIBLE
+
+        val newName = tvNamaLengkap.text.toString() // Ensure we're passing the current full name as well
+        val userUid = getUserUid()
+        if (!userUid.isNullOrEmpty()) {
+            // Now pass both newName and newUsername
+            umumViewModel.updateUserData(userUid, newName, newUsername)
+            umumViewModel.updateResult.observe(viewLifecycleOwner) { result ->
+                result.onSuccess {
+                    tvUsername.text = newUsername // Update the displayed username
+                    Toast.makeText(context, "Username berhasil diperbarui", Toast.LENGTH_SHORT).show()
+                    llUsernameEdit.visibility = View.GONE
+                    llUsernameDisplay.visibility = View.VISIBLE
+                }
+                result.onFailure {
+                    Toast.makeText(context, "Gagal memperbarui username", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     private fun cancelEditUsername() {
         llUsernameEdit.visibility = View.GONE
         llUsernameDisplay.visibility = View.VISIBLE
     }
+
+    private fun getUserUid(): String? {
+        // Retrieve UID from repository
+        val userRepository = UserRepository(requireContext())
+        return userRepository.getUserUid()
+    }
+
 
     // Methods for Camera and Gallery options
     private fun checkCameraPermission() {

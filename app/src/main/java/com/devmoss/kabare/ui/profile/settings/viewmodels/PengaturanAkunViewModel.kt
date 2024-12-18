@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.devmoss.kabare.data.api.ApiConfig
 import com.devmoss.kabare.data.repository.UserRepository
-import com.devmoss.kabare.model.User
 import com.devmoss.kabare.model.UserRequest
 import com.devmoss.kabare.model.UserResponse
 import retrofit2.Call
@@ -27,15 +26,17 @@ class PengaturanAkunViewModel(application: Application) : AndroidViewModel(appli
     private val _logoutStatus = MutableLiveData<Boolean>()
     val logoutStatus: LiveData<Boolean> get() = _logoutStatus
 
-    private val userRepository: UserRepository = UserRepository(application) // UserRepository instance
+    private val _isUserLoggedIn = MutableLiveData<Boolean>()
+    val isUserLoggedIn: LiveData<Boolean> get() = _isUserLoggedIn
+
+    private val userRepository: UserRepository = UserRepository(application)
     private val apiService = ApiConfig.getApiService()
 
-    // Fetch user data from API
+    // Fetch user data
     fun fetchUserData() {
         val userId = userRepository.getUserUid()
         if (userId.isNullOrEmpty()) {
-            _userName.postValue("Guest")
-            _userRole.postValue("Guest")
+            handleGuestUser()
             return
         }
 
@@ -44,24 +45,45 @@ class PengaturanAkunViewModel(application: Application) : AndroidViewModel(appli
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 if (response.isSuccessful) {
                     response.body()?.data?.let { user ->
-                        _userName.postValue(user.nama_pengguna)
-                        _userRole.postValue(user.role)
-                        _imgProfile.postValue(user.profile_pic)
-                    }
+                        updateUserData(user.nama_pengguna, user.role, user.profile_pic)
+                        _isUserLoggedIn.postValue(true)
+                    } ?: handleErrorState()
                 } else {
-                    _userName.postValue("Error")
-                    _userRole.postValue("Error")
+                    handleErrorState()
                 }
             }
 
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                _userName.postValue("Error")
-                _userRole.postValue("Error")
+                handleErrorState()
             }
         })
     }
+
+    private fun handleGuestUser() {
+        updateUserData("Guest", "Guest", null)
+        _isUserLoggedIn.postValue(false)
+    }
+
+    private fun updateUserData(name: String, role: String, profilePic: String?) {
+        _userName.postValue(name)
+        _userRole.postValue(role)
+        _imgProfile.postValue(profilePic)
+    }
+
+    private fun handleErrorState() {
+        updateUserData("Error", "Error", null)
+        _isUserLoggedIn.postValue(false)
+    }
+
+    // Logout function
     fun logout() {
-        userRepository.clearUserData() // Clears user data from shared preferences
-        _logoutStatus.value = true // Update LiveData to notify the UI
+        userRepository.clearUserData()
+        _logoutStatus.postValue(true)
+        _isUserLoggedIn.postValue(false)
+    }
+
+    // Check if user is logged in (used during initialization)
+    fun checkUserLoginStatus() {
+        _isUserLoggedIn.postValue(userRepository.isUserLoggedIn())
     }
 }

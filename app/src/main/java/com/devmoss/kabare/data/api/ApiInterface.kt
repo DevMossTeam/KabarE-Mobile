@@ -15,17 +15,20 @@ import com.devmoss.kabare.data.model.ResponsePostKomentar
 import com.devmoss.kabare.data.model.ResponseReaksi
 import com.devmoss.kabare.data.model.ResultBookmark
 import com.devmoss.kabare.data.model.SignInRequest
+import com.devmoss.kabare.model.SecurityUpdateRequest
 import com.devmoss.kabare.model.User
 import com.devmoss.kabare.model.UserRequest
 import com.devmoss.kabare.model.UserResponse
+import com.devmoss.kabare.model.UserUpdateRequest
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Query
+import retrofit2.Response
+import retrofit2.http.PUT
 
 interface ApiInterface {
     @GET("get_berita_detail.php") // Endpoint PHP untuk detail artikel
@@ -117,5 +120,15 @@ interface ApiInterface {
     fun resetPassword(@Body request: ResetPasswordRequest): Call<ResponseBody>
 
     @POST("pengguna.php")
-    fun getUserData(@Body user: UserRequest): Call<UserResponse> // POST request to send the UID
+    fun getUserData(@Body request: UserRequest): Call<UserResponse>
+
+    @PUT("pengguna.php")
+    fun updateUserData(@Body request: UserUpdateRequest): Call<UserResponse>
+
+    @POST("pengguna.php")
+    fun updateSecurityData(@Body request: SecurityUpdateRequest): Call<UserResponse>
+
+
+    @POST("masukan.php")
+    suspend fun submitComplaint(@Body message: Map<String, String>): Response<ResponseBody>
 }

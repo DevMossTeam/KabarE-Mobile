@@ -266,7 +266,8 @@
             app:destination="@id/tentangFragment" />
         <action
             android:id="@+id/action_pengaturanAkunFragment_to_introFragment"
-            app:destination="@id/introFragment" />
+            app:destination="@id/introFragment"
+            tools:layout="@layout/fragment_intro" />
     </fragment>
 
     <!-- Umum Fragment -->

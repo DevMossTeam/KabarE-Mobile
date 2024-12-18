@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="Siapakah Anda?"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toEndOf="@id/iv_profile_picture"

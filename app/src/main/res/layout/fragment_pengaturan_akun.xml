@@ -109,6 +109,7 @@
             <!-- Section for "Umum" -->
             <LinearLayout
                 android:id="@+id/tvUmum"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -135,6 +136,7 @@
                 android:id="@+id/tvNotifikasi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:orientation="vertical">
 
                 <TextView
@@ -159,6 +161,7 @@
                 android:id="@+id/tvKeamanan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <TextView
