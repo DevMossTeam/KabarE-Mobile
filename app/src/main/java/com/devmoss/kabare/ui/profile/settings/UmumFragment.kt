@@ -16,7 +16,6 @@ import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -25,6 +24,7 @@ import com.bumptech.glide.Glide
 import com.devmoss.kabare.R
 import com.devmoss.kabare.ui.profile.settings.viewmodels.UmumViewModel
 import com.devmoss.kabare.data.repository.UserRepository
+import java.io.ByteArrayOutputStream
 
 class UmumFragment : Fragment() {
 
@@ -49,10 +49,6 @@ class UmumFragment : Fragment() {
 
     private lateinit var imgProfile: ImageView
     private lateinit var imgCamera: CardView
-    private val PICK_IMAGE_REQUEST_CODE = 1
-    private val REQUEST_IMAGE_CAPTURE = 101
-    private val CAMERA_PERMISSION_CODE = 3
-
     private val umumViewModel: UmumViewModel by viewModels()
 
     private val cameraPermissionLauncher = registerForActivityResult(
@@ -73,6 +69,10 @@ class UmumFragment : Fragment() {
                     .load(it)
                     .circleCrop()
                     .into(imgProfile)
+
+                // Update profile picture
+                val encodedImage = encodeImage(it)
+                updateProfilePic(encodedImage)
             }
         }
     }
@@ -82,6 +82,10 @@ class UmumFragment : Fragment() {
             val imageBitmap = result.data?.extras?.get("data") as? Bitmap
             imageBitmap?.let {
                 imgProfile.setImageBitmap(it)
+
+                // Update profile picture
+                val encodedImage = encodeImage(it)
+                updateProfilePic(encodedImage)
             }
         }
     }
@@ -153,22 +157,18 @@ class UmumFragment : Fragment() {
                 // Load profile picture
                 if (!user.profile_pic.isNullOrEmpty()) {
                     if (user.profile_pic.startsWith("http")) {
-                        // If the profile picture is a URL, load it with Glide
                         Glide.with(this)
-                            .load(user.profile_pic)  // Load image from URL
-                            .circleCrop()  // Apply circle crop to image
+                            .load(user.profile_pic)
+                            .circleCrop()
                             .into(imgProfile)
                     } else {
                         try {
-                            // If the profile picture is a Base64 string, decode and set it
                             val imageBytes = Base64.decode(user.profile_pic, Base64.DEFAULT)
-                            val decodedImage =
-                                BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                            val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
                             imgProfile.setImageBitmap(decodedImage)
                         } catch (e: Exception) {
-                            // In case Base64 decoding fails, log the error and set a default image
                             Log.e("ProfileImage", "Error decoding Base64 image", e)
-                            imgProfile.setImageResource(R.drawable.ic_akun) // Default profile image
+                            imgProfile.setImageResource(R.drawable.ic_akun)
                         }
                     }
                 } else {
@@ -176,7 +176,6 @@ class UmumFragment : Fragment() {
                 }
             }
             result.onFailure {
-                // In case of failure, show a toast message
                 Toast.makeText(context, "Failed to load user data", Toast.LENGTH_SHORT).show()
             }
         })
@@ -184,107 +183,64 @@ class UmumFragment : Fragment() {
         return view
     }
 
-    // Method to show warning dialog
+    private fun encodeImage(imageUri: android.net.Uri): String {
+        val inputStream = requireContext().contentResolver.openInputStream(imageUri)
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        inputStream?.let {
+            val buffer = ByteArray(1024)
+            var bytesRead: Int
+            while (it.read(buffer).also { bytesRead = it } != -1) {
+                byteArrayOutputStream.write(buffer, 0, bytesRead)
+            }
+        }
+        val byteArray = byteArrayOutputStream.toByteArray()
+        return Base64.encodeToString(byteArray, Base64.DEFAULT)
+    }
+
+    private fun encodeImage(bitmap: Bitmap): String {
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+        val byteArray = byteArrayOutputStream.toByteArray()
+        return Base64.encodeToString(byteArray, Base64.DEFAULT)
+    }
+
+    private fun updateProfilePic(encodedImage: String) {
+        val userUid = getUserUid()
+        if (!userUid.isNullOrEmpty()) {
+            umumViewModel.updateUserData(userUid, tvNamaLengkap.text.toString(), tvUsername.text.toString(), encodedImage)
+        }
+    }
+
     private fun showWarningDialog() {
         val alertDialogBuilder = AlertDialog.Builder(requireContext())
-        alertDialogBuilder.setTitle("Perhatian")
-        alertDialogBuilder.setMessage("Silahkan menghubungi admin untuk mengubah informasi ini.")
-        alertDialogBuilder.setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
-        val alertDialog = alertDialogBuilder.create()
-        alertDialog.show()
+        alertDialogBuilder.setTitle("Perhatian!")
+            .setMessage("Apakah Anda yakin ingin mengubah status?")
+            .setPositiveButton("Ya") { _, _ ->
+                Toast.makeText(context, "Status updated", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("Tidak") { _, _ -> }
+        alertDialogBuilder.create().show()
     }
 
-    // Method to show and hide the layout for editing Nama Lengkap
-    private fun showEditNamaLengkap() {
-        llNamaLengkapDisplay.visibility = View.GONE
-        llNamaLengkapEdit.visibility = View.VISIBLE
-        etNamaLengkap.setText(tvNamaLengkap.text.toString())
-    }
-
-    private fun saveNamaLengkap() {
-        val newName = etNamaLengkap.text.toString().trim()
-
-        if (newName.isEmpty() || newName == tvNamaLengkap.text.toString()) {
-            Toast.makeText(context, "Nama lengkap tidak valid atau sama seperti sebelumnya", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        val userUid = getUserUid()
-        if (!userUid.isNullOrEmpty()) {
-            // Now, we pass the new full name and the existing username (tvUsername.text.toString())
-            umumViewModel.updateUserData(userUid, newName, tvUsername.text.toString())
-            umumViewModel.updateResult.observe(viewLifecycleOwner) { result ->
-                result.onSuccess {
-                    tvNamaLengkap.text = newName
-                    Toast.makeText(context, "Nama lengkap berhasil diperbarui", Toast.LENGTH_SHORT).show()
-                    llNamaLengkapEdit.visibility = View.GONE
-                    llNamaLengkapDisplay.visibility = View.VISIBLE
-                }
-                result.onFailure {
-                    Toast.makeText(context, "Gagal memperbarui nama lengkap", Toast.LENGTH_SHORT).show()
-                }
+    private fun showCameraGalleryOptions() {
+        val options = arrayOf("Ambil Foto", "Pilih dari Galeri")
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Pilih opsi untuk mengubah foto profil")
+        builder.setItems(options) { dialog, which ->
+            when (which) {
+                0 -> checkCameraPermission()
+                1 -> openGallery()
             }
         }
+        builder.show()
     }
 
-    private fun cancelEditNamaLengkap() {
-        llNamaLengkapEdit.visibility = View.GONE
-        llNamaLengkapDisplay.visibility = View.VISIBLE
-    }
-
-    // Method to show and hide the layout for editing Username
-    private fun showEditUsername() {
-        llUsernameDisplay.visibility = View.GONE
-        llUsernameEdit.visibility = View.VISIBLE
-        etUsername.setText(tvUsername.text.toString())
-    }
-
-    private fun saveUsername() {
-        val newUsername = etUsername.text.toString().trim()
-        if (newUsername.isEmpty() || newUsername == tvUsername.text.toString()) {
-            Toast.makeText(context, "Username tidak valid atau sama seperti sebelumnya", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        val newName = tvNamaLengkap.text.toString() // Ensure we're passing the current full name as well
-        val userUid = getUserUid()
-        if (!userUid.isNullOrEmpty()) {
-            // Now pass both newName and newUsername
-            umumViewModel.updateUserData(userUid, newName, newUsername)
-            umumViewModel.updateResult.observe(viewLifecycleOwner) { result ->
-                result.onSuccess {
-                    tvUsername.text = newUsername // Update the displayed username
-                    Toast.makeText(context, "Username berhasil diperbarui", Toast.LENGTH_SHORT).show()
-                    llUsernameEdit.visibility = View.GONE
-                    llUsernameDisplay.visibility = View.VISIBLE
-                }
-                result.onFailure {
-                    Toast.makeText(context, "Gagal memperbarui username", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-    }
-
-    private fun cancelEditUsername() {
-        llUsernameEdit.visibility = View.GONE
-        llUsernameDisplay.visibility = View.VISIBLE
-    }
-
-    private fun getUserUid(): String? {
-        // Retrieve UID from repository
-        val userRepository = UserRepository(requireContext())
-        return userRepository.getUserUid()
-    }
-
-
-    // Methods for Camera and Gallery options
     private fun checkCameraPermission() {
-        if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CAMERA)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            cameraPermissionLauncher.launch(android.Manifest.permission.CAMERA)
-        } else {
-            openCamera()
+        when {
+            ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED -> {
+                openCamera()
+            }
+            else -> cameraPermissionLauncher.launch(android.Manifest.permission.CAMERA)
         }
     }
 
@@ -294,20 +250,59 @@ class UmumFragment : Fragment() {
     }
 
     private fun openGallery() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        galleryResultLauncher.launch(intent)
+        val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        galleryResultLauncher.launch(galleryIntent)
     }
 
-    private fun showCameraGalleryOptions() {
-        val options = arrayOf("Open Camera", "Open Gallery")
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Choose Option")
-        builder.setItems(options) { dialog, which ->
-            when (which) {
-                0 -> checkCameraPermission()
-                1 -> openGallery()
-            }
+    private fun showEditNamaLengkap() {
+        llNamaLengkapDisplay.visibility = View.GONE
+        llNamaLengkapEdit.visibility = View.VISIBLE
+        etNamaLengkap.setText(tvNamaLengkap.text)
+    }
+
+    private fun saveNamaLengkap() {
+        val newNamaLengkap = etNamaLengkap.text.toString()
+        tvNamaLengkap.text = newNamaLengkap
+        llNamaLengkapDisplay.visibility = View.VISIBLE
+        llNamaLengkapEdit.visibility = View.GONE
+        // Call ViewModel to save new data
+        updateUserData()
+    }
+
+    private fun cancelEditNamaLengkap() {
+        llNamaLengkapDisplay.visibility = View.VISIBLE
+        llNamaLengkapEdit.visibility = View.GONE
+    }
+
+    private fun updateUserData() {
+        val userUid = getUserUid()
+        if (userUid != null) {
+            umumViewModel.updateUserData(userUid, tvNamaLengkap.text.toString(), tvUsername.text.toString(), "")
         }
-        builder.show()
+    }
+
+    private fun showEditUsername() {
+        llUsernameDisplay.visibility = View.GONE
+        llUsernameEdit.visibility = View.VISIBLE
+        etUsername.setText(tvUsername.text)
+    }
+
+    private fun saveUsername() {
+        val newUsername = etUsername.text.toString()
+        tvUsername.text = newUsername
+        llUsernameDisplay.visibility = View.VISIBLE
+        llUsernameEdit.visibility = View.GONE
+        // Call ViewModel to save new data
+        updateUserData()
+    }
+
+    private fun cancelEditUsername() {
+        llUsernameDisplay.visibility = View.VISIBLE
+        llUsernameEdit.visibility = View.GONE
+    }
+
+    private fun getUserUid(): String? {
+        val userRepository = UserRepository(requireContext())
+        return userRepository.getUserUid()
     }
 }

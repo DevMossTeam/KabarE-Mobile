@@ -29,13 +29,15 @@ class UserRepository(context: Context) {
 
     // Save user UID and set login status
     fun saveUserUid(uid: String?) {
-        sharedPreferences.edit()
-            .putString("uid", uid)
-            .apply()
-
-        val isLoggedIn = !uid.isNullOrEmpty()
-        saveLoginStatus(isLoggedIn)
-        Log.d(TAG, "User UID saved: $uid, Login status: $isLoggedIn")
+        if (uid != null) {
+            sharedPreferences.edit()
+                .putString("uid", uid)
+                .apply()
+            saveLoginStatus(true)
+            Log.d(TAG, "User UID saved: $uid, Login status: true")
+        } else {
+            clearUserData()  // If UID is null, clear user data
+        }
     }
 
     // Get user UID
@@ -61,12 +63,12 @@ class UserRepository(context: Context) {
     ): Result<Unit> {
         return withContext(Dispatchers.IO) {
             try {
-                // Ensure non-null values for UserRequest
+                // Ensure non-null values for UserUpdateRequest, use null for profilePic if empty
                 val userUpdateRequest = UserUpdateRequest(
                     uid = userUid, // Should always be non-null
                     nama_lengkap = namaLengkap ?: "", // Fallback to empty string if null
                     nama_pengguna = username ?: "",   // Fallback to empty string if null
-                    profile_pic = profilePic ?: ""    // Fallback to empty string if null
+                    profile_pic = profilePic?.takeIf { it.isNotEmpty() } // Use null if profilePic is empty
                 )
 
                 // Call API to update user
