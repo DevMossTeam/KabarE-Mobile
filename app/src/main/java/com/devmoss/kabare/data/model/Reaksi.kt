@@ -47,9 +47,26 @@ data class ResponseJumlahReaksi(
 data class ResultJumlahReaksi(
 
 	@field:SerializedName("jumlah_tidak_suka")
-	val jumlahTidakSuka: Int? = null, // Jumlah reaksi Tidak Suka
+	val jumlahTidakSuka: Int? = 0, // Jumlah reaksi Tidak Suka
 
 	@field:SerializedName("jumlah_suka")
-	val jumlahSuka: Int? = null // Jumlah reaksi Suka
+	val jumlahSuka: Int? = 0 // Jumlah reaksi Suka
 
+) : Parcelable
+
+// response status like dislike
+@Parcelize
+data class ReaksiResponse(
+
+	@field:SerializedName("is_dislike")
+	val isDislike: Int? = null,
+
+	@field:SerializedName("is_like")
+	val isLike: Int? = null,
+
+	@field:SerializedName("message")
+	val message: String? = null,
+
+	@field:SerializedName("status")
+	val status: String? = null
 ) : Parcelable

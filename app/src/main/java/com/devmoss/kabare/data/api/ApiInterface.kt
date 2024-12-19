@@ -3,6 +3,7 @@ package com.devmoss.kabare.data.api
 import com.devmoss.kabare.data.model.BookmarkStatusResponse
 import com.devmoss.kabare.data.model.CheckUserRequest
 import com.devmoss.kabare.data.model.ReaksiRequest
+import com.devmoss.kabare.data.model.ReaksiResponse
 import com.devmoss.kabare.data.model.ResetPasswordRequest
 import com.devmoss.kabare.data.model.ResponseBookmark
 import com.devmoss.kabare.data.model.ResponseCheckUser
@@ -11,6 +12,7 @@ import com.devmoss.kabare.data.model.ResponseGetBerita
 import com.devmoss.kabare.data.model.ResponseGetKomentar
 import com.devmoss.kabare.data.model.ResponseGetTag
 import com.devmoss.kabare.data.model.ResponseJumlahReaksi
+import com.devmoss.kabare.data.model.ResponseLaporan
 import com.devmoss.kabare.data.model.ResponsePostKomentar
 import com.devmoss.kabare.data.model.ResponseReaksi
 import com.devmoss.kabare.data.model.ResultBookmark
@@ -108,6 +110,20 @@ interface ApiInterface {
         @Query("kategori") kategori: String? = null,
         @Query("tag") tag: String? = null
     ): Call<ResponseGetBerita>
+
+    @POST("report_berita.php") // Pastikan URL sesuai dengan endpoint API Anda
+    fun createLaporanBerita(
+        @Query("user_id") userId: String,
+        @Query("berita_id") beritaId: String,
+        @Query("pesan") pesan: String,
+        @Query("detail_pesan") detailPesan: String
+    ): Call<ResponseLaporan>
+
+    @GET("status_like.php")
+    fun cekStatusLike(
+        @Query("user_id") userId: String,
+        @Query("berita_id") beritaId: String
+    ): Call<ReaksiResponse>
 
     // POST request to create a new user (signup)
     @POST("signup.php")
