@@ -1,5 +1,6 @@
 package com.devmoss.kabare.ui.home.detailberita
 
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
@@ -24,24 +25,30 @@ import com.bumptech.glide.Glide
 import com.devmoss.kabare.R
 import com.devmoss.kabare.data.model.ListBerita
 import com.devmoss.kabare.data.model.ResultBookmark
+import com.devmoss.kabare.data.repository.UserRepository
 import com.devmoss.kabare.databinding.FragmentDetailArtikelBinding
 import com.devmoss.kabare.ui.reaksi.reaksiadapters.DaftarBeritaBookmarkAdapter
 import com.devmoss.kabare.ui.reaksi.reaksiviewmodels.BookmarkViewModel
 import com.devmoss.kabare.ui.home.detailberita.detailviewmodels.BeritaTerkaitViewModel
 import com.devmoss.kabare.ui.home.detailberita.detailviewmodels.DetailArtikelViewModel
 import com.devmoss.kabare.ui.komentarartikel.KomentarDialogFragment
+import com.devmoss.kabare.ui.search.SearchViewModel
 import org.jsoup.Jsoup
 
 class DetailArtikelFragment : Fragment() {
     private lateinit var binding: FragmentDetailArtikelBinding
     private var beritaId: String = ""  // Inisialisasi untuk ID berita
-    private var userId: String = "2" // Ganti dengan ID pengguna yang sesuai
 
     // Mendeklarasikan ViewModel
     private val viewModel: DetailArtikelViewModel by viewModels()
     private val bookmarkViewModel: BookmarkViewModel by activityViewModels()
     private val beritaTerkaitViewModel: BeritaTerkaitViewModel by activityViewModels()
+    private val searchViewModel: SearchViewModel by activityViewModels()
     private lateinit var beritaTerkaitAdapter: DaftarBeritaBookmarkAdapter
+
+    //mengambil user id
+    private lateinit var userRepository: UserRepository
+    private var userId: String? = null
 
     private var savedScrollPosition = 0
 
@@ -50,6 +57,36 @@ class DetailArtikelFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDetailArtikelBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.konten.visibility = View.GONE
+        binding.progresBar.visibility = View.GONE
+
+        // Inisialisasi dan setup untuk share button
+        binding.shere.setOnClickListener {
+            val beritaTitle = binding.tvTitle.text.toString() // Judul berita
+            val beritaUrl = "https://www.example.com/berita/$beritaId" // URL berita (contoh)
+
+            // Membuat intent untuk berbagi
+            val shareIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, "$beritaTitle\n\nBaca selengkapnya di: $beritaUrl")
+                type = "text/plain"
+            }
+
+            // Menampilkan dialog berbagi ke aplikasi lain
+            startActivity(Intent.createChooser(shareIntent, "Bagikan Berita"))
+        }
+
+        // Ambil beritaId dari arguments
+        arguments?.getString("beritaId")?.let {
+            beritaId = it
+            getDetailBerita(beritaId)}
+        getStatusLike()
+        setupReaksiButtons()
 
         // Ubah warna icon back ke white
         binding.back.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white))
@@ -58,12 +95,10 @@ class DetailArtikelFragment : Fragment() {
         binding.ivBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
-
         // Menambahkan listener klik pada TextView setFont
         binding.setFont.setOnClickListener {
             showFontSizeMenu(it)
         }
-
         // Mengaktifkan JavaScript di WebView
         binding.webViewKonten.settings.javaScriptEnabled = true
 
@@ -71,25 +106,52 @@ class DetailArtikelFragment : Fragment() {
         binding.tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
         updateTextSizeKonten(16f)
 
-        setupReaksiButtons()
-
-        return binding.root
+        // Inisialisasi UserRepository
+        userRepository = UserRepository(requireContext())
+        userId = userRepository.getUserUid() ?: run {
+            Toast.makeText(requireContext(), "User belum login!", Toast.LENGTH_SHORT).show()
+            return // Jika userId null, hentikan proses lebih lanjut
+        }
     }
 
-      private fun setupReaksiButtons() {
-        // Tombol Like
+    // Fungsi untuk mendapatkan status like dan mengupdate UI
+    private fun getStatusLike() {
+        viewModel.getStatusLike(userId ?: "", beritaId)
+        viewModel.statusLike.observe(viewLifecycleOwner, Observer { response ->
+            response?.let { statusResponse ->
+
+                // Reset UI ke kondisi default terlebih dahulu
+                binding.suka.setImageResource(R.drawable.ic_like) // Icon like default
+                binding.icDislike.setImageResource(R.drawable.ic_dislike) // Icon dislike default
+                binding.tvLike.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
+                binding.tvDisike.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
+
+                // Update UI berdasarkan nilai isLike dan isDislike
+                if (statusResponse.isLike == 1) {
+                    binding.suka.setImageResource(R.drawable.ic_like_filled)
+                    binding.tvLike.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
+                }
+                if (statusResponse.isDislike == 1) {
+                    binding.icDislike.setImageResource(R.drawable.ic_dislike_filled)
+                    binding.tvDisike.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
+                }
+            }
+        })
+    }
+
+    private fun setupReaksiButtons() {
         binding.like.setOnClickListener {
-            viewModel.sendReaksi(beritaId, userId, "Suka") { message ->
+            viewModel.sendReaksi(beritaId, userId?: "", "Suka") { message ->
                 Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
                 getJumlahReaksi()
+                getStatusLike()
             }
         }
-
-        // Tombol Dislike
-        binding.disike.setOnClickListener {
-            viewModel.sendReaksi(beritaId, userId, "Tidak Suka") { message ->
+        binding.dislike.setOnClickListener {
+            viewModel.sendReaksi(beritaId, userId?: "", "Tidak Suka") { message ->
                 Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
                 getJumlahReaksi()
+                getStatusLike()
             }
         }
     }
@@ -101,19 +163,14 @@ class DetailArtikelFragment : Fragment() {
             val isBookmarked = statusMap[beritaId] ?: false
             updateBookmarkIcon(isBookmarked)
         }
-
         // Tambahkan listener untuk tombol bookmark
         binding.ivBookmark.setOnClickListener {
             val bookmark = ResultBookmark(userId, beritaId)
-            bookmarkViewModel.toggleBookmark(bookmark)
+            bookmarkViewModel.toggleBookmark(bookmark, requireContext())
         }
-
         // Memeriksa status awal bookmark jika belum ada di statusMap
         bookmarkViewModel.checkBookmarkStatus(userId, listOf(ListBerita(idBerita = beritaId)))
     }
-
-
-
     private fun updateBookmarkIcon(isBookmarked: Boolean) {
         binding.ivBookmark.setImageResource(
             if (isBookmarked) R.drawable.bookmark_true else R.drawable.bookmark_false
@@ -135,32 +192,32 @@ class DetailArtikelFragment : Fragment() {
         }
     }
 
+    // Mengubah metode untuk menampilkan tag dan memberikan listener pada tag
     private fun updateLabels(labels: List<String>) {
         binding.labelContainer.removeAllViews()
+        // Menambahkan tag baru ke dalam GridLayout
         for (label in labels) {
             val labelCard = LayoutInflater.from(context)
                 .inflate(R.layout.item_label, binding.labelContainer, false) as CardView
             val labelTextView = labelCard.findViewById<TextView>(R.id.labelTextView)
             labelTextView.text = label
+            // Set listener untuk setiap tag yang diklik
+            labelTextView.setOnClickListener {
+                searchViewModel.loadSearch(null, null, label)
+                findNavController().navigate(R.id.action_detailArtikelFragment_to_searchResultsFragment)
+            }
+            // Menambahkan tag ke dalam container
             binding.labelContainer.addView(labelCard)
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // Ambil beritaId dari arguments
-        arguments?.getString("beritaId")?.let {
-            beritaId = it
-            // Setelah mendapatkan beritaId, panggil fungsi untuk ambil detail berita
-            getDetailBerita(beritaId)
-        }
-    }
 
     private fun getDetailBerita(beritaId: String) {
+        beritaTerkaitViewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
+            showShimmerEffect(isLoading)
+        })
         // Memanggil ViewModel untuk mengambil detail berita
         viewModel.getDetailBerita(beritaId)
-
         // Observe perubahan data berita
         viewModel.beritaDetail.observe(viewLifecycleOwner, Observer { detail ->
             detail?.let {
@@ -190,10 +247,8 @@ class DetailArtikelFragment : Fragment() {
                     // Menampilkan gambar pertama di TopImage dan menghapusnya dari konten
                     item.kontenBerita?.let { kontenHtml ->
                         val document = Jsoup.parse(kontenHtml)
-
                         // Cari gambar pertama
                         val imgTag = document.selectFirst("img")
-
                         imgTag?.let { img ->
                             val imgSrc = img.attr("src")
 
@@ -213,7 +268,6 @@ class DetailArtikelFragment : Fragment() {
                             // Hapus gambar pertama dari konten
                             img.remove()
                         }
-
                         // Tambahkan CSS untuk memastikan margin/padding terhapus
                         val cssStyle = """
                             <style>
@@ -263,11 +317,17 @@ class DetailArtikelFragment : Fragment() {
                     binding.btnKomentar.setOnClickListener {
                         val dialog = KomentarDialogFragment.newInstance(
                             berita.idBerita ?: "",
-                            berita.jumlahKomentar ?: 0
-                        )
+                            berita.jumlahKomentar ?: 0)
                         dialog.show(childFragmentManager, "KomentarDialogFragment")
                     }
-                    setupBookmarkButton(beritaId, userId)
+                    // Set listener untuk membuka dialog komentar
+                    binding.btnLaporan.setOnClickListener {
+                        val dialogLaporan = ReportDialogFragment.newInstance(berita.idBerita ?: "")
+                        dialogLaporan.show(childFragmentManager, "ReportDialogFragment")
+                    }
+                    setupBookmarkButton(beritaId, userId?: "")
+                    binding.konten.visibility = View.VISIBLE
+                    binding.shimmerDetailBerita.visibility = View.GONE
                 }
             }
         })
@@ -294,9 +354,6 @@ class DetailArtikelFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = beritaTerkaitAdapter
         }
-        beritaTerkaitViewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
-            progresbar(isLoading)
-        })
 
         beritaTerkaitViewModel.beritaTerkaitList.observe(
             viewLifecycleOwner,
@@ -322,19 +379,16 @@ class DetailArtikelFragment : Fragment() {
                     updateTextSizeKonten(10f)
                     true
                 }
-
                 R.id.medium -> {
                     binding.tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
                     updateTextSizeKonten(16f)  // Sedang
                     true
                 }
-
                 R.id.large -> {
                     binding.tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24f)
                     updateTextSizeKonten(20f)  // Besar
                     true
                 }
-
                 R.id.very_large -> {
                     binding.tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28f)
                     updateTextSizeKonten(24f)  // Sangat Besar
@@ -355,12 +409,13 @@ class DetailArtikelFragment : Fragment() {
         """
         binding.webViewKonten.evaluateJavascript(jsScript, null)
     }
-
-    private fun progresbar(isLoading: Boolean) {
+    private fun showShimmerEffect(isLoading: Boolean) {
         if (isLoading) {
-            binding.progresBar.visibility = View.VISIBLE
+            binding.shimmerDetailBerita.startShimmer()
+            binding.shimmerDetailBerita.visibility = View.VISIBLE
+            binding.konten.visibility = View.GONE
         } else {
-            binding.progresBar.visibility = View.GONE
+            binding.shimmerDetailBerita.stopShimmer()
         }
     }
 

@@ -76,11 +76,15 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.navigation_cari -> {
-                    // Set up for the search screen
-                    binding.toolbar.title = "Cari"
                     binding.toolbarLogo.visibility = android.view.View.GONE
-                    binding.toolbar.visibility = android.view.View.VISIBLE
+                    binding.toolbar.visibility = android.view.View.GONE
                     binding.navView.visibility = BottomNavigationView.VISIBLE
+                }
+
+                R.id.searchResultsFragment -> {
+                    binding.toolbarLogo.visibility = android.view.View.GONE
+                    binding.toolbar.visibility = android.view.View.GONE
+                    binding.navView.visibility = BottomNavigationView.GONE
                 }
 
                 R.id.navigation_notifications -> {

@@ -19,14 +19,12 @@ class BeritaTerkaitAdapter(
     private val userId: String  // ID User untuk mengecek status bookmark
 ) : RecyclerView.Adapter<BeritaTerkaitAdapter.ViewHolder>() {
 
-    // Menyimpan status bookmark lokal
     private var bookmarkStatusMap: MutableMap<String, Boolean> = mutableMapOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemBeritaTerkaitBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val beritaTerkait = beritaTerkait[position]
         holder.binding.tvTitle.text = beritaTerkait.judul
@@ -36,7 +34,6 @@ class BeritaTerkaitAdapter(
         val firstImageSrc = Regex("""<img\s+[^>]*src=["']([^"']+)["']""")
             .find(beritaTerkait.kontenBerita ?: "")
             ?.groupValues?.get(1)
-
         if (!firstImageSrc.isNullOrEmpty()) {
             Glide.with(holder.itemView.context)
                 .load(firstImageSrc)
@@ -47,40 +44,30 @@ class BeritaTerkaitAdapter(
         }
 
         holder.binding.articleConten.setOnClickListener {
-            listener.onArticleTerkaitClick(beritaTerkait)
-        }
+            listener.onArticleTerkaitClick(beritaTerkait) }
         holder.binding.ivBookmark.setOnClickListener {
-            listener.onBookmarkBeritaTerkaitClick(beritaTerkait)
-        }
+            listener.onBookmarkBeritaTerkaitClick(beritaTerkait) }
         val isBookmarked = bookmarkViewModel.bookmarkStatusMap.value?.get(beritaTerkait.idBerita.toString()) ?: false
         holder.binding.ivBookmark.setImageResource(
             if (isBookmarked) R.drawable.ic_bookmark_filled else R.drawable.ic_bookmark
-        )
-    }
-
+        ) }
     override fun getItemCount(): Int {
         return beritaTerkait.size
     }
-
     @SuppressLint("NotifyDataSetChanged")
     fun updateList(newArticles: List<ListBerita>) {
         Log.d("BeritaTerkaitAdapter", "Data baru diterima: $newArticles")
         beritaTerkait = newArticles
         notifyDataSetChanged()
-        notifyItemRangeChanged(0, newArticles.size)
-    }
-
+        notifyItemRangeChanged(0, newArticles.size) }
     fun toggleBookmarkStatus(beritaId: String) {
         val currentStatus = bookmarkStatusMap[beritaId] ?: false
         bookmarkStatusMap[beritaId] = !currentStatus
-        notifyDataSetChanged()
-    }
+        notifyDataSetChanged() }
 
     fun updateBookmarkStatusMap(statusMap: Map<String, Boolean>) {
         bookmarkStatusMap = statusMap.toMutableMap()
-        notifyDataSetChanged()
-    }
-
+        notifyDataSetChanged() }
 
     class ViewHolder(val binding: ItemBeritaTerkaitBinding) : RecyclerView.ViewHolder(binding.root)
 

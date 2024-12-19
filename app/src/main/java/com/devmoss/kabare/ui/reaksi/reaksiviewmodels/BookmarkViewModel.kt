@@ -1,5 +1,7 @@
 package com.devmoss.kabare.ui.reaksi.reaksiviewmodels
 
+import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.devmoss.kabare.data.api.ApiConfig
@@ -57,7 +59,7 @@ class BookmarkViewModel : ViewModel() {
     }
 
 
-    fun toggleBookmark(resultBookmark: ResultBookmark) {
+    fun toggleBookmark(resultBookmark: ResultBookmark, context: Context) {
         apiService.addBookmark(resultBookmark).enqueue(object : Callback<ResponseBookmark> {
             override fun onResponse(call: Call<ResponseBookmark>, response: Response<ResponseBookmark>) {
                 // Mengambil status bookmark yang ada, bisa null, jika null, buat map baru
@@ -78,14 +80,18 @@ class BookmarkViewModel : ViewModel() {
 
                 // Post ke LiveData untuk memperbarui status bookmark
                 bookmarkStatusMap.postValue(updatedStatus)
+
+                // Menampilkan Toast message berdasarkan response API
+                val message = response.body()?.message ?: "Terjadi kesalahan"
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
             }
 
             override fun onFailure(call: Call<ResponseBookmark>, t: Throwable) {
                 // Handle failure
+                Toast.makeText(context, "Gagal menambahkan bookmark", Toast.LENGTH_SHORT).show()
             }
         })
     }
-
 
 }
 

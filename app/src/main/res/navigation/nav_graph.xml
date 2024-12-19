@@ -200,6 +200,9 @@
         <action
             android:id="@+id/action_detailArtikelFragment_self"
             app:destination="@id/detailArtikelFragment" />
+        <action
+            android:id="@+id/action_detailArtikelFragment_to_searchResultsFragment"
+            app:destination="@id/searchResultsFragment" />
 
     </fragment>
 
@@ -347,6 +350,9 @@
         <action
             android:id="@+id/action_searchResultsFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_searchResultsFragment_to_detailArtikelFragment2"
+            app:destination="@id/detailArtikelFragment" />
     </fragment>
 
 </navigation>

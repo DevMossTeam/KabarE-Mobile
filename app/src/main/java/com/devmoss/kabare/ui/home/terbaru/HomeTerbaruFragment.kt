@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.devmoss.kabare.R
 import com.devmoss.kabare.data.model.ListBerita
 import com.devmoss.kabare.data.model.ResultBookmark
+import com.devmoss.kabare.data.repository.UserRepository
 import com.devmoss.kabare.databinding.FragmentHomeTerbaruBinding
 import com.devmoss.kabare.ui.reaksi.reaksiviewmodels.BookmarkViewModel
 import com.devmoss.kabare.ui.home.detailberita.detailberitaadapters.BeritaTerkaitAdapter
@@ -28,21 +29,24 @@ class HomeTerbaruFragment : Fragment() {
     private lateinit var beritaTerkaitAdapter: BeritaTerkaitAdapter
     private val beritaTerkiniViewModel: BeritaTerkiniViewModel by activityViewModels()
     private val bookmarkViewModel: BookmarkViewModel by activityViewModels()
-    val userId = "2"
 
     private var beritaTerkiniList: List<ListBerita> = emptyList()
+
+    // inisialisai user repo
+    private lateinit var userRepository: UserRepository
+    private var userId: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeTerbaruBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         setupRecyclerViews()
         observeViewModel()
@@ -50,6 +54,13 @@ class HomeTerbaruFragment : Fragment() {
         // Setup SwipeRefreshLayout
         binding.swipeRefreshLayout.setOnRefreshListener {
             refreshContent()
+        }
+
+        // Inisialisasi UserRepository
+        userRepository = UserRepository(requireContext())
+        userId = userRepository.getUserUid() ?: run {
+            Toast.makeText(requireContext(), "User belum login!", Toast.LENGTH_SHORT).show()
+            return // Jika userId null, hentikan proses lebih lanjut
         }
     }
 
@@ -66,6 +77,7 @@ class HomeTerbaruFragment : Fragment() {
     }
 
     private fun observeViewModel() {
+
         beritaTerkiniViewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
             showShimmerEffect(isLoading)
         })
@@ -92,7 +104,7 @@ class HomeTerbaruFragment : Fragment() {
 
                 val semuaBerita = beritaTerkiniSingle + beritaTerkaitList
                 // Update global bookmark status hanya saat data dimuat pertama kali
-                bookmarkViewModel.checkBookmarkStatus(userId,semuaBerita)
+                bookmarkViewModel.checkBookmarkStatus( userId ?: "",semuaBerita)
             } else {
                 Toast.makeText(requireContext(), "Tidak ada berita terbaru."
                     ,Toast.LENGTH_SHORT).show()
@@ -120,7 +132,7 @@ class HomeTerbaruFragment : Fragment() {
                 }
             },
             bookmarkViewModel,
-            userId
+            userId ?: ""
         )
 
         binding.rvBeritaTerkini.apply {
@@ -147,7 +159,7 @@ class HomeTerbaruFragment : Fragment() {
                 }
             },
             bookmarkViewModel,
-            userId
+            userId ?: ""
         )
 
         binding.rvBeritaTerkait.apply {
@@ -158,16 +170,16 @@ class HomeTerbaruFragment : Fragment() {
 
     private fun toggleBookmarkLocally(berita: ListBerita) {
         val beritaId = berita.idBerita ?: return
-        val bookmark = ResultBookmark(userId, beritaId)
+        val bookmark = ResultBookmark( userId ?: "", beritaId)
 
         // Perbarui status lokal pada adapter
         beritaTerkiniAdapter.toggleBookmarkStatus(beritaId)
         beritaTerkaitAdapter.toggleBookmarkStatus(beritaId)
 
         // Operasi toggle bookmark secara global
-        bookmarkViewModel.toggleBookmark(bookmark)
-    }
+        bookmarkViewModel.toggleBookmark(bookmark, requireContext())
 
+    }
     private fun showShimmerEffect(isLoading: Boolean) {
         if (isLoading) {
             binding.shimmerBeritaTerkini.startShimmer()
@@ -190,7 +202,6 @@ class HomeTerbaruFragment : Fragment() {
         binding.akhirBerita.visibility = View.VISIBLE
         }
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

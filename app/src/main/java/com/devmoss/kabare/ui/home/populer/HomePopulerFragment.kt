@@ -17,6 +17,7 @@ import com.devmoss.kabare.R
 import com.devmoss.kabare.data.model.ListBerita
 import com.devmoss.kabare.data.model.ResultBookmark
 import com.devmoss.kabare.data.model.Tag
+import com.devmoss.kabare.data.repository.UserRepository
 import com.devmoss.kabare.databinding.FragmentHomePopulerBinding
 import com.devmoss.kabare.ui.reaksi.reaksiviewmodels.BookmarkViewModel
 import com.devmoss.kabare.ui.home.populer.populeradapters.BeritaPopulerAdapter
@@ -50,7 +51,6 @@ class HomePopulerFragment : Fragment() {
     private val bookmarkViewModel: BookmarkViewModel by activityViewModels()
     private val komentarTerbanyakViewModel: KomentarTerbanyakViewModel by activityViewModels()
 
-    val userId = "2"
     private var beritaPopuler: List<ListBerita> = emptyList()
     private var beritaRekomendasi: List<ListBerita> = emptyList()
     private var komentarTerbanyak: List<ListBerita> = emptyList()
@@ -58,6 +58,10 @@ class HomePopulerFragment : Fragment() {
     private val autoSlideJob = Job()
     private val autoSlideScope = CoroutineScope(Dispatchers.Main + autoSlideJob)
     private val searchViewModel: SearchViewModel by activityViewModels()
+
+    //mengambil user id
+    private lateinit var userRepository: UserRepository
+    private var userId: String? = null
 
 
     override fun onCreateView(
@@ -70,6 +74,7 @@ class HomePopulerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setupRecyclerViews()
         observeViewModel()
 
@@ -79,6 +84,12 @@ class HomePopulerFragment : Fragment() {
         // Setup SwipeRefreshLayout
         binding.swipeRefreshLayout.setOnRefreshListener {
             refreshContent()
+        }
+        // Inisialisasi UserRepository
+        userRepository = UserRepository(requireContext())
+        userId = userRepository.getUserUid() ?: run {
+            Toast.makeText(requireContext(), "User belum login!", Toast.LENGTH_SHORT).show()
+            return // Jika userId null, hentikan proses lebih lanjut
         }
     }
 
@@ -95,7 +106,7 @@ class HomePopulerFragment : Fragment() {
         }
         if (beritaRekomendasi.isEmpty()) {
             Log.d("HomePopulerFragment", "Memuat berita rekomendasi")
-            beritaRekomendasiViewModel.loadBeritaRekomendasi(userId)
+            beritaRekomendasiViewModel.loadBeritaRekomendasi(  userId ?: "")
         }
         if (komentarTerbanyak.isEmpty()) {
             Log.d("HomePopulerFragment", "Memuat komentar terbanyak")
@@ -106,7 +117,7 @@ class HomePopulerFragment : Fragment() {
     private fun refreshContent() {
             beritaPopulerViewModel.loadBeritaPopuler()
             tagPopulerViewModel.loadTagPopuler()
-            beritaRekomendasiViewModel.loadBeritaRekomendasi(userId)
+            beritaRekomendasiViewModel.loadBeritaRekomendasi(  userId ?: "")
             komentarTerbanyakViewModel.loadKomentarTerbanyak()
             // Hentikan animasi refresh setelah data dimuat
             binding.swipeRefreshLayout.isRefreshing = false
@@ -139,7 +150,7 @@ class HomePopulerFragment : Fragment() {
 
                 // Update global bookmark status hanya saat data dimuat pertama kali
                 val semuaBerita = beritaPopuler + beritaRekomendasi
-                bookmarkViewModel.checkBookmarkStatus(userId, semuaBerita)
+                bookmarkViewModel.checkBookmarkStatus(  userId ?: "", semuaBerita)
             } else {
                 showToast("Tidak ada berita populer.")
             }
@@ -153,10 +164,13 @@ class HomePopulerFragment : Fragment() {
 
                 // Update global bookmark status hanya saat data dimuat pertama kali
                 val semuaBerita = beritaRekomendasi + beritaPopuler
-                bookmarkViewModel.checkBookmarkStatus(userId, semuaBerita)
+                bookmarkViewModel.checkBookmarkStatus(  userId ?: "", semuaBerita)
 
             } else {
                 showToast("Tidak ada berita rekomendasi.")
+                    binding.cardView.visibility = View.GONE
+                    binding.tvLabelDisarankan.visibility = View.GONE
+                    binding.line2.visibility = View.GONE
             }
         }
 
@@ -190,11 +204,12 @@ class HomePopulerFragment : Fragment() {
             }
 
             override fun onBookmarkBeritaPopulerClick(beritaPopuler: ListBerita) {
-                toggleBookmarkLocally(beritaPopuler) } }, bookmarkViewModel,userId)
+                toggleBookmarkLocally(beritaPopuler) } }, bookmarkViewModel,  userId ?: "")
 
 
         beritaRekomendasiAdapter = BeritaRekomendasiAdapter(emptyList(), object :
             BeritaRekomendasiAdapter.OnItemClickListener {
+
             override fun onArticleRekomendasiClick(beritaRekomendasi: ListBerita) {
                 val navOptions = NavOptions.Builder()
                     .setEnterAnim(android.R.anim.slide_in_left)
@@ -212,7 +227,7 @@ class HomePopulerFragment : Fragment() {
             }
 
             override fun onBookmarkBeritaRekomendasiClick(beritaRekomendasi: ListBerita) {
-                toggleBookmarkLocally(beritaRekomendasi) } },bookmarkViewModel, userId)
+                toggleBookmarkLocally(beritaRekomendasi) } },bookmarkViewModel,   userId ?: "")
 
         tagPopulerAdapter = TagPopulerAdapter(emptyList(), object :
             TagPopulerAdapter.OnItemClickListener {
@@ -300,14 +315,14 @@ class HomePopulerFragment : Fragment() {
 
     private fun toggleBookmarkLocally(berita: ListBerita) {
         val beritaId = berita.idBerita ?: return
-        val bookmark = ResultBookmark(userId, beritaId)
+        val bookmark = ResultBookmark(  userId ?: "", beritaId)
 
         // Perbarui status lokal pada adapter
         beritaPopulerAdapter.toggleBookmarkStatus(beritaId)
         beritaRekomendasiAdapter.toggleBookmarkStatus(beritaId)
 
         // Operasi toggle bookmark secara global
-        bookmarkViewModel.toggleBookmark(bookmark)
+        bookmarkViewModel.toggleBookmark(bookmark, requireContext())
     }
 
     private fun showShimmerEffect(isLoading: Boolean) {
@@ -328,7 +343,6 @@ class HomePopulerFragment : Fragment() {
                 tvLabelTerpopuler.visibility = View.GONE
                 tvLabelDisarankan.visibility = View.GONE
                 komentarTerbanyak.visibility = View.GONE
-
             } else {
                 shimmerBeritaPopuler.stopShimmer()
                 shimmerBeritaPopuler.visibility = View.GONE
@@ -347,6 +361,21 @@ class HomePopulerFragment : Fragment() {
                 komentarTerbanyak.visibility = View.VISIBLE
             }
         }
+        // Periksa apakah userId ada
+        if (userId == null) {
+            // Jika userId tidak ditemukan (belum login), sembunyikan elemen-elemen terkait
+            Log.d("HomePopulerFragment", "User belum login, sembunyikan elemen-elemen terkait")
+            binding.cardView.visibility = View.GONE
+            binding.tvLabelDisarankan.visibility = View.GONE
+            binding.line2.visibility = View.GONE
+        }
+//        } else {
+//            // Jika userId ada (sudah login), tampilkan elemen-elemen tersebut
+//            Log.d("HomePopulerFragment", "User teridentifikasi: $userId")
+//            binding.cardView.visibility = View.VISIBLE
+//            binding.tvLabelDisarankan.visibility = View.VISIBLE
+//            binding.line2.visibility = View.VISIBLE
+//        }
     }
 
     private fun showToast(message: String) {

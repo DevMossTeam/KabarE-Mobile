@@ -5,12 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devmoss.kabare.R
 import com.devmoss.kabare.data.model.ListBerita
+import com.devmoss.kabare.data.repository.UserRepository
 import com.devmoss.kabare.databinding.FragmentDaftarBeritaBookmarkBinding
 import com.devmoss.kabare.ui.reaksi.reaksiadapters.DaftarBeritaBookmarkAdapter
 import com.devmoss.kabare.ui.reaksi.reaksiviewmodels.DaftarBeritaBookmarkViewModel
@@ -21,7 +23,10 @@ class DaftarBeritaBookmarkFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var daftarBeritaBookmarkAdapter: DaftarBeritaBookmarkAdapter
     private val daftarBeritaBookmarkViewModel: DaftarBeritaBookmarkViewModel by activityViewModels()
-    private val userId: String = "2" // Ganti dengan mekanisme mendapatkan user ID
+
+    // Inisialisasi UserRepository
+    private lateinit var userRepository: UserRepository
+    private var userId: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,11 +39,19 @@ class DaftarBeritaBookmarkFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Inisialisasi UserRepository
+        userRepository = UserRepository(requireContext())
+        userId = userRepository.getUserUid() ?: run {
+            Toast.makeText(requireContext(), "User belum login!", Toast.LENGTH_SHORT).show()
+            return // Jika userId null, hentikan proses lebih lanjut
+        }
+
+
         setupRecyclerViews()
         observeViewModel()
 
         // Muat data bookmark untuk user
-        daftarBeritaBookmarkViewModel.loadBeritaBookmark(userId)
+        daftarBeritaBookmarkViewModel.loadBeritaBookmark(userId?: "")
     }
 
     private fun observeViewModel() {

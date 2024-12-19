@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="500dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="@color/background_white"
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp"
+        app:shapeAppearanceOverlay="@style/TopRoundedCardView">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- View Pertama: Pilih Alasan Pelaporan -->
+                <LinearLayout
+                    android:id="@+id/layout_step1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Judul -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Laporkan Artikel"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:paddingBottom="16dp" />
+
+                    <!-- Pilih Alasan -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pilih alasan pelaporan:" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingTop="8dp">
+
+                        <RadioButton
+                            android:id="@+id/radio_konten_seksual"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Konten seksual" />
+
+                        <!-- Dropdown untuk Konten Seksual -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/background_white"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0.5dp">
+                        <Spinner
+                            android:id="@+id/spinner_konten_seksual"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <RadioButton
+                            android:id="@+id/radio_konten_kekerasan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Konten kekerasan atau menjijikkan" />
+                        <!-- Dropdown untuk Konten kekerasan -->
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/background_white"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0.5dp">
+                        <Spinner
+                            android:id="@+id/spinner_konten_kekerasan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <RadioButton
+                            android:id="@+id/radio_konten_kebencian"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Konten kebencian atau pelecehan" />
+
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/background_white"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0.5dp">
+                        <Spinner
+                            android:id="@+id/spinner_konten_kebencian"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <RadioButton
+                            android:id="@+id/radio_tindakan_berbahaya"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tindakan berbahaya" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/background_white"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0.5dp">
+                        <Spinner
+                            android:id="@+id/spinner_tindakan_berbahaya"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <RadioButton
+                            android:id="@+id/radio_spam"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Spam atau misinformasi" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/background_white"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0.5dp">
+                        <Spinner
+                            android:id="@+id/spinner_spam"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <RadioButton
+                            android:id="@+id/radio_hukum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Masalah hukum" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/background_white"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0.5dp">
+                        <Spinner
+                            android:id="@+id/spinner_hukum"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <RadioButton
+                            android:id="@+id/radio_teks"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Teks bermasalah" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_marginBottom="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/background_white"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0.5dp">
+                        <Spinner
+                            android:id="@+id/spinner_teks"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone" />
+                        </com.google.android.material.card.MaterialCardView>
+                    </RadioGroup>
+
+                    <!-- Tombol Berikutnya -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_berikutnya"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Berikutnya"
+                        android:backgroundTint="@color/grey"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+
+                <!-- View Kedua: Laporan Tambahan -->
+                <LinearLayout
+                    android:id="@+id/layout_step2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <!-- Judul -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Laporan Tambahan Opsional"
+                        android:textStyle="bold"
+                        android:textSize="18sp" />
+
+                    <!-- Input Detail Tambahan -->
+                    <EditText
+                        android:id="@+id/edittext_detail_laporan"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:hint="Berikan detail tambahan"
+                        android:inputType="textMultiLine"
+                        android:gravity="top"
+                        android:padding="8dp" />
+
+                    <!-- Tombol Aksi -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="end"
+                        android:layout_marginTop="16dp">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/button_kembali"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Kembali"
+                            android:backgroundTint="@color/background_white"
+                            android:textColor="@color/blue"/>
+
+                        <Button
+                            android:id="@+id/button_laporkan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Laporkan"
+                            android:layout_marginStart="8dp"
+                            android:backgroundTint="@color/background_white"
+                            android:textColor="@color/red"/>
+
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </com.google.android.material.card.MaterialCardView>
+</FrameLayout>

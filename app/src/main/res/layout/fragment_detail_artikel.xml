@@ -8,19 +8,11 @@
     android:background="@color/background_white"
     tools:context=".ui.home.detailberita.DetailArtikelFragment">
 
-
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/konten"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background_white"
         android:orientation="vertical">
-
-
-
-
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
@@ -29,6 +21,7 @@
             android:scrollbars="none">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/konten"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/background_white"
@@ -79,7 +72,6 @@
                                 android:layout_gravity="center"
                                 android:src="@drawable/ic_back"
                                 tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
                         </com.google.android.material.card.MaterialCardView>
 
                         <TextView
@@ -295,12 +287,12 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginRight="10dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="12"
+                        android:text="0"
                         android:textColor="@color/blue" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/disike"
+                    android:id="@+id/dislike"
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
                     android:layout_marginLeft="10dp"
@@ -315,6 +307,7 @@
                     tools:ignore="TouchTargetSizeCheck">
 
                     <ImageView
+                        android:id="@+id/ic_dislike"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -330,19 +323,19 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginRight="10dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="12"
+                        android:text="2"
                         android:textColor="@color/blue" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/linear_shere"
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/outline_background"
                     android:orientation="horizontal"
-                    app:layout_constraintStart_toEndOf="@+id/disike"
-                    app:layout_constraintTop_toTopOf="@+id/disike">
-
+                    app:layout_constraintStart_toEndOf="@+id/dislike"
+                    app:layout_constraintTop_toTopOf="@+id/dislike">
                     <ImageView
                         android:id="@+id/shere"
                         android:layout_width="40dp"
@@ -353,6 +346,29 @@
                         android:foreground="?attr/selectableItemBackground"
                         android:padding="5dp"
                         android:src="@drawable/ic_share"
+                        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/outline_background"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toEndOf="@+id/linear_shere"
+                    app:layout_constraintTop_toTopOf="@+id/linear_shere">
+
+                    <ImageView
+                        android:padding="2dp"
+                        android:id="@+id/btn_laporan"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:src="@drawable/ic_laporan"
                         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                 </LinearLayout>
@@ -370,6 +386,7 @@
                 <GridLayout
                     android:id="@+id/labelContainer"
                     android:layout_width="0dp"
+                    android:layout_marginTop="5dp"
                     android:layout_height="wrap_content"
                     android:columnCount="3"
                     app:layout_constraintEnd_toEndOf="@+id/webViewKonten"
@@ -378,6 +395,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView4">
 
                     <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/tag"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:backgroundTint="@color/background_white"
@@ -392,7 +410,8 @@
                             android:padding="5dp"
                             android:text="Prestasi"
                             android:textColor="@color/blue"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix" />
                     </com.google.android.material.card.MaterialCardView>
                 </GridLayout>
 
@@ -447,13 +466,10 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
     <!-- Tombol Kirim -->
-
     <ImageButton
         android:id="@+id/btnKomentar"
         android:layout_width="wrap_content"
@@ -463,5 +479,14 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_komentar"
         tools:ignore="SpeakableTextPresentCheck" />
+    <!-- Shimmer Effect untuk Berita Terkini -->
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_detail_berita"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
+        <include layout="@layout/shimmer_detail_berita" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
 </FrameLayout>

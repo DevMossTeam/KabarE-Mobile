@@ -13,28 +13,28 @@ object NotificationRepository {
         notifications.add(
             Notifikasi(
                 id = 1,
-                title = "New Article Published",
-                titleNotif = "A new article has been published on Kabare!",
-                statusNotifikasi = "Ditolak",
-                iconResId = R.drawable.ic_notifikasi_ditolak
+                title = "Willy05",
+                titleNotif = "Penelitian Muda SMAN Bali Mandara Raih Prestasi di NASFIA 2024!",
+                statusNotifikasi = "Berita Terbaru",
+                iconResId = R.drawable.ic_notifications_black_24dp
             )
         )
         notifications.add(
             Notifikasi(
                 id = 2,
-                title = "Weekly Summary",
-                titleNotif = "Here is your weekly summary of articles.",
-                statusNotifikasi = "Ditolak",
-                iconResId = R.drawable.ic_notifikasi_ditolak
+                title = "Willy05",
+                titleNotif = "Sebarkan Rasa Cinta,Kolaborasi ITB dan Kampus Asing",
+                statusNotifikasi = "Berita Terbaru",
+                iconResId = R.drawable.ic_notifications_black_24dp
             )
         )
         notifications.add(
             Notifikasi(
                 id = 3,
-                title = "New Comment",
-                titleNotif = "Someone commented on your article.",
-                statusNotifikasi = "Ditolak",
-                iconResId = R.drawable.ic_notifikasi_ditolak
+                title = "Willy05",
+                titleNotif = "Isu Politik Uang,DPR Perketat Aturan dan Sanksi",
+                statusNotifikasi = "terbaru",
+                iconResId = R.drawable.ic_notifications_black_24dp
             )
         )
     }
