@@ -6,10 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.devmoss.kabare.R
-import com.devmoss.kabare.ui.auth.popups.ChangePasswordDialog // Import dialog for changing password
-import com.devmoss.kabare.ui.auth.popups.KonfirmasiUbahEmail // Import dialog to confirm email change
+import com.devmoss.kabare.data.repository.UserRepository
+import com.devmoss.kabare.ui.auth.popups.ChangePasswordDialog
+//import com.devmoss.kabare.ui.auth.popups.KonfirmasiUbahEmail
 import com.devmoss.kabare.ui.auth.popups.LupaPasswordKonfirmasiEmailDialog
+import com.devmoss.kabare.ui.profile.settings.viewmodels.KeamananViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 class KeamananFragment : Fragment() {
 
@@ -23,11 +27,12 @@ class KeamananFragment : Fragment() {
     private lateinit var llLupaKataSandi: LinearLayout
     private lateinit var llGantiPassword: LinearLayout
 
+    private val viewModel: KeamananViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_keamanan, container, false)
 
         // Initialize views
@@ -41,76 +46,121 @@ class KeamananFragment : Fragment() {
         llLupaKataSandi = view.findViewById(R.id.llLupaKataSandi)
         llGantiPassword = view.findViewById(R.id.llGantiPassword)
 
-        // Set onClickListeners for edit, save, cancel buttons, and ganti password
+        // Fetch user data
+        val userUid = getUserUid() ?: run {
+            showToast(R.string.failed_to_fetch_user_data)
+            return view
+        }
+        viewModel.fetchUserData(userUid)
+
+        // Observe LiveData from ViewModel
+        observeViewModel()
+
+        // Set onClickListeners for buttons
         btnEditEmail.setOnClickListener { showEditEmail() }
-        btnSaveEmail.setOnClickListener { showConfirmChangeEmailDialog() } // Show confirmation dialog
+        btnSaveEmail.setOnClickListener { handleSaveEmail() }
         btnCancelEmail.setOnClickListener { cancelEditEmail() }
-
-        llLupaKataSandi.setOnClickListener {
-            showForgotPasswordDialog()
-        }
-
-        llGantiPassword.setOnClickListener {
-            showChangePasswordDialog() // Show change password dialog
-        }
+        llLupaKataSandi.setOnClickListener { showForgotPasswordDialog() }
+        llGantiPassword.setOnClickListener { showChangePasswordDialog() }
 
         return view
     }
 
-    // Show the edit email layout and hide the static email view
+    private fun observeViewModel() {
+        // Observe user data
+        viewModel.userData.observe(viewLifecycleOwner) { result ->
+            result.onSuccess { user ->
+                tvEmailDisplay.text = user.email
+            }.onFailure { error ->
+                showToast(R.string.failed_to_fetch_user_data)
+                error.printStackTrace()
+            }
+        }
+
+        // Observe email updates
+        viewModel.email.observe(viewLifecycleOwner) { email ->
+            tvEmailDisplay.text = email
+        }
+
+        // Observe email update status
+        viewModel.emailUpdateStatus.observe(viewLifecycleOwner) { success ->
+            if (success) {
+//                showToast(R.string.email_updated)
+                cancelEditEmail()
+            } else {
+                showToast(R.string.email_invalid)
+            }
+        }
+
+        // Observe password change status
+        viewModel.passwordChangeStatus.observe(viewLifecycleOwner) { success ->
+            if (success) {
+                showToast(R.string.password_changed)
+            } else {
+                showToast(R.string.password_change_failed)
+            }
+        }
+    }
+
     private fun showEditEmail() {
         llEmailDisplay.visibility = View.GONE
         llEmailEdit.visibility = View.VISIBLE
         etEmailEdit.setText(tvEmailDisplay.text.toString())
         etEmailEdit.requestFocus()
+//        showChangeEmailDialog()
     }
 
-    // Show the confirmation dialog for email change
-    private fun showConfirmChangeEmailDialog() {
+    private fun handleSaveEmail() {
         val newEmail = etEmailEdit.text.toString().trim()
 
-        // Validate email format
-        if (isValidEmail(newEmail)) {
-            val konfirmasiDialog = KonfirmasiUbahEmail()
-            konfirmasiDialog.setOnEmailChangeConfirmed {
-                // Update email in the display after confirmation
-                tvEmailDisplay.text = newEmail
-                showToast(R.string.email_updated) // Success message
-                cancelEditEmail() // Switch back to the display mode
-            }
-            konfirmasiDialog.show(parentFragmentManager, "KonfirmasiUbahEmail")
-        } else {
-            showToast(R.string.email_invalid) // Error message for invalid email
+        if (newEmail.isEmpty()) {
+            showToast(R.string.email_empty)
+            return
         }
+
+        val currentEmail = viewModel.email.value ?: ""
+        if (newEmail == currentEmail) {
+            showToast(R.string.email_same_as_current)
+            return
+        }
+
+        val userUid = getUserUid() ?: run {
+            showToast(R.string.failed_to_fetch_user_data)
+            return
+        }
+
+        viewModel.updateEmail(userUid, newEmail)
     }
 
-    // Cancel editing and revert to static email view
     private fun cancelEditEmail() {
         llEmailEdit.visibility = View.GONE
         llEmailDisplay.visibility = View.VISIBLE
-        etEmailEdit.text.clear() // Clear the input field
-    }
-
-    // Email validation method
-    private fun isValidEmail(email: String): Boolean {
-        return email.isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
-    }
-
-    // Helper function to show toast messages
-    private fun showToast(messageId: Int) {
-        Toast.makeText(requireContext(), getString(messageId), Toast.LENGTH_SHORT).show()
+        etEmailEdit.text.clear()
     }
 
     private fun showForgotPasswordDialog() {
-        // Create and show the Forgot Password Bottom Sheet Dialog
         val lupaPasswordDialog = LupaPasswordKonfirmasiEmailDialog()
         lupaPasswordDialog.show(parentFragmentManager, "LupaPasswordKonfirmasiEmailDialog")
     }
 
-    // Function to show Change Password Dialog
     private fun showChangePasswordDialog() {
-        // Create and show the Change Password Bottom Sheet Dialog
-        val changePasswordDialog = ChangePasswordDialog()
+        // Inisialisasi UserRepository
+        val userRepository = UserRepository(requireContext()) // Pastikan `requireContext()` sesuai dengan lokasi panggilan
+        val changePasswordDialog = ChangePasswordDialog(userRepository)
         changePasswordDialog.show(parentFragmentManager, "ChangePasswordDialog")
+    }
+
+//    private fun showChangeEmailDialog() {
+//        val changeEmailDialog = KonfirmasiUbahEmail()
+//        changeEmailDialog.show(parentFragmentManager, "ChangeEmailDiaolog")
+//    }
+
+    private fun showToast(messageId: Int) {
+        Toast.makeText(requireContext(), getString(messageId), Toast.LENGTH_SHORT).show()
+    }
+
+    private fun getUserUid(): String? {
+        val userRepository = UserRepository(requireContext())
+        return userRepository.getUserUid() ?: FirebaseAuth.getInstance().currentUser?.uid
     }
 }

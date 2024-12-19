@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import com.devmoss.kabare.data.api.ApiConfig
+import com.devmoss.kabare.model.SecurityUpdateRequest
 import com.devmoss.kabare.model.UserUpdateRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -84,6 +85,28 @@ class UserRepository(context: Context) {
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "Error updating user data", e)
+                Result.failure(e)
+            }
+        }
+    }
+
+    suspend fun updateEmail(userUid: String, newEmail: String): Result<Unit> {
+        return withContext(Dispatchers.IO) {
+            try {
+                // Send SecurityUpdateRequest with updated email (password remains the same)
+                val request = SecurityUpdateRequest(uid = userUid, email = newEmail, password = "")  // Empty password
+                val response = ApiConfig.getApiService().updateEmail(request).execute()
+
+                if (response.isSuccessful) {
+                    Log.d(TAG, "Email updated successfully.")
+                    Result.success(Unit)
+                } else {
+                    val errorMessage = response.errorBody()?.string() ?: "Unknown error"
+                    Log.e(TAG, "Failed to update email: $errorMessage")
+                    Result.failure(Exception("Failed to update email: ${response.code()} - $errorMessage"))
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error updating email", e)
                 Result.failure(e)
             }
         }

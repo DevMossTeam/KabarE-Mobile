@@ -15,6 +15,8 @@ import com.devmoss.kabare.data.model.ResponsePostKomentar
 import com.devmoss.kabare.data.model.ResponseReaksi
 import com.devmoss.kabare.data.model.ResultBookmark
 import com.devmoss.kabare.data.model.SignInRequest
+import com.devmoss.kabare.model.PasswordChangeRequest
+//import com.devmoss.kabare.model.EmailUpdateRequest
 import com.devmoss.kabare.model.SecurityUpdateRequest
 import com.devmoss.kabare.model.User
 import com.devmoss.kabare.model.UserRequest
@@ -28,6 +30,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 import retrofit2.Response
+import retrofit2.http.PATCH
 import retrofit2.http.PUT
 
 interface ApiInterface {
@@ -125,9 +128,11 @@ interface ApiInterface {
     @PUT("pengguna.php")
     fun updateUserData(@Body request: UserUpdateRequest): Call<UserResponse>
 
-    @POST("pengguna.php")
-    fun updateSecurityData(@Body request: SecurityUpdateRequest): Call<UserResponse>
+    @PUT("pengguna.php")  // Change this to PUT
+    fun updateEmail(@Body request: SecurityUpdateRequest): Call<Void>  // Assuming the response body is empty
 
+    @PATCH("pengguna.php")
+    fun changePassword(@Body request: PasswordChangeRequest): Call<UserResponse>
 
     @POST("masukan.php")
     suspend fun submitComplaint(@Body message: Map<String, String>): Response<ResponseBody>

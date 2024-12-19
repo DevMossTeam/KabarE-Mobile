@@ -21,5 +21,10 @@
         <item>Hari Ini</item>
         <item>7 Hari Terakhir</item>
     </string-array>
-
+    <string name="password_changed">Kata sandi berhasil diubah</string>
+    <string name="password_change_failed">Gagal mengubah kata sandi</string>
+    <string name="failed_to_fetch_user_data">Gagal mendapatkan data pengguna</string>
+    <string name="email_empty">Email tidak boleh kosong</string>
+    <string name="email_same_as_current">Email sama dengan email saat ini</string>
+    <string name="otp_invalid">OTP yang Anda masukkan tidak valid.</string>
 </resources>

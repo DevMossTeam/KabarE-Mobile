@@ -3,73 +3,181 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
     app:cardBackgroundColor="@android:color/white"
+    android:layout_gravity="center"
     app:cardElevation="4dp"
     app:shapeAppearanceOverlay="@style/TopRoundedCardView">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:background="@android:color/white"
-        android:gravity="center">
+        android:fillViewport="true">
 
-        <!-- Title TextView -->
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Konfirmasi Ubah Email"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            android:layout_gravity="center"
-            android:layout_marginBottom="16dp" />
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <!-- Current Password TextInputLayout -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:boxCornerRadiusTopStart="12dp"
-            app:boxCornerRadiusTopEnd="12dp"
-            app:boxCornerRadiusBottomStart="12dp"
-            app:boxCornerRadiusBottomEnd="12dp"
-            app:boxStrokeWidth="0dp"
-            app:backgroundTint="@android:color/transparent"
-            app:boxBackgroundColor="#F3F3F3"
-            app:passwordToggleEnabled="true">
+            <!-- Icon -->
+            <ImageView
+                android:id="@+id/lp_verif_image"
+                android:layout_width="102dp"
+                android:layout_height="103dp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/lp_vec2" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_current_password"
+            <!-- Title TextView -->
+            <TextView
+                android:id="@+id/tv_verif_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:text="Verifikasi Email"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_instruction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="4dp"
+                android:text="Masukkan kode OTP yang dikirim ke email Anda"
+                android:textColor="#6E6E6E"
+                android:textSize="14sp"
+                android:gravity="center" />
+
+            <!-- OTP Input Section -->
+            <LinearLayout
+                android:id="@+id/otp_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password Akun KabarE Anda"
-                android:inputType="textPassword"
-                android:padding="12dp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-        <!-- Change Password Button -->
-        <Button
-            android:id="@+id/btn_change_email"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="16dp"
-            android:text="Ganti"
-            android:backgroundTint="@color/colorPrimary"
-            android:textColor="@android:color/white"
-            android:layout_gravity="center"
-            android:layout_marginTop="8dp" />
+                <!-- OTP Input Boxes -->
+                <EditText
+                    android:id="@+id/et_otp_1"
+                    android:layout_width="48dp"
+                    android:layout_height="56dp"
+                    android:layout_margin="1dp"
+                    android:backgroundTint="#DADADA"
+                    android:background="@android:drawable/dialog_holo_light_frame"
+                    android:gravity="center"
+                    android:hint=""
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textSize="18sp" />
 
-        <!-- Cancel TextView -->
-        <TextView
-            android:id="@+id/tv_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Batal"
-            android:textColor="@color/colorPrimary"
-            android:layout_gravity="center" />
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/et_otp_2"
+                    android:layout_width="48dp"
+                    android:layout_height="56dp"
+                    android:layout_margin="1dp"
+                    android:backgroundTint="#DADADA"
+                    android:background="@android:drawable/dialog_holo_light_frame"
+                    android:gravity="center"
+                    android:hint=""
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_otp_3"
+                    android:layout_width="48dp"
+                    android:layout_height="56dp"
+                    android:layout_margin="1dp"
+                    android:backgroundTint="#DADADA"
+                    android:background="@android:drawable/dialog_holo_light_frame"
+                    android:gravity="center"
+                    android:hint=""
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_otp_4"
+                    android:layout_width="48dp"
+                    android:layout_height="56dp"
+                    android:layout_margin="1dp"
+                    android:backgroundTint="#DADADA"
+                    android:background="@android:drawable/dialog_holo_light_frame"
+                    android:gravity="center"
+                    android:hint=""
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_otp_5"
+                    android:layout_width="48dp"
+                    android:layout_height="56dp"
+                    android:layout_margin="1dp"
+                    android:backgroundTint="#DADADA"
+                    android:background="@android:drawable/dialog_holo_light_frame"
+                    android:gravity="center"
+                    android:hint=""
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_otp_6"
+                    android:layout_width="48dp"
+                    android:layout_height="56dp"
+                    android:layout_margin="1dp"
+                    android:backgroundTint="#DADADA"
+                    android:background="@android:drawable/dialog_holo_light_frame"
+                    android:gravity="center"
+                    android:hint=""
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <!-- Timer TextView -->
+            <TextView
+                android:id="@+id/tv_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
+                android:text="05:00"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+            <!-- Resend Section -->
+            <TextView
+                android:id="@+id/tv_no_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Tidak menerima email?"
+                android:textColor="@android:color/darker_gray" />
+
+            <!-- ProgressBar -->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_resend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="8dp"
+                android:text="Kirim Ulang"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
 </com.google.android.material.card.MaterialCardView>

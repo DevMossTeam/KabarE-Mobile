@@ -28,6 +28,12 @@ data class SecurityUpdateRequest(
     val password: String                 // Password (non-nullable)
 )
 
+data class PasswordChangeRequest(
+    val uid: String,
+    val current_password: String,
+    val new_password: String
+)
+
 data class UserResponse(
     val message: String,
     val data: User

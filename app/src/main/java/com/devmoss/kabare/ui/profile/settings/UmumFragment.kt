@@ -225,7 +225,6 @@ class UmumFragment : Fragment() {
     private fun showCameraGalleryOptions() {
         val options = arrayOf("Ambil Foto", "Pilih dari Galeri")
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Pilih opsi untuk mengubah foto profil")
         builder.setItems(options) { dialog, which ->
             when (which) {
                 0 -> checkCameraPermission()
