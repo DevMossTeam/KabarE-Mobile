@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:background="@color/background_white"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent">
+
+<FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background_white"
     tools:context=".ui.home.detailberita.DetailArtikelFragment">
 
@@ -479,14 +485,15 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_komentar"
         tools:ignore="SpeakableTextPresentCheck" />
-    <!-- Shimmer Effect untuk Berita Terkini -->
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmer_detail_berita"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        <!-- Shimmer Effect untuk Berita Terkini -->
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_detail_berita"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-        <include layout="@layout/shimmer_detail_berita" />
-    </com.facebook.shimmer.ShimmerFrameLayout>
+            <include layout="@layout/shimmer_detail_berita" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
 </FrameLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

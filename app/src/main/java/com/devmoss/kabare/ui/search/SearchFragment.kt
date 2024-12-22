@@ -26,12 +26,23 @@ class SearchFragment : Fragment() {
     ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
 
+        // tombol pencarian
+        binding.btnSearch.setOnClickListener {
+            val inputKatakunci = binding.etSearch.text.toString().trim()
+            if (inputKatakunci.isNotEmpty()) {
+                performSearch(katakunci = inputKatakunci)
+            } else {
+                Toast.makeText(context, "Kata kunci pencarian tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         setupSearch()
         setupCategoryClickListeners()
 
         return binding.root
     }
 
+    // pencarian dari tombol icon keyboard
     private fun setupSearch() {
         binding.etSearch.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {

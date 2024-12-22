@@ -27,8 +27,8 @@ import com.devmoss.kabare.R
 class SettingNotifikasiFragment : Fragment() {
 
     private lateinit var switchNotifikasi: Switch
-    private lateinit var switchBeritaTerbaru: Switch
-    private lateinit var switchBeritaPopuler: Switch
+//    private lateinit var switchBeritaTerbaru: Switch
+//    private lateinit var switchBeritaPopuler: Switch
     private lateinit var sharedPreferences: SharedPreferences
 
     companion object {
@@ -57,8 +57,8 @@ class SettingNotifikasiFragment : Fragment() {
 
         // Initialize switches
         switchNotifikasi = view.findViewById(R.id.switch_notifikasi)
-        switchBeritaTerbaru = view.findViewById(R.id.switch_berita_terbaru)
-        switchBeritaPopuler = view.findViewById(R.id.switch_berita_populer)
+//        switchBeritaTerbaru = view.findViewById(R.id.switch_berita_terbaru)
+//        switchBeritaPopuler = view.findViewById(R.id.switch_berita_populer)
         createNotificationChannel()
         loadSettings()
         setupListeners()
@@ -72,11 +72,11 @@ class SettingNotifikasiFragment : Fragment() {
 
         // Set main notification switch state based on permission
         switchNotifikasi.isChecked = isNotificationAllowed && sharedPreferences.getBoolean(KEY_NOTIFIKASI, true)
-        switchBeritaTerbaru.isChecked = isNotificationAllowed && sharedPreferences.getBoolean(KEY_BERITA_TERBARU, true)
-        switchBeritaPopuler.isChecked = isNotificationAllowed && sharedPreferences.getBoolean(KEY_BERITA_POPULER, true)
-
-        // Enable or disable switches based on notification permission
-        setCategorySwitchesEnabled(isNotificationAllowed && switchNotifikasi.isChecked)
+//        switchBeritaTerbaru.isChecked = isNotificationAllowed && sharedPreferences.getBoolean(KEY_BERITA_TERBARU, true)
+//        switchBeritaPopuler.isChecked = isNotificationAllowed && sharedPreferences.getBoolean(KEY_BERITA_POPULER, true)
+//
+//        // Enable or disable switches based on notification permission
+//        setCategorySwitchesEnabled(isNotificationAllowed && switchNotifikasi.isChecked)
     }
 
     private fun setupListeners() {
@@ -86,19 +86,18 @@ class SettingNotifikasiFragment : Fragment() {
                 requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
             } else {
                 savePreference(KEY_NOTIFIKASI, isChecked)
-                setCategorySwitchesEnabled(isChecked)
-                if (!isChecked) disableAllCategorySwitches()
+//                setCategorySwitchesEnabled(isChecked)
+//                if (!isChecked) disableAllCategorySwitches()
             }
         }
 
-        setupCategorySwitchListener(switchBeritaTerbaru, KEY_BERITA_TERBARU, "Berita Terbaru")
-        setupCategorySwitchListener(switchBeritaPopuler, KEY_BERITA_POPULER, "Berita Populer")
+//        setupCategorySwitchListener(switchBeritaTerbaru, KEY_BERITA_TERBARU, "Berita Terbaru")
+//        setupCategorySwitchListener(switchBeritaPopuler, KEY_BERITA_POPULER, "Berita Populer")
     }
 
     private fun setupCategorySwitchListener(switch: Switch, key: String, title: String) {
         switch.setOnCheckedChangeListener { _, isChecked ->
             savePreference(key, isChecked)
-            sendNotification(title, "$title telah ${if (isChecked) "diaktifkan" else "dinonaktifkan"}")
         }
     }
 
@@ -110,20 +109,20 @@ class SettingNotifikasiFragment : Fragment() {
     private fun handlePermissionChange(isGranted: Boolean) {
         if (isGranted) {
             switchNotifikasi.isChecked = true
-            setCategorySwitchesEnabled(true)
+//            setCategorySwitchesEnabled(true)
         } else {
             switchNotifikasi.isChecked = false
-            disableAllCategorySwitches()
+//            disableAllCategorySwitches()
         }
     }
 
-    private fun disableAllCategorySwitches() {
-        switchBeritaTerbaru.isChecked = false
-        switchBeritaPopuler.isChecked = false
-
-        savePreference(KEY_BERITA_TERBARU, false)
-        savePreference(KEY_BERITA_POPULER, false)
-    }
+//    private fun disableAllCategorySwitches() {
+//        switchBeritaTerbaru.isChecked = false
+//        switchBeritaPopuler.isChecked = false
+//
+//        savePreference(KEY_BERITA_TERBARU, false)
+//        savePreference(KEY_BERITA_POPULER, false)
+//    }
 
     private fun savePreference(key: String, value: Boolean) {
         with(sharedPreferences.edit()) {
@@ -132,10 +131,10 @@ class SettingNotifikasiFragment : Fragment() {
         }
     }
 
-    private fun setCategorySwitchesEnabled(enabled: Boolean) {
-        switchBeritaTerbaru.isEnabled = enabled
-        switchBeritaPopuler.isEnabled = enabled
-    }
+//    private fun setCategorySwitchesEnabled(enabled: Boolean) {
+//        switchBeritaTerbaru.isEnabled = enabled
+//        switchBeritaPopuler.isEnabled = enabled
+//    }
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

@@ -1,7 +1,10 @@
+// HubungiViewModel.kt
 package com.devmoss.kabare.ui.profile.settings.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.devmoss.kabare.data.api.ApiConfig
 import com.devmoss.kabare.data.repository.UserRepository
@@ -12,6 +15,16 @@ import retrofit2.Response
 class HubungiViewModel(application: Application) : AndroidViewModel(application) {
 
     private val userRepository: UserRepository = UserRepository(application)
+    private val _isUserLoggedIn = MutableLiveData<Boolean>()
+    val isUserLoggedIn: LiveData<Boolean> get() = _isUserLoggedIn
+
+    init {
+        checkUserLoginStatus()
+    }
+
+    private fun checkUserLoginStatus() {
+        _isUserLoggedIn.postValue(userRepository.isUserLoggedIn())
+    }
 
     fun submitComplaint(message: String, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
         // Retrieve user ID from UserRepository

@@ -7,16 +7,22 @@
     android:layout_height="match_parent"
     android:background="@color/background_white">
 
+
+<FrameLayout
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="20dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="20dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
     <EditText
         android:id="@+id/etSearch"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
         android:background="@drawable/radius_edit_text"
-        android:drawableEnd="@drawable/ic_search"
-        android:drawableTint="@color/grey"
         android:hint="Cari berita..."
         android:imeOptions="actionSearch"
         android:paddingStart="20dp"
@@ -26,6 +32,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TouchTargetSizeCheck" />
+
+    <ImageView
+        android:id="@+id/btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</FrameLayout>
 
 
 
@@ -38,8 +56,8 @@
         android:text="Riwayat Pencarian"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/etSearch"
-        app:layout_constraintTop_toBottomOf="@id/etSearch" />
+        app:layout_constraintStart_toStartOf="@+id/frameLayout"
+        app:layout_constraintTop_toBottomOf="@id/frameLayout" />
 
     <!-- GridLayout untuk Riwayat Pencarian -->
     <GridLayout
@@ -49,8 +67,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:columnCount="2"
-        app:layout_constraintEnd_toEndOf="@+id/etSearch"
-        app:layout_constraintStart_toStartOf="@+id/etSearch"
+        app:layout_constraintEnd_toEndOf="@+id/frameLayout"
+        app:layout_constraintStart_toStartOf="@+id/frameLayout"
         app:layout_constraintTop_toBottomOf="@id/tvSearchHistory" />
 
     <TextView
@@ -61,7 +79,7 @@
         android:text="Kategori"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/etSearch"
+        app:layout_constraintStart_toStartOf="@+id/frameLayout"
         app:layout_constraintTop_toBottomOf="@id/gridLayoutHistory" />
 
     <!-- kategori -->
@@ -331,7 +349,6 @@
                 android:text="Berita Lainnya"
                 android:textColor="@color/black"
                 android:textStyle="italic" />
-
             <ImageView
                 android:layout_width="12sp"
                 android:layout_height="match_parent"
@@ -340,8 +357,6 @@
                 android:src="@drawable/ic_kategori_search" />
 
         </com.google.android.material.card.MaterialCardView>
-
-
     </GridLayout>
 
     <TextView
@@ -353,9 +368,8 @@
         android:text="Topik Hangat Hari Ini"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/etSearch"
+        app:layout_constraintStart_toStartOf="@+id/frameLayout"
         app:layout_constraintTop_toBottomOf="@id/gridLayoutKategori" />
-
     <!-- GridLayout untuk Topik Hangat -->
     <GridLayout
         android:visibility="gone"
@@ -364,8 +378,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:columnCount="2"
-        app:layout_constraintEnd_toEndOf="@+id/etSearch"
-        app:layout_constraintStart_toStartOf="@+id/etSearch"
+        app:layout_constraintEnd_toEndOf="@+id/frameLayout"
+        app:layout_constraintStart_toStartOf="@+id/frameLayout"
         app:layout_constraintTop_toBottomOf="@id/tvHotTopics" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

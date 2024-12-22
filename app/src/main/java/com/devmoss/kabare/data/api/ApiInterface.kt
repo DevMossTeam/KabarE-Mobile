@@ -2,6 +2,7 @@ package com.devmoss.kabare.data.api
 
 import com.devmoss.kabare.data.model.BookmarkStatusResponse
 import com.devmoss.kabare.data.model.CheckUserRequest
+import com.devmoss.kabare.data.model.DeviceTokenRequest
 import com.devmoss.kabare.data.model.ReaksiRequest
 import com.devmoss.kabare.data.model.ReaksiResponse
 import com.devmoss.kabare.data.model.ResetPasswordRequest
@@ -15,6 +16,7 @@ import com.devmoss.kabare.data.model.ResponseJumlahReaksi
 import com.devmoss.kabare.data.model.ResponseLaporan
 import com.devmoss.kabare.data.model.ResponsePostKomentar
 import com.devmoss.kabare.data.model.ResponseReaksi
+import com.devmoss.kabare.data.model.ResponseViewCount
 import com.devmoss.kabare.data.model.ResultBookmark
 import com.devmoss.kabare.data.model.SignInRequest
 import com.devmoss.kabare.model.PasswordChangeRequest
@@ -119,6 +121,19 @@ interface ApiInterface {
         @Query("detail_pesan") detailPesan: String
     ): Call<ResponseLaporan>
 
+    @POST("report_berita.php") // Pastikan URL sesuai dengan endpoint API Anda
+    fun createLaporanKomentar(
+        @Query("user_id") userId: String,
+        @Query("berita_id") beritaId: String,
+        @Query("komen_id") komenId: String,
+        @Query("pesan") pesan: String,
+        @Query("detail_pesan") detailPesan: String
+    ): Call<ResponseLaporan>
+
+    @POST("view_count.php")
+    fun incrementViewCount(@Query("berita_id") beritaId: String
+    ): Call<ResponseViewCount>
+
     @GET("status_like.php")
     fun cekStatusLike(
         @Query("user_id") userId: String,
@@ -152,4 +167,7 @@ interface ApiInterface {
 
     @POST("masukan.php")
     suspend fun submitComplaint(@Body message: Map<String, String>): Response<ResponseBody>
-}
+
+    @POST("device_token.php")
+    fun sendDeviceToken(@Body request: DeviceTokenRequest): Call<ResponseBody>
+    }

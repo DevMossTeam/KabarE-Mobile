@@ -1,10 +1,12 @@
 package com.devmoss.kabare.ui.intro
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.devmoss.kabare.R
 import com.devmoss.kabare.databinding.FragmentIntroBinding
@@ -27,7 +29,7 @@ class IntroFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = IntroViewModel()
+        viewModel = ViewModelProvider(this).get(IntroViewModel::class.java)
 
         viewModel.introStatus.observe(viewLifecycleOwner) { status ->
             when (status) {
@@ -42,7 +44,11 @@ class IntroFragment : Fragment() {
                     findNavController().navigate(R.id.action_introFragment_to_welcomeFragment)
                 }
             }
-        }   
+        }
+
+        viewModel.deviceToken.observe(viewLifecycleOwner) { token ->
+            Log.d("IntroFragment", "Device Token: $token")
+        }
     }
 
     override fun onDestroyView() {

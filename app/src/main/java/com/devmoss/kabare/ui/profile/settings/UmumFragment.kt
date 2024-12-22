@@ -214,11 +214,7 @@ class UmumFragment : Fragment() {
     private fun showWarningDialog() {
         val alertDialogBuilder = AlertDialog.Builder(requireContext())
         alertDialogBuilder.setTitle("Perhatian!")
-            .setMessage("Apakah Anda yakin ingin mengubah status?")
-            .setPositiveButton("Ya") { _, _ ->
-                Toast.makeText(context, "Status updated", Toast.LENGTH_SHORT).show()
-            }
-            .setNegativeButton("Tidak") { _, _ -> }
+            .setMessage("Hubungi Admin Untuk Mengganti Role")
         alertDialogBuilder.create().show()
     }
 
@@ -288,12 +284,23 @@ class UmumFragment : Fragment() {
 
     private fun saveUsername() {
         val newUsername = etUsername.text.toString()
-        tvUsername.text = newUsername
-        llUsernameDisplay.visibility = View.VISIBLE
-        llUsernameEdit.visibility = View.GONE
-        // Call ViewModel to save new data
-        updateUserData()
+
+        // Memeriksa apakah username sudah ada
+        umumViewModel.checkUsernameAvailability(newUsername) { isAvailable ->
+            if (isAvailable) {
+                // Jika username belum terdaftar, lanjutkan untuk menyimpan data
+                tvUsername.text = newUsername
+                llUsernameDisplay.visibility = View.VISIBLE
+                llUsernameEdit.visibility = View.GONE
+                // Panggil fungsi untuk memperbarui data pengguna
+                updateUserData()
+            } else {
+                // Jika username sudah terdaftar, tampilkan pesan error
+                Toast.makeText(context, "Username sudah terdaftar.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
+
 
     private fun cancelEditUsername() {
         llUsernameDisplay.visibility = View.VISIBLE

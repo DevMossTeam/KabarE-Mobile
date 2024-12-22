@@ -28,7 +28,7 @@ class SearchResultsFragment : Fragment() {
     private lateinit var beritaAdapter: DaftarBeritaBookmarkAdapter
     private var allResults: List<ListBerita> = emptyList() // Semua hasil tanpa filter
 
-    val userId = "2"
+//    val userId = "2"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

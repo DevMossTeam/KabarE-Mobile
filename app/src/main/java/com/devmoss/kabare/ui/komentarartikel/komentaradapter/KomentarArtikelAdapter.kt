@@ -51,21 +51,11 @@ class KomentarArtikelAdapter(
                 .into(holder.binding.ivProfilePicture)
         }
 
-
-        // Tampilkan atau sembunyikan ivDropdow berdasarkan userId
-        if (komentar.userId == userId) {
-            holder.binding.ivDropdow.visibility = View.VISIBLE
-            holder.binding.ivDropdow.setOnClickListener {
-                listener.onHapusKOmentarClick(komentar.id)
-            }
-        } else {
-            holder.binding.ivDropdow.visibility = View.GONE
-        }
-
         // Event klik untuk dropdown menu
         holder.binding.ivDropdow.setOnClickListener { view ->
-            showPopupMenu(view, komentar.id) // Kirim ID komentar ke listener
+            showPopupMenu(view, komentar.id, komentar.userId)
         }
+
     }
 
     override fun getItemCount(): Int {
@@ -80,24 +70,32 @@ class KomentarArtikelAdapter(
 
     class ViewHolder(val binding: ItemDialogKomentarArtikelBinding) : RecyclerView.ViewHolder(binding.root)
 
-    // Menampilkan popup menu untuk aksi pada komentar
-    private fun showPopupMenu(view: View, komentarId: String) {
-        val popupMenu = PopupMenu(view.context, view)
-        popupMenu.inflate(R.menu.menu_hapus_komentar)
-        popupMenu.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.menu_hapus -> {
-                    // Panggil listener dengan ID komentar
-                    listener.onHapusKOmentarClick(komentarId)
-                    true
-                }
-                else -> false
-            }
-        }
-        popupMenu.show()
+    private fun showPopupMenu(view: View, komentarId: String, ownerId: String) {
+    val popupMenu = PopupMenu(view.context, view)
+    // Memilih menu berdasarkan apakah komentar milik pengguna atau tidak
+    if (ownerId == userId) {
+        popupMenu.inflate(R.menu.menu_hapus_komentar) // Hanya menu hapus untuk komentar milik pengguna
+    } else {
+        popupMenu.inflate(R.menu.menu_laporkan_komentar) // Menu laporkan untuk komentar orang lain
     }
+    popupMenu.setOnMenuItemClickListener { menuItem ->
+        when (menuItem.itemId) {
+            R.id.menu_hapus -> {
+                listener.onHapusKOmentarClick(komentarId)
+                true
+            }
+            R.id.menu_laporkan -> {
+                listener.onReportKomentarClick(komentarId, ownerId)
+                true
+            }
+            else -> false
+        }
+    }
+    popupMenu.show()
+}
 
     interface OnItemClickListener {
-        fun onHapusKOmentarClick(id: String) // Terima ID komentar
+        fun onHapusKOmentarClick(id: String)
+        fun onReportKomentarClick(komentarId: String, ownerId: String)
     }
 }

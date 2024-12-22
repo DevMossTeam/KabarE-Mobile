@@ -16,12 +16,8 @@ import javax.mail.internet.MimeMultipart
 object EmailSender {
 
 //    // Configure email and password for SMTP authentication
-//    private const val SMTP_EMAIL = "devmossteam@gmail.com"  // Use your email
-//    private const val SMTP_PASSWORD = "auar utsu zgpw triy"  // Use your app-specific password
-
-    // Configure email and password for SMTP authentication
-    private const val SMTP_EMAIL = "kontolbaladojoemama@gmail.com"  // Use your email
-    private const val SMTP_PASSWORD = "vfzr alik piph qkry"  // Use your app-specific password
+    private const val SMTP_EMAIL = "devmossteam@gmail.com"  // Use your email
+    private const val SMTP_PASSWORD = "auar utsu zgpw triy"  // Use your app-specific password
     // Function to send OTP email
     suspend fun sendOtpEmail(recipientEmail: String, otp: String, callback: (Boolean, String?) -> Unit) {
         withContext(Dispatchers.IO) {

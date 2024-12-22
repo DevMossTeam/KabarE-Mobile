@@ -129,7 +129,16 @@ class KeamananFragment : Fragment() {
             return
         }
 
-        viewModel.updateEmail(userUid, newEmail)
+        // Check email availability before updating
+        viewModel.checkEmailAvailability(newEmail) { isAvailable, message ->
+            if (isAvailable) {
+                // Proceed with updating email if available
+                viewModel.updateEmail(userUid, newEmail)
+            } else {
+                // Show message if email is already taken
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun cancelEditEmail() {

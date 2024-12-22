@@ -58,7 +58,7 @@ class DetailArtikelViewModel : ViewModel() {
     fun sendReaksi(beritaId: String, userId: String, jenisReaksi: String, onResult: (String) -> Unit) {
         if (beritaId.isEmpty() || userId.isEmpty() || jenisReaksi.isEmpty()) {
             Log.e("ReaksiError", "User ID, Berita ID, dan Aksi harus disertakan.")
-            onResult("User ID, Berita ID, dan Aksi harus disertakan.")
+            onResult("Silahkan login terlebih dahulu!")
             return
         }
 

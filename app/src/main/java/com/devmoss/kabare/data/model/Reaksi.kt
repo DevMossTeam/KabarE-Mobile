@@ -70,3 +70,17 @@ data class ReaksiResponse(
 	@field:SerializedName("status")
 	val status: String? = null
 ) : Parcelable
+
+
+@Parcelize
+data class ResponseViewCount(
+
+	@field:SerializedName("view_count")
+	val viewCount: Int? = null,
+
+	@field:SerializedName("status")
+	val status: String? = null,
+
+	@field:SerializedName("berita_id")
+	val beritaId: String? = null
+) : Parcelable

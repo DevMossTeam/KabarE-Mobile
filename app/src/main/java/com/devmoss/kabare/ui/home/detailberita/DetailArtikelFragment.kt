@@ -32,15 +32,18 @@ import com.devmoss.kabare.ui.reaksi.reaksiviewmodels.BookmarkViewModel
 import com.devmoss.kabare.ui.home.detailberita.detailviewmodels.BeritaTerkaitViewModel
 import com.devmoss.kabare.ui.home.detailberita.detailviewmodels.DetailArtikelViewModel
 import com.devmoss.kabare.ui.komentarartikel.KomentarDialogFragment
+import com.devmoss.kabare.ui.reaksi.reaksiviewmodels.ViewCountViewModel
+import com.devmoss.kabare.ui.report.ReportDialogFragment
 import com.devmoss.kabare.ui.search.SearchViewModel
 import org.jsoup.Jsoup
 
 class DetailArtikelFragment : Fragment() {
     private lateinit var binding: FragmentDetailArtikelBinding
-    private var beritaId: String = ""  // Inisialisasi untuk ID berita
+    private var beritaId: String = ""
 
     // Mendeklarasikan ViewModel
     private val viewModel: DetailArtikelViewModel by viewModels()
+    private val incrementViewCount: ViewCountViewModel by viewModels()
     private val bookmarkViewModel: BookmarkViewModel by activityViewModels()
     private val beritaTerkaitViewModel: BeritaTerkaitViewModel by activityViewModels()
     private val searchViewModel: SearchViewModel by activityViewModels()
@@ -49,7 +52,6 @@ class DetailArtikelFragment : Fragment() {
     //mengambil user id
     private lateinit var userRepository: UserRepository
     private var userId: String? = null
-
     private var savedScrollPosition = 0
 
     override fun onCreateView(
@@ -62,30 +64,18 @@ class DetailArtikelFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            refreshContent()
+        }
         binding.konten.visibility = View.GONE
         binding.progresBar.visibility = View.GONE
-
-        // Inisialisasi dan setup untuk share button
-        binding.shere.setOnClickListener {
-            val beritaTitle = binding.tvTitle.text.toString() // Judul berita
-            val beritaUrl = "https://www.example.com/berita/$beritaId" // URL berita (contoh)
-
-            // Membuat intent untuk berbagi
-            val shareIntent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, "$beritaTitle\n\nBaca selengkapnya di: $beritaUrl")
-                type = "text/plain"
-            }
-
-            // Menampilkan dialog berbagi ke aplikasi lain
-            startActivity(Intent.createChooser(shareIntent, "Bagikan Berita"))
-        }
 
         // Ambil beritaId dari arguments
         arguments?.getString("beritaId")?.let {
             beritaId = it
             getDetailBerita(beritaId)}
-        getStatusLike()
+
         setupReaksiButtons()
 
         // Ubah warna icon back ke white
@@ -99,6 +89,13 @@ class DetailArtikelFragment : Fragment() {
         binding.setFont.setOnClickListener {
             showFontSizeMenu(it)
         }
+
+
+        // Setup share button
+        binding.shere.setOnClickListener {
+            shareBerita()
+        }
+
         // Mengaktifkan JavaScript di WebView
         binding.webViewKonten.settings.javaScriptEnabled = true
 
@@ -109,9 +106,36 @@ class DetailArtikelFragment : Fragment() {
         // Inisialisasi UserRepository
         userRepository = UserRepository(requireContext())
         userId = userRepository.getUserUid() ?: run {
-            Toast.makeText(requireContext(), "User belum login!", Toast.LENGTH_SHORT).show()
             return // Jika userId null, hentikan proses lebih lanjut
         }
+    }
+
+    private fun shareBerita() {
+        val beritaTitle = binding.tvTitle.text.toString() // Judul berita
+        val beritaUrl = "https://kabare.my.id/category/news-detail.php?id=$beritaId"
+        val deepLinkUri = "kabare://news-detail/id/$beritaId"
+
+        val shareIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(
+                Intent.EXTRA_TEXT,
+                "$beritaTitle\n\nBaca selengkapnya di aplikasi Kabare: $deepLinkUri\n\nAtau di website: $beritaUrl"
+            )
+            type = "text/plain"
+        }
+        startActivity(Intent.createChooser(shareIntent, "Bagikan Berita"))
+    }
+
+    private fun refreshContent() {
+        binding.swipeRefreshLayout.isRefreshing = true
+
+        // Contoh panggilan ulang data
+        getDetailBerita(beritaId)
+        getJumlahReaksi()
+        getStatusLike()
+
+        // Berhenti animasi refresh setelah data selesai dimuat
+        binding.swipeRefreshLayout.isRefreshing = false
     }
 
     // Fungsi untuk mendapatkan status like dan mengupdate UI
@@ -119,21 +143,17 @@ class DetailArtikelFragment : Fragment() {
         viewModel.getStatusLike(userId ?: "", beritaId)
         viewModel.statusLike.observe(viewLifecycleOwner, Observer { response ->
             response?.let { statusResponse ->
-
-                // Reset UI ke kondisi default terlebih dahulu
-                binding.suka.setImageResource(R.drawable.ic_like) // Icon like default
-                binding.icDislike.setImageResource(R.drawable.ic_dislike) // Icon dislike default
-                binding.tvLike.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
-                binding.tvDisike.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
-
-                // Update UI berdasarkan nilai isLike dan isDislike
                 if (statusResponse.isLike == 1) {
                     binding.suka.setImageResource(R.drawable.ic_like_filled)
                     binding.tvLike.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
+                }else{
+                    binding.suka.setImageResource(R.drawable.ic_like)
                 }
                 if (statusResponse.isDislike == 1) {
                     binding.icDislike.setImageResource(R.drawable.ic_dislike_filled)
                     binding.tvDisike.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
+                }else {
+                    binding.icDislike.setImageResource(R.drawable.ic_dislike) // Icon dislike default
                 }
             }
         })
@@ -161,12 +181,21 @@ class DetailArtikelFragment : Fragment() {
         // Observe perubahan status bookmark dari ViewModel
         bookmarkViewModel.bookmarkStatusMap.observe(viewLifecycleOwner) { statusMap ->
             val isBookmarked = statusMap[beritaId] ?: false
-            updateBookmarkIcon(isBookmarked)
+            if(userId==""){
+                return@observe
+            }else{
+                updateBookmarkIcon(isBookmarked)
+            }
         }
         // Tambahkan listener untuk tombol bookmark
         binding.ivBookmark.setOnClickListener {
             val bookmark = ResultBookmark(userId, beritaId)
-            bookmarkViewModel.toggleBookmark(bookmark, requireContext())
+            if(userId == ""){
+                Toast.makeText(requireContext(), "Silahkan login terlebih dahulu!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }else{
+                bookmarkViewModel.toggleBookmark(bookmark, requireContext())
+            }
         }
         // Memeriksa status awal bookmark jika belum ada di statusMap
         bookmarkViewModel.checkBookmarkStatus(userId, listOf(ListBerita(idBerita = beritaId)))
@@ -318,16 +347,30 @@ class DetailArtikelFragment : Fragment() {
                         val dialog = KomentarDialogFragment.newInstance(
                             berita.idBerita ?: "",
                             berita.jumlahKomentar ?: 0)
-                        dialog.show(childFragmentManager, "KomentarDialogFragment")
+                        if(userId == null){
+                            Toast.makeText(requireContext(), "Silahkan login terlebih dahulu!", Toast.LENGTH_SHORT).show()
+                            return@setOnClickListener
+                        }else{
+                            dialog.show(childFragmentManager, "KomentarDialogFragment")
+                        }
                     }
                     // Set listener untuk membuka dialog komentar
                     binding.btnLaporan.setOnClickListener {
-                        val dialogLaporan = ReportDialogFragment.newInstance(berita.idBerita ?: "")
-                        dialogLaporan.show(childFragmentManager, "ReportDialogFragment")
-                    }
+                            if (userId.isNullOrEmpty()) {
+                                Toast.makeText(requireContext(), "Silahkan login terlebih dahulu!", Toast.LENGTH_SHORT).show()
+                            } else {
+                                val dialogLaporan = ReportDialogFragment.newInstance(berita.idBerita ?: "", null)
+                                dialogLaporan.show(childFragmentManager, "ReportDialogFragment")
+                            }
+                        }
                     setupBookmarkButton(beritaId, userId?: "")
                     binding.konten.visibility = View.VISIBLE
                     binding.shimmerDetailBerita.visibility = View.GONE
+
+                    // Panggil getStatusLike setelah detail artikel berhasil dimuat
+                    getStatusLike()
+//                    panggil increment view count
+                    incrementViewCount.incrementViewCount(beritaId)
                 }
             }
         })
@@ -425,11 +468,5 @@ class DetailArtikelFragment : Fragment() {
         savedScrollPosition = binding.nestedScrollView.scrollY
     }
 
-    override fun onResume() {
-        super.onResume()
-        // Kembalikan posisi scroll saat fragment di-resume
-        binding.nestedScrollView.post {
-            binding.nestedScrollView.scrollTo(0, savedScrollPosition)
-        }
-    }
+    
 }

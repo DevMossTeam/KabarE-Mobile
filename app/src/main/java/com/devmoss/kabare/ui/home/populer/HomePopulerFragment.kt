@@ -40,6 +40,7 @@ import kotlinx.coroutines.launch
 class HomePopulerFragment : Fragment() {
     private var _binding: FragmentHomePopulerBinding? = null
     private val binding get() = _binding!!
+    private var scrollPositionY: Int = 0
     private lateinit var beritaPopulerAdapter: BeritaPopulerAdapter
     private lateinit var tagPopulerAdapter: TagPopulerAdapter
     private lateinit var beritaRekomendasiAdapter: BeritaRekomendasiAdapter
@@ -88,7 +89,7 @@ class HomePopulerFragment : Fragment() {
         // Inisialisasi UserRepository
         userRepository = UserRepository(requireContext())
         userId = userRepository.getUserUid() ?: run {
-            Toast.makeText(requireContext(), "User belum login!", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(requireContext(), "User belum login!", Toast.LENGTH_SHORT).show()
             return // Jika userId null, hentikan proses lebih lanjut
         }
     }
@@ -112,6 +113,12 @@ class HomePopulerFragment : Fragment() {
             Log.d("HomePopulerFragment", "Memuat komentar terbanyak")
             komentarTerbanyakViewModel.loadKomentarTerbanyak()
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Simpan posisi scroll
+        scrollPositionY = binding.nestedScrollView.scrollY
     }
 
     private fun refreshContent() {
@@ -204,7 +211,17 @@ class HomePopulerFragment : Fragment() {
             }
 
             override fun onBookmarkBeritaPopulerClick(beritaPopuler: ListBerita) {
-                toggleBookmarkLocally(beritaPopuler) } }, bookmarkViewModel,  userId ?: "")
+                if (userId == null) {
+                    Toast.makeText(requireContext(), "Silahkan login terlebih dahulu!", Toast.LENGTH_SHORT).show()
+                    return
+                }else {
+                    toggleBookmarkLocally(beritaPopuler)
+                }
+            }
+        },
+            bookmarkViewModel,
+            userId ?: ""
+        )
 
 
         beritaRekomendasiAdapter = BeritaRekomendasiAdapter(emptyList(), object :
@@ -227,7 +244,17 @@ class HomePopulerFragment : Fragment() {
             }
 
             override fun onBookmarkBeritaRekomendasiClick(beritaRekomendasi: ListBerita) {
-                toggleBookmarkLocally(beritaRekomendasi) } },bookmarkViewModel,   userId ?: "")
+                if (userId == null) {
+                    Toast.makeText(requireContext(), "Silahkan login terlebih dahulu!", Toast.LENGTH_SHORT).show()
+                    return
+                }else {
+                    toggleBookmarkLocally(beritaRekomendasi)
+                }
+            }
+        },
+            bookmarkViewModel,
+            userId ?: ""
+        )
 
         tagPopulerAdapter = TagPopulerAdapter(emptyList(), object :
             TagPopulerAdapter.OnItemClickListener {

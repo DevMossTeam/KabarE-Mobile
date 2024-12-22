@@ -1,5 +1,6 @@
 package com.devmoss.kabare.ui.komentarartikel
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,11 +9,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.devmoss.kabare.data.repository.UserRepository
 import com.devmoss.kabare.databinding.FragmentKomentarDialogBinding
 import com.devmoss.kabare.ui.komentarartikel.komentaradapter.KomentarArtikelAdapter
 import com.devmoss.kabare.ui.komentarartikel.komentarviewmodel.KomentarViewModel
+import com.devmoss.kabare.ui.report.ReportDialogFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
+@Suppress("UNREACHABLE_CODE")
 class KomentarDialogFragment : BottomSheetDialogFragment(), KomentarArtikelAdapter.OnItemClickListener {
 
     private var jumlahKomentar: Int = 0
@@ -22,6 +26,11 @@ class KomentarDialogFragment : BottomSheetDialogFragment(), KomentarArtikelAdapt
     private val binding get() = _binding!!
     private val viewModel: KomentarViewModel by viewModels()
     private lateinit var adapter: KomentarArtikelAdapter
+
+    // inisialisai user repo
+    private lateinit var userRepository: UserRepository
+    private var userId: String? = null
+
 
     companion object {
         fun newInstance(idBerita: String,jumlahKomentar : Int): KomentarDialogFragment {
@@ -47,8 +56,15 @@ class KomentarDialogFragment : BottomSheetDialogFragment(), KomentarArtikelAdapt
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Inisialisasi UserRepository
+        userRepository = UserRepository(requireContext())
+        userId = userRepository.getUserUid() ?: run {
+            Toast.makeText(requireContext(), "User belum login!", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         idBerita = arguments?.getString("BERITA_ID")
-        jumlahKomentar = arguments?.getInt("JUMLAH_KOMENTAR") ?: 0 // Ambil jumlah komentar dari argumen
+        jumlahKomentar = arguments?.getInt("JUMLAH_KOMENTAR") ?: 0
         if (idBerita.isNullOrEmpty()) {
             Toast.makeText(requireContext(), "ID Berita tidak ditemukan", Toast.LENGTH_SHORT).show()
             return
@@ -65,14 +81,13 @@ class KomentarDialogFragment : BottomSheetDialogFragment(), KomentarArtikelAdapt
             if (teksKomentar.isEmpty()) {
                 Toast.makeText(requireContext(), "Komentar tidak boleh kosong", Toast.LENGTH_SHORT).show()
             } else {
-                val userId = "3" // Ganti dengan user ID yang valid
-                viewModel.postKomentar(userId, idBerita!!, teksKomentar)
+                viewModel.postKomentar(userId?: "", idBerita!!, teksKomentar)
             }
         }
     }
 
     private fun setupRecyclerView() {
-        adapter = KomentarArtikelAdapter(emptyList(),this,userId = "3")
+        adapter = KomentarArtikelAdapter(emptyList(),this,userId = userId?: "")
         binding.rvKomentar.layoutManager = LinearLayoutManager(context)
         binding.rvKomentar.adapter = adapter
     }
@@ -87,7 +102,7 @@ class KomentarDialogFragment : BottomSheetDialogFragment(), KomentarArtikelAdapt
             }
         }
 
-        // Observasi komentar
+        // tampilkan logo vektor ketika tidak ada komentar
         viewModel.komentarList.observe(viewLifecycleOwner) { komentarList ->
             if (komentarList.isNullOrEmpty()) {
                 binding.vectorKomentar.visibility = View.VISIBLE
@@ -98,8 +113,7 @@ class KomentarDialogFragment : BottomSheetDialogFragment(), KomentarArtikelAdapt
                 adapter.updateList(komentarList)
             }
             // Update jumlah komentar (jika ada komentar baru)
-            binding.jumlahKomen.text = "${komentarList.size}"
-
+            binding.jumlahKomen.text =  "${komentarList.size}"
         }
 
         // Status tambah komentar
@@ -112,7 +126,6 @@ class KomentarDialogFragment : BottomSheetDialogFragment(), KomentarArtikelAdapt
                 Toast.makeText(requireContext(), "Gagal menambahkan komentar", Toast.LENGTH_SHORT).show()
             }
         }
-
         // Status hapus komentar
         viewModel.deleteKomentarStatus.observe(viewLifecycleOwner) { status ->
             if (status == "success") {
@@ -123,17 +136,41 @@ class KomentarDialogFragment : BottomSheetDialogFragment(), KomentarArtikelAdapt
             }
         }
     }
-
-
-
     override fun onHapusKOmentarClick(id: String) {
         if (id.isNotEmpty()) {
-            viewModel.deleteKomentar(id) // Menghapus komentar
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Konfirmasi")
+                .setMessage("Apakah Anda yakin ingin menghapus komentar ini?")
+                .setPositiveButton("Ya") { _, _ ->
+                    viewModel.deleteKomentar(id)
+                }
+                .setNegativeButton("Tidak") { dialog, _ ->
+                    dialog.dismiss()
+                }
+            builder.create().show()
         } else {
             Log.e("KomentarDialogFragment", "ID komentar tidak valid!")
         }
     }
 
+    override fun onReportKomentarClick(komentarId: String, ownerId: String) {
+        if (ownerId == userId) {
+            Toast.makeText(requireContext(), "Anda tidak dapat melaporkan komentar Anda sendiri.", Toast.LENGTH_SHORT).show()
+        } else {
+            // Proses melaporkan komentar
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Laporkan Komentar")
+                .setMessage("Apakah Anda yakin ingin melaporkan komentar ini?")
+                .setPositiveButton("Ya") { _, _ ->
+                    val dialogLaporan = ReportDialogFragment.newInstance(idBerita,komentarId)
+                    dialogLaporan.show(childFragmentManager, "ReportDialogFragment")
+                }
+                .setNegativeButton("Tidak") { dialog, _ ->
+                    dialog.dismiss()
+                }
+            builder.create().show()
+        }
+    }
 
     private fun showShimmerEffect(isLoading: Boolean) {
         if (isLoading) {
@@ -148,7 +185,6 @@ class KomentarDialogFragment : BottomSheetDialogFragment(), KomentarArtikelAdapt
             binding.line.visibility = View.VISIBLE
         }
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

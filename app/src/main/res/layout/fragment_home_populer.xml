@@ -8,6 +8,7 @@
     android:layout_height="match_parent">
 
 <androidx.core.widget.NestedScrollView
+    android:id="@+id/nestedScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
@@ -19,6 +20,7 @@
     android:clipChildren="false">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/konten"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -45,18 +47,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
+            tools:listitem="@layout/item_berita_populer"
             app:layout_constraintTop_toBottomOf="@id/tv_berita_populer"/>
 
         <com.facebook.shimmer.ShimmerFrameLayout
+            android:visibility="gone"
             android:id="@+id/shimmer_berita_populer"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/tv_berita_populer">
+            app:layout_constraintTop_toTopOf="parent">
             <include layout="@layout/shimmer_berita_populer" />
         </com.facebook.shimmer.ShimmerFrameLayout>
 
@@ -106,6 +109,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:orientation="horizontal"
+                    tools:listitem="@layout/item_berita_rekomendasi"
                     android:scrollbars="horizontal"/>
 
                 <ImageView
@@ -161,8 +165,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
+            tools:listitem="@layout/item_tag_populer"
             app:layout_constraintTop_toBottomOf="@+id/tvLabelTerpopuler"/>
-
         <View
             android:id="@+id/line3"
             android:layout_width="match_parent"
@@ -172,7 +176,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rvTagPopuler" />
-
         <TextView
             android:id="@+id/komentarTerbanyak"
             android:layout_width="wrap_content"
@@ -185,7 +188,6 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/line3" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvKomanterTerbanyak"
             android:layout_width="match_parent"
@@ -194,10 +196,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
+            tools:listitem="@layout/item_komentar_terbanyak"
             app:layout_constraintTop_toBottomOf="@+id/komentarTerbanyak"/>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.core.widget.NestedScrollView>
-
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

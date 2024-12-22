@@ -114,5 +114,7 @@ dependencies {
     implementation ("org.jsoup:jsoup:1.15.3")
 
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")// untuk refresh
+    implementation ("com.google.firebase:firebase-messaging")
+
 
 }
