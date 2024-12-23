@@ -3,6 +3,7 @@ package com.devmoss.kabare.data.api
 import com.devmoss.kabare.data.model.BookmarkStatusResponse
 import com.devmoss.kabare.data.model.CheckUserRequest
 import com.devmoss.kabare.data.model.DeviceTokenRequest
+import com.devmoss.kabare.data.model.Notifikasi
 import com.devmoss.kabare.data.model.ReaksiRequest
 import com.devmoss.kabare.data.model.ReaksiResponse
 import com.devmoss.kabare.data.model.ResetPasswordRequest
@@ -90,17 +91,17 @@ interface ApiInterface {
     @GET("reaksi.php")
     fun getJumlahReaksi(@Query("berita_id") beritaId: String): Call<ResponseJumlahReaksi>
 
-    @GET("komentar.php/{berita_id}")
+    @GET("comment.php/{berita_id}")
     fun getKomentar(@Query("berita_id") beritaId: String): Call<ResponseGetKomentar>
 
-    @POST("komentar.php")
+    @POST("comment.php")
     fun postKomentar(
         @Query("user_id") userId: String,
         @Query("berita_id") beritaId: String,
         @Query("teks_komentar") teksKomentar: String
     ): Call<ResponsePostKomentar>
 
-    @DELETE("komentar.php")
+    @DELETE("comment.php")
     fun deleteKomentar(@Query("id_komentar") idKomentar: String): Call<ResponseDeleteKomentar>
 
     @GET("komentar_terbanyak.php")
@@ -170,4 +171,7 @@ interface ApiInterface {
 
     @POST("device_token.php")
     fun sendDeviceToken(@Body request: DeviceTokenRequest): Call<ResponseBody>
-    }
+
+    @GET("getBeritaAfterTime.php")  // Gantilah dengan endpoint API yang sesuai
+    suspend fun getNotifications(): Response<List<Notifikasi>>
+}

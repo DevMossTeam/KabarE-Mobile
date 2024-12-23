@@ -25,7 +25,6 @@ class HomeTerbaruFragment : Fragment() {
 
     private var _binding: FragmentHomeTerbaruBinding? = null
     private val binding get() = _binding!!
-    private var scrollPositionY: Int = 0
     private lateinit var beritaTerkiniAdapter: BeritaTerkiniAdapter
     private lateinit var beritaTerkaitAdapter: BeritaTerkaitAdapter
     private val beritaTerkiniViewModel: BeritaTerkiniViewModel by activityViewModels()
@@ -60,7 +59,7 @@ class HomeTerbaruFragment : Fragment() {
         // Inisialisasi UserRepository
         userRepository = UserRepository(requireContext())
         userId = userRepository.getUserUid() ?: run {
-//            Toast.makeText(requireContext(), "User belum login!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "User belum login!", Toast.LENGTH_SHORT).show()
             return // Jika userId null, hentikan proses lebih lanjut
         }
     }
@@ -70,12 +69,6 @@ class HomeTerbaruFragment : Fragment() {
         if (beritaTerkiniList.isEmpty()) {
             beritaTerkiniViewModel.loadBeritaTerkini()
         }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        // Simpan posisi scroll
-        scrollPositionY = binding.nestedScrollView.scrollY
     }
 
     private fun refreshContent() {
@@ -135,12 +128,7 @@ class HomeTerbaruFragment : Fragment() {
                 }
 
                 override fun onBookmarkBeritaTerkiniClick(beritaTerkini: ListBerita) {
-                    if (userId == null) {
-                        Toast.makeText(requireContext(), "Silahkan login terlebih dahulu!", Toast.LENGTH_SHORT).show()
-                        return
-                    }else {
-                        toggleBookmarkLocally(beritaTerkini)
-                    }
+                    toggleBookmarkLocally(beritaTerkini)
                 }
             },
             bookmarkViewModel,
@@ -167,13 +155,7 @@ class HomeTerbaruFragment : Fragment() {
                 }
 
                 override fun onBookmarkBeritaTerkaitClick(beritaTerkait: ListBerita) {
-                    if (userId == null) {
-                        Toast.makeText(requireContext(), "Silahkan login terlebih dahulu!", Toast.LENGTH_SHORT).show()
-                        return
-                    }else {
-                        toggleBookmarkLocally(beritaTerkait)
-                    }
-
+                    toggleBookmarkLocally(beritaTerkait)
                 }
             },
             bookmarkViewModel,
@@ -217,7 +199,7 @@ class HomeTerbaruFragment : Fragment() {
             binding.tvBeritaTerkini.visibility = View.GONE
             binding.tvBeritaTeratas.visibility = View.GONE
             binding.lineTeratas.visibility = View.GONE
-        binding.akhirBerita.visibility = View.VISIBLE
+            binding.akhirBerita.visibility = View.VISIBLE
         }
     }
     override fun onDestroyView() {
@@ -225,4 +207,3 @@ class HomeTerbaruFragment : Fragment() {
         _binding = null
     }
 }
-

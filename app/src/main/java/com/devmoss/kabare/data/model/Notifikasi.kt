@@ -1,14 +1,6 @@
 package com.devmoss.kabare.data.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-
-@Parcelize
-class Notifikasi (
-    val id: Int,
-    val title: String,
-    val titleNotif: String,
-    val statusNotifikasi: String,
-    val iconResId: Int
-) : Parcelable {
-}
+data class Notifikasi(
+    val judul: String,       // Title of the notification/news item
+    val tanggal_diterbitkan: String    // Use 'createdAt' instead of 'time' to match the API response
+)

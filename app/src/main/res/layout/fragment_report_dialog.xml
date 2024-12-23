@@ -5,6 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center">
 
+
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -32,21 +34,18 @@
 
                     <!-- Judul -->
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:id="@+id/title_laporan"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Laporkan Artikel"
+                        android:text="Silahkan pilih alasan "
                         android:textStyle="bold"
                         android:textSize="18sp"
-                        android:paddingBottom="16dp" />
-
-                    <!-- Pilih Alasan -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Pilih alasan pelaporan:" />
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="10dp"/>
 
                     <RadioGroup
-                        android:id="@+id/radioGroup"
+                        android:id="@+id/radioGroupReportBerita"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -190,6 +189,150 @@
                         </com.google.android.material.card.MaterialCardView>
                     </RadioGroup>
 
+                    <RadioGroup
+                        android:id="@+id/radioGroupReportKomentar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingTop="8dp">
+
+                        <RadioButton
+                            android:id="@+id/radio_spam_komentar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Spam" />
+
+                        <!-- Dropdown untuk Konten Seksual -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/background_white"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0.5dp">
+                            <Spinner
+                                android:id="@+id/spinner_spam_komentar"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <RadioButton
+                            android:id="@+id/radio_pelecehan_atau_bullying"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pelecehan atau bullying" />
+                        <!-- Dropdown untuk Konten kekerasan -->
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/background_white"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0.5dp">
+                            <Spinner
+                                android:id="@+id/spinner_pelecehan_atau_bullying"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <RadioButton
+                            android:id="@+id/radio_kebencian_atau_diskriminasi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Kebencian atau diskriminasi" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/background_white"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0.5dp">
+                            <Spinner
+                                android:id="@+id/spinner_kebencian_atau_diskriminasi"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <RadioButton
+                            android:id="@+id/radio_konten_dewasa_atau_tidak_pantas"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Konten dewasa atau tidak pantas" />
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/background_white"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0.5dp">
+                            <Spinner
+                                android:id="@+id/spinner_konten_dewasa_atau_tidak_pantas"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <RadioButton
+                            android:id="@+id/radio_informasi_palsu_atau_menyesatkan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Informasi palsu atau menyesatkan" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/background_white"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0.5dp">
+                            <Spinner
+                                android:id="@+id/spinner_informasi_palsu_atau_menyesatkan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <RadioButton
+                            android:id="@+id/radio_pelanggaran_privasi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pelanggaran privasi" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/background_white"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0.5dp">
+                            <Spinner
+                                android:id="@+id/spinner_pelanggaran_privasi"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <RadioButton
+                            android:layout_marginBottom="20dp"
+                            android:id="@+id/radio_komentar_tidak_relevan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Komentar tidak relevan" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_marginBottom="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/background_white"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0.5dp">
+                            <Spinner
+                                android:id="@+id/spinner_komentar_tidak_relevan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone" />
+                        </com.google.android.material.card.MaterialCardView>
+                    </RadioGroup>
+
                     <!-- Tombol Berikutnya -->
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/button_berikutnya"
@@ -257,4 +400,11 @@
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </com.google.android.material.card.MaterialCardView>
+
+    <View
+        android:id="@+id/line2q"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line"
+        android:layout_marginTop="50dp"/>
 </FrameLayout>

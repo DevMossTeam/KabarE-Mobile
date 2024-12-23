@@ -67,35 +67,28 @@ class BeritaPopulerAdapter(
             listener.onArticlePopulerClick(beritaPopuler)
         }
     }
-
     override fun getItemCount(): Int {
         return beritaPopuler.size
     }
-
     @SuppressLint("NotifyDataSetChanged")
     fun updateBeritaPopulerList(newArticles: List<ListBerita>) {
         beritaPopuler = newArticles
         notifyDataSetChanged()
     }
-
     fun toggleBookmarkStatus(beritaId: String) {
         val currentStatus = bookmarkStatusMap[beritaId] ?: false
         bookmarkStatusMap[beritaId] = !currentStatus
         notifyDataSetChanged()
     }
-
     fun updateBookmarkStatusMap(statusMap: Map<String, Boolean>) {
         bookmarkStatusMap = statusMap.toMutableMap()
         notifyDataSetChanged()
     }
-
     class ViewHolder(val binding: ItemBeritaPopulerBinding) : RecyclerView.ViewHolder(binding.root)
-
 
     interface OnItemClickListener {
         fun onBookmarkBeritaPopulerClick(beritaPopuler: ListBerita)
         fun onArticlePopulerClick(beritaPopuler: ListBerita)
-
     }
 
 }

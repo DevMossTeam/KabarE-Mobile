@@ -98,9 +98,6 @@ class UmumViewModel(application: Application) : AndroidViewModel(application) {
         username: String,
         profilePic: String? = null // Optional parameter for profile picture
     ) {
-        // Pengecekan ketersediaan username
-        checkUsernameAvailability(username) { isUsernameAvailable ->
-            if (isUsernameAvailable) {
                 // Indicate loading state or clear previous errors if needed
                 _updateResult.postValue(Result.success(Unit)) // Resetting previous result state
 
@@ -129,6 +126,9 @@ class UmumViewModel(application: Application) : AndroidViewModel(application) {
                         _updateResult.postValue(Result.failure(e))
                     }
                 }
+        // Pengecekan ketersediaan username
+        checkUsernameAvailability(username) { isUsernameAvailable ->
+            if (isUsernameAvailable) {
             } else {
                 // Post error result if the username is already taken
                 _updateResult.postValue(Result.failure(Exception("Username sudah terdaftar.")))

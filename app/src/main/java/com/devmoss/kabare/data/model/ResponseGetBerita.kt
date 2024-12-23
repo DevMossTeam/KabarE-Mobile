@@ -6,6 +6,8 @@ import com.google.gson.annotations.SerializedName
 import java.text.SimpleDateFormat
 import java.util.Locale
 
+
+
 @Parcelize
 data class ResponseGetBerita(
 

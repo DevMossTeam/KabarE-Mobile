@@ -115,6 +115,5 @@ dependencies {
 
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")// untuk refresh
     implementation ("com.google.firebase:firebase-messaging")
-
-
+    implementation ("com.google.code.gson:gson:2.8.8")
 }
